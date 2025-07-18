@@ -105,3 +105,5 @@
 /target/classes/mapper/PermissionRecordMapper.xml
 /target/classes/templates/service.java.vm
 /target/classes/templates/serviceImpl.java.vm
+/target/classes/mapper/LogRecordMapper.xml
+/target/classes/com/zengyanyu/system/job/RemoveLogRecordJob.class
