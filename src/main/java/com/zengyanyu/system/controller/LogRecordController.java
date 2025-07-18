@@ -67,7 +67,6 @@ public class LogRecordController extends BaseController {
     @GetMapping("/page")
     public Page<LogRecordEntity> page(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         QueryWrapper<LogRecordEntity> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("id");
         return logRecordEntityService.page(new Page<>(pageNum, pageSize), wrapper);
     }
 
