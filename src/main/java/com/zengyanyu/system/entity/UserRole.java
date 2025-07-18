@@ -30,9 +30,10 @@ public class UserRole implements Serializable {
     @ApiModelProperty("用户ID")
     private String userId;
 
+    @ApiModelProperty("角色编码")
     private String roleCode;
 
+    @ApiModelProperty("角色名称")
     private String roleName;
-
 
 }
