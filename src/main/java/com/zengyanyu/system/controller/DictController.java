@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.config.LogRecord;
 import com.zengyanyu.system.entity.Dict;
-import com.zengyanyu.system.query.DictItemQueryObject;
 import com.zengyanyu.system.query.DictQueryObject;
 import com.zengyanyu.system.service.IDictService;
 import io.swagger.annotations.Api;
