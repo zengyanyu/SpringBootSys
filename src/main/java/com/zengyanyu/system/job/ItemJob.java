@@ -15,7 +15,7 @@ public class ItemJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) {
-        logger.info("context item job ================");
+//        logger.info("context item job ================");
 //        socketService.sendNotification(" context item job ===============");
     }
 }
