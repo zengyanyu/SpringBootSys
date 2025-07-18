@@ -38,16 +38,4 @@ public class UserInfo extends BaseEntity {
     @ApiModelProperty("token")
     private String token;
 
-    @ApiModelProperty("状态（0：正常，1：锁定，2：预删）")
-    private String status;
-
-    @ApiModelProperty("状态名称（0：正常，1：锁定，2：预删）")
-    private String statusName;
-
-    @ApiModelProperty("企业ID，终端用户=compID为0")
-    private String compId;
-
-    @ApiModelProperty("是否完成注册，0：未注册，1：已注册")
-    private String isRegister;
-
 }
