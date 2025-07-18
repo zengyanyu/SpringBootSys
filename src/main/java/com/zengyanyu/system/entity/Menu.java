@@ -1,29 +1,26 @@
 package com.zengyanyu.system.entity;
 
 import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
+ * <p>
  * 菜单
+ * </p>
  *
  * @author zengyanyu
- * @since 2025-07-16
+ * @since 2025-07-18
  */
 @Getter
 @Setter
-@Entity
-@TableName("menu")
 @ApiModel(value = "Menu对象", description = "菜单")
 public class Menu implements Serializable {
 
-    @Id
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty("主键ID")
     private Long id;
 

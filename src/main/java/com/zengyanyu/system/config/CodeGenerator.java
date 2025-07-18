@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 public class CodeGenerator {
 
     public static void main(String[] args) {
-        codeGenerate("menu");
+        codeGenerate("menu", "dict", "dict_item");
     }
 
     /**
@@ -33,7 +33,7 @@ public class CodeGenerator {
                             .commentDate("yyyy-MM-dd")
                             .enableSwagger() // 开启swagger模式
                             .fileOverride() // 覆盖已生成文件
-                            .outputDir("D:/Projects/Springboot/src/main/java/"); // 指定输出目录
+                            .outputDir("D:/Projects/SpringbootSys/src/main/java/"); // 指定输出目录
                 })
                 // 包配置
                 .packageConfig(builder ->
@@ -41,7 +41,7 @@ public class CodeGenerator {
                                 .moduleName(null) // 设置父包模块名
                                 .controller("controller")// 设置控制器生成路径，他会自己拼接父包名
                                 .pathInfo(Collections.singletonMap(OutputFile.mapperXml,
-                                        "D:/Projects/Springboot/src/main/resources/mapper/")) // 设置mapperXml生成路径
+                                        "D:/Projects/SpringbootSys/src/main/resources/mapper/")) // 设置mapperXml生成路径
                 )
                 // 策略配置
                 .strategyConfig(builder -> {

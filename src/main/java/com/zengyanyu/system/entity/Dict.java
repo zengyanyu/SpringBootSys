@@ -1,35 +1,32 @@
 package com.zengyanyu.system.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 /**
+ * <p>
  * 数据字典
+ * </p>
  *
  * @author zengyanyu
- * @since 2024-11-18
+ * @since 2025-07-18
  */
 @Getter
 @Setter
-@Entity
-@TableName("dict")
-@ApiModel(value = "数据字典", description = "数据字典")
-public class Dict extends BaseEntity {
+@ApiModel(value = "Dict对象", description = "数据字典")
+public class Dict implements Serializable {
 
-    @Id
-    @ApiModelProperty("主键ID")
+    private static final long serialVersionUID = 1L;
+
     private String id;
 
     @ApiModelProperty("字典编码")
     private String code;
 
-    @ApiModelProperty("字典名称")
     private String name;
+
 
 }
