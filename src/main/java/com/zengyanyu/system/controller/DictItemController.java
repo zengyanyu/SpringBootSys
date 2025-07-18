@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.config.LogRecord;
 import com.zengyanyu.system.entity.DictItem;
+import com.zengyanyu.system.query.DictItemQueryObject;
 import com.zengyanyu.system.service.IDictItemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -65,9 +66,10 @@ public class DictItemController extends BaseController {
     @LogRecord("数据字典项分页查询数据")
     @ApiOperation("数据字典项分页查询数据")
     @GetMapping("/page")
-    public Page<DictItem> page(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public Page<DictItem> page(DictItemQueryObject queryObject) {
         QueryWrapper<DictItem> wrapper = new QueryWrapper<>();
-        return dictItemService.page(new Page<>(pageNum, pageSize), wrapper);
+        return dictItemService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
+
 }
 

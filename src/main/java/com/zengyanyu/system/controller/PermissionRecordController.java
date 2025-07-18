@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.config.LogRecord;
 import com.zengyanyu.system.entity.PermissionRecord;
+import com.zengyanyu.system.query.PermissionRecordQueryObject;
 import com.zengyanyu.system.service.IPermissionRecordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -72,9 +73,10 @@ public class PermissionRecordController extends BaseController {
     @LogRecord("分页查询数据")
     @ApiOperation("分页查询数据")
     @GetMapping("/page")
-    public Page<PermissionRecord> page(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public Page<PermissionRecord> page(PermissionRecordQueryObject queryObject) {
         QueryWrapper<PermissionRecord> wrapper = new QueryWrapper<>();
-        return permissionRecordService.page(new Page<>(pageNum, pageSize), wrapper);
+        return permissionRecordService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
+
 }
 

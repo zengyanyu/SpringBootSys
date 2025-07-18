@@ -67,5 +67,6 @@ public class RoleController extends BaseController {
         }
         return roleService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
+
 }
 
