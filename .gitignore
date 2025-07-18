@@ -110,3 +110,4 @@
 /target/classes/banner.txt
 /target/classes/logback.xml
 /.idea/uiDesigner.xml
+/target/classes/com/zengyanyu/system/service/impl/LogRecordServiceImpl.class

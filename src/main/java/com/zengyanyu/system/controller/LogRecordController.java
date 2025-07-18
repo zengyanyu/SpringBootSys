@@ -26,13 +26,6 @@ public class LogRecordController extends BaseController {
     @Resource
     private ILogRecordService logRecordEntityService;
 
-    @LogRecord("保存或更新")
-    @ApiOperation("保存或更新")
-    @PostMapping("/save")
-    public ResponseData save(@RequestBody LogRecordEntity logRecordEntity) {
-        return logRecordEntityService.saveOrUpdateLogRecord(logRecordEntity);
-    }
-
     @LogRecord("删除")
     @ApiOperation("删除")
     @GetMapping("/{id}")
@@ -47,20 +40,6 @@ public class LogRecordController extends BaseController {
     public ResponseData deleteBatch(@RequestBody List<String> ids) {
         logRecordEntityService.removeByIds(ids);
         return new ResponseData("批量删除成功");
-    }
-
-    @LogRecord("查询所有数据")
-    @ApiOperation("查询所有数据")
-    @GetMapping("/findAll")
-    public ResponseData<List<LogRecordEntity>> findAll() {
-        return new ResponseData("根据ID查询指定数据", logRecordEntityService.list());
-    }
-
-    @LogRecord("根据ID查询指定数据")
-    @ApiOperation("根据ID查询指定数据")
-    @GetMapping("/get/{id}")
-    public ResponseData<LogRecordEntity> get(@PathVariable String id) {
-        return new ResponseData("根据ID查询指定数据", logRecordEntityService.getById(id));
     }
 
     @LogRecord("分页查询数据")
