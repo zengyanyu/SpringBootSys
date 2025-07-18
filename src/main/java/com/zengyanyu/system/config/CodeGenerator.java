@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 public class CodeGenerator {
 
     public static void main(String[] args) {
-        codeGenerate("department");
+        codeGenerate("user_role");
     }
 
     /**
