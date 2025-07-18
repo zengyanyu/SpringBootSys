@@ -42,20 +42,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable() // 禁用 CSRF 保护
                 .authorizeRequests()
                 // 不需要验证的接口
-                .antMatchers("/index.html", "/index1.html",
+                .antMatchers("/index.html",
                         "/user-info/login", "/user-info/userInfo", "/verification/get",
-                        "/appSendVerificationCode", "/phoneRegisterUser", "/protocol-manage/getProtocolManageByType/**",
-                        "https://holaapi.openhola.com/user-info/login",
-                        "https://holaapi.openhola.com/verification/get",
-                        "https://holah5.openhola.com/**",
                         // 静态资源
                         "/ws/**", "/favicon.ico",
-                        "/usr/local/upload/**", "/webapps/dist/holah5/H5/**",
-                        "http://localhost:8083/preview/**",
-                        "/phoneTerminal/**", "/uploadZipAndUnzip/**",
-                        // linux
+                        "/usr/local/upload/**",
                         "/preview/**", "/H5/**",
-                        // local
                         "D:/upload/**", "D:/uploadH5/**"
                 ).permitAll()
                 .antMatchers("/**").authenticated() // 其他所有接口需要认证
