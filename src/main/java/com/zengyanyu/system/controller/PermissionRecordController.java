@@ -18,7 +18,7 @@ import java.util.List;
  * @since 2025-07-18
  */
 @RestController
-@Api(tags = "控制器")
+@Api(tags = "权限记录控制器")
 @RequestMapping("/permission-record")
 public class PermissionRecordController extends BaseController {
 
@@ -74,7 +74,6 @@ public class PermissionRecordController extends BaseController {
     @GetMapping("/page")
     public Page<PermissionRecord> page(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         QueryWrapper<PermissionRecord> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("id");
         return permissionRecordService.page(new Page<>(pageNum, pageSize), wrapper);
     }
 }
