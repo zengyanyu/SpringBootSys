@@ -19,7 +19,7 @@ import java.util.List;
  * @since 2025-07-16
  */
 @Service
-public class LogRecordEntityServiceImpl extends ServiceImpl<LogRecordMapper, LogRecordEntity> implements ILogRecordService {
+public class LogRecordServiceImpl extends ServiceImpl<LogRecordMapper, LogRecordEntity> implements ILogRecordService {
 
     /**
      * 保存或更新

@@ -107,3 +107,6 @@
 /target/classes/templates/serviceImpl.java.vm
 /target/classes/mapper/LogRecordMapper.xml
 /target/classes/com/zengyanyu/system/job/RemoveLogRecordJob.class
+/target/classes/banner.txt
+/target/classes/logback.xml
+/.idea/uiDesigner.xml
