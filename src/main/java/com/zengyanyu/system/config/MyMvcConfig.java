@@ -16,12 +16,10 @@ public class MyMvcConfig implements WebMvcConfigurer {
 //    @Override
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //        if ("dev".equals(active)) {
-//            // http://localhost:8083/H5/642WKUME53/index.html#/
 //            registry.addResourceHandler("/H5/**")
 //                    .addResourceLocations("file:D:/uploadH5/"); // 本地 HTML 文件夹路径
 //        }
 //        if ("test".equals(active)) {
-//            // https://holaapi.openhola.com/holaH5/TC1XPN19SO/index.html
 //            // Linux env
 //            registry.addResourceHandler("/H5/**")
 //                    .addResourceLocations("file:/webapps/dist/holah5/H5/"); // 本地 HTML 文件夹路径
