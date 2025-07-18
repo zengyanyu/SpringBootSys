@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zengyanyu.system.mapper.LogRecordMapper">
+
+    <select id="getLogRecordByCondition" resultType="com.zengyanyu.system.entity.LogRecordEntity">
+        SELECT *
+        FROM log_record_entity
+        WHERE request_time &lt; #{requestTiime}
+    </select>
+</mapper>
