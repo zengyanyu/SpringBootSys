@@ -5,9 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * <p>
  * 数据字典项 Mapper 接口
- * </p>
  *
  * @author zengyanyu
  * @since 2025-07-18
