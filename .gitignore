@@ -111,3 +111,8 @@
 /target/classes/logback.xml
 /.idea/uiDesigner.xml
 /target/classes/com/zengyanyu/system/service/impl/LogRecordServiceImpl.class
+/target/classes/mapper/UserInfoMapper.xml
+/target/classes/mapper/UserRoleMapper.xml
+/target/classes/com/zengyanyu/system/service/IUserRoleService.class
+/target/classes/com/zengyanyu/system/controller/UserRoleController.class
+/target/classes/com/zengyanyu/system/service/impl/UserRoleServiceImpl.class
