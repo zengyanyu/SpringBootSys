@@ -1,0 +1,16 @@
+/target/classes/com/zengyanyu/system/controller/DepartmentController.class
+/target/classes/com/zengyanyu/system/mapper/DepartmentMapper.class
+/target/classes/com/zengyanyu/system/service/impl/DepartmentServiceImpl.class
+/target/classes/com/zengyanyu/system/query/DictItemQueryObject.class
+/target/classes/com/zengyanyu/system/query/DictQueryObject.class
+/target/classes/com/zengyanyu/system/service/IDepartmentService.class
+/target/classes/com/zengyanyu/system/service/IPermissionRecordService.class
+/target/classes/com/zengyanyu/system/query/MenuQueryObject.class
+/target/classes/com/zengyanyu/system/entity/PermissionRecord.class
+/target/classes/com/zengyanyu/system/controller/PermissionRecordController.class
+/target/classes/com/zengyanyu/system/mapper/PermissionRecordMapper.class
+/target/classes/com/zengyanyu/system/query/PermissionRecordQueryObject.class
+/target/classes/com/zengyanyu/system/service/impl/PermissionRecordServiceImpl.class
+/target/classes/com/zengyanyu/system/entity/Department.class
+/target/classes/com/zengyanyu/system/entity/LogRecordEntity.class
+/target/classes/com/zengyanyu/system/entity/UserInfo.class
