@@ -21,18 +21,6 @@ import java.util.List;
 @Service
 public class LogRecordServiceImpl extends ServiceImpl<LogRecordMapper, LogRecordEntity> implements ILogRecordService {
 
-    /**
-     * 保存或更新
-     *
-     * @param logRecordEntity
-     * @return
-     */
-    @Override
-    public ResponseData saveOrUpdateLogRecord(LogRecordEntity logRecordEntity) {
-        this.saveOrUpdate(logRecordEntity);
-        return new ResponseData("保存或更新成功");
-    }
-
     @Override
     public void removeLogRecordByConditions() {
         // 获取当前时间

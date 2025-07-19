@@ -3,19 +3,11 @@ package com.zengyanyu.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zengyanyu.system.commons.ResponseData;
-import com.zengyanyu.system.config.UserContextHolder;
 import com.zengyanyu.system.dto.UserInfoDto;
-import com.zengyanyu.system.dto.UserTokenDto;
-import com.zengyanyu.system.entity.*;
+import com.zengyanyu.system.entity.UserInfo;
 import com.zengyanyu.system.mapper.UserInfoMapper;
-import com.zengyanyu.system.service.*;
-import com.zengyanyu.system.util.DateUtils;
-import com.zengyanyu.system.util.JwtUtil;
-import io.jsonwebtoken.ExpiredJwtException;
-import net.sf.json.JSONArray;
+import com.zengyanyu.system.service.IUserInfoService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,10 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 用户信息 服务实现类
@@ -109,7 +98,6 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         }
         // 去除空字符串
         userInfo.setPassword(userInfo.getPassword().trim());
-        userInfo.setUpdateTime(DateUtils.getCurrentTime());
         this.saveOrUpdate(userInfo);
         return new ResponseData("重置密码成功");
     }

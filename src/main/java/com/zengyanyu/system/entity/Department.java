@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Setter
 @Entity
 @TableName("department")
-@ApiModel(value = "Department对象", description = "部门管理")
+@ApiModel(value = "部门管理", description = "部门管理")
 public class Department implements Serializable {
 
     @Id

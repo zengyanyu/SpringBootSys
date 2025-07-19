@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Setter
 @Entity
 @TableName("user_role")
-@ApiModel(value = "UserRole对象", description = "用户关联的角色")
+@ApiModel(value = "用户关联的角色", description = "用户关联的角色")
 public class UserRole implements Serializable {
 
     @Id

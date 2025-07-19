@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- *
+ * 权限记录
  *
  * @author zengyanyu
  * @since 2025-07-18
@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Setter
 @Entity
 @TableName("permission_record")
-@ApiModel(value = "PermissionRecord对象", description = "")
+@ApiModel(value = "权限记录", description = "权限记录")
 public class PermissionRecord implements Serializable {
 
     @Id

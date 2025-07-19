@@ -20,7 +20,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @TableName("dict")
-@ApiModel(value = "Dict对象", description = "数据字典")
+@ApiModel(value = "数据字典", description = "数据字典")
 public class Dict implements Serializable {
 
     @Id

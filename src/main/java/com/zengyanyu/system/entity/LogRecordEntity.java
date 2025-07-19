@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- *
+ * 日志记录
  *
  * @author zengyanyu
  * @since 2025-07-16
@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @TableName("log_record_entity")
-@ApiModel(value = "LogRecordEntity对象", description = "")
+@ApiModel(value = "日志记录", description = "日志记录")
 public class LogRecordEntity implements Serializable {
 
     @Id
