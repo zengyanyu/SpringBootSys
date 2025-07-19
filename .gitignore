@@ -116,3 +116,7 @@
 /target/classes/com/zengyanyu/system/service/IUserRoleService.class
 /target/classes/com/zengyanyu/system/controller/UserRoleController.class
 /target/classes/com/zengyanyu/system/service/impl/UserRoleServiceImpl.class
+/.idea/aws.xml
+/.idea/jpa-buddy.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/runConfigurations.xml
