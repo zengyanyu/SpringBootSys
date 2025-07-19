@@ -1,13 +1,16 @@
 package com.zengyanyu.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
+
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,6 +30,7 @@ public class DictItem implements Serializable {
     @Id
     private String id;
 
+    @ApiModelProperty("字典外键ID")
     private String dictId;
 
     @ApiModelProperty("字典项编码")
@@ -34,6 +38,5 @@ public class DictItem implements Serializable {
 
     @ApiModelProperty("字典项名称")
     private String name;
-
 
 }

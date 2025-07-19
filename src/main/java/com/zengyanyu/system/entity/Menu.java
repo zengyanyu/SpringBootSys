@@ -33,5 +33,4 @@ public class Menu implements Serializable {
     @ApiModelProperty("菜单路径")
     private String path;
 
-
 }

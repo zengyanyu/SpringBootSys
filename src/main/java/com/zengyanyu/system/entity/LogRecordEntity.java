@@ -63,5 +63,4 @@ public class LogRecordEntity implements Serializable {
     @ApiModelProperty("请求是否成功")
     private String status;
 
-
 }

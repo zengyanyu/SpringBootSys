@@ -1,12 +1,14 @@
 package com.zengyanyu.system.entity;
 
 import java.io.Serializable;
+
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,7 +31,7 @@ public class Dict implements Serializable {
     @ApiModelProperty("字典编码")
     private String code;
 
+    @ApiModelProperty("字典名称")
     private String name;
-
 
 }
