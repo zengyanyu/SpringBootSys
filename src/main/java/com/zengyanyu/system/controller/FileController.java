@@ -8,6 +8,7 @@ import com.zengyanyu.system.util.IOUtils;
 import com.zengyanyu.system.util.UUIDUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +33,7 @@ import java.util.zip.ZipInputStream;
 
 @Api(tags = "文件控制器")
 @RestController
+@Slf4j
 public class FileController extends BaseController {
 
     @Value("${file.uploadFolder}")

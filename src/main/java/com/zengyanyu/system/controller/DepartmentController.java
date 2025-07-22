@@ -4,19 +4,16 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.config.LogRecord;
+import com.zengyanyu.system.entity.Department;
+import com.zengyanyu.system.query.DepartmentQueryObject;
+import com.zengyanyu.system.service.IDepartmentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import java.util.List;
-
-import com.zengyanyu.system.service.IDepartmentService;
-import com.zengyanyu.system.entity.Department;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
-import com.zengyanyu.system.controller.BaseController;
 
 /**
  * @author zengyanyu
@@ -25,6 +22,7 @@ import com.zengyanyu.system.controller.BaseController;
 @RestController
 @Api(tags = "部门管理控制器")
 @RequestMapping("/department")
+@Slf4j
 public class DepartmentController extends BaseController {
 
     @Resource
@@ -34,6 +32,7 @@ public class DepartmentController extends BaseController {
     @ApiOperation("保存或更新部门管理")
     @PostMapping("/save")
     public ResponseData save(@RequestBody Department department) {
+        log.info("保存或更新部门管理");
         return departmentService.saveOrUpdateDepartment(department);
     }
 
@@ -70,10 +69,11 @@ public class DepartmentController extends BaseController {
     @LogRecord("部门管理分页查询数据")
     @ApiOperation("部门管理分页查询数据")
     @GetMapping("/page")
-    public Page<Department> page(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public Page<Department> page(DepartmentQueryObject queryObject) {
+        log.info("部门管理分页查询数据");
         QueryWrapper<Department> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("id");
-        return departmentService.page(new Page<>(pageNum, pageSize), wrapper);
+        return departmentService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 }
 

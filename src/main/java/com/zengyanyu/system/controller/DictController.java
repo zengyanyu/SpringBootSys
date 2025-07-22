@@ -9,6 +9,7 @@ import com.zengyanyu.system.query.DictQueryObject;
 import com.zengyanyu.system.service.IDictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,6 +22,7 @@ import java.util.List;
 @RestController
 @Api(tags = "数据字典控制器")
 @RequestMapping("/dict")
+@Slf4j
 public class DictController extends BaseController {
 
     @Resource

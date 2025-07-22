@@ -6,6 +6,7 @@ import com.zengyanyu.system.dto.UserInfoDto;
 import com.zengyanyu.system.entity.UserInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 @Api(tags = "用户信息控制器")
 @RequestMapping("/user-info")
+@Slf4j
 public class UserInfoController extends BaseController {
 
     @LogRecord("用户保存或更新")
