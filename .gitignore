@@ -120,3 +120,5 @@
 /.idea/jpa-buddy.xml
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/runConfigurations.xml
+/target/classes/com/zengyanyu/system/controller/FileController$1.class
+/target/classes/com/zengyanyu/system/controller/FileController.class
