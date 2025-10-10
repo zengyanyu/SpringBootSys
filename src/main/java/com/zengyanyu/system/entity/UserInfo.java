@@ -21,11 +21,7 @@ import java.io.Serializable;
 @Entity
 @TableName("user_info")
 @ApiModel(value = "用户信息", description = "用户信息")
-public class UserInfo implements Serializable {
-
-    @Id
-    @ApiModelProperty("主键ID")
-    private String id;
+public class UserInfo extends BaseEntity {
 
     @ApiModelProperty("用户名")
     private String username;

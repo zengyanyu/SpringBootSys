@@ -21,11 +21,7 @@ import java.io.Serializable;
 @Entity
 @TableName("menu")
 @ApiModel(value = "菜单", description = "菜单")
-public class Menu implements Serializable {
-
-    @Id
-    @ApiModelProperty("主键ID")
-    private Long id;
+public class Menu extends BaseEntity {
 
     @ApiModelProperty("菜单名称")
     private String name;

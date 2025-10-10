@@ -21,11 +21,7 @@ import java.io.Serializable;
 @Entity
 @TableName("role")
 @ApiModel(value = "角色", description = "角色")
-public class Role implements Serializable {
-
-    @Id
-    @ApiModelProperty("主键ID")
-    private String id;
+public class Role extends BaseEntity {
 
     @ApiModelProperty("角色名称")
     private String roleName;

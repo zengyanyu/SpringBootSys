@@ -25,10 +25,8 @@ import lombok.Setter;
 @Entity
 @TableName("dict_item")
 @ApiModel(value = "数据字典项", description = "数据字典项")
-public class DictItem implements Serializable {
+public class DictItem extends BaseEntity {
 
-    @Id
-    private String id;
 
     @ApiModelProperty("字典外键ID")
     private String dictId;
