@@ -10,22 +10,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class MyMvcConfig implements WebMvcConfigurer {
 
-//    @Value("${spring.profiles.active}")
-//    private String active;
-//
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        if ("dev".equals(active)) {
-//            registry.addResourceHandler("/H5/**")
-//                    .addResourceLocations("file:D:/uploadH5/"); // 本地 HTML 文件夹路径
-//        }
-//        if ("test".equals(active)) {
-//            // Linux env
-//            registry.addResourceHandler("/H5/**")
-//                    .addResourceLocations("file:/webapps/dist/holah5/H5/"); // 本地 HTML 文件夹路径
-//        }
-//    }
-
     /**
      * 配置跨域
      *

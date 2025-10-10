@@ -26,22 +26,6 @@ public class LogRecordController extends BaseController {
     @Resource
     private ILogRecordService logRecordEntityService;
 
-    @LogRecord("日志记录删除")
-    @ApiOperation("日志记录删除")
-    @GetMapping("/{id}")
-    public ResponseData delete(@PathVariable String id) {
-        logRecordEntityService.removeById(id);
-        return new ResponseData("删除成功");
-    }
-
-    @LogRecord("日志记录批量删除")
-    @ApiOperation("日志记录批量删除")
-    @PostMapping("/del/batch")
-    public ResponseData deleteBatch(@RequestBody List<String> ids) {
-        logRecordEntityService.removeByIds(ids);
-        return new ResponseData("批量删除成功");
-    }
-
     @LogRecord("日志记录分页查询数据")
     @ApiOperation("日志记录分页查询数据")
     @GetMapping("/page")
