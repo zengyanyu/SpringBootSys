@@ -9,6 +9,7 @@ import com.zengyanyu.system.query.DictItemQueryObject;
 import com.zengyanyu.system.service.IDictItemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,6 +22,7 @@ import java.util.List;
 @RestController
 @Api(tags = "数据字典项控制器")
 @RequestMapping("/dict-item")
+@Slf4j
 public class DictItemController extends BaseController {
 
     @Resource

@@ -9,6 +9,7 @@ import com.zengyanyu.system.query.RoleQueryObject;
 import com.zengyanyu.system.service.IRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ import java.util.List;
 @RestController
 @Api(tags = "角色控制器")
 @RequestMapping("/role")
+@Slf4j
 public class RoleController extends BaseController {
 
     @Resource

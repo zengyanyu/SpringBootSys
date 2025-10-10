@@ -9,6 +9,7 @@ import com.zengyanyu.system.query.PermissionRecordQueryObject;
 import com.zengyanyu.system.service.IPermissionRecordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,6 +22,7 @@ import java.util.List;
 @RestController
 @Api(tags = "权限记录控制器")
 @RequestMapping("/permission-record")
+@Slf4j
 public class PermissionRecordController extends BaseController {
 
     @Resource
