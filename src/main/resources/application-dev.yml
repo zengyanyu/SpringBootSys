@@ -37,7 +37,3 @@ spring:
 logging:
   file:
     path: D:/logs
-
-file:
-  uploadFolder: D:/upload/
-  uploadH5Folder: D:/uploadH5/

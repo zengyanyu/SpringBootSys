@@ -18,6 +18,10 @@ import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * @author zengyanyu
+ * @since 2025-07-18
+ */
 @Getter
 @Setter
 @ApiModel("通用公共实体")
