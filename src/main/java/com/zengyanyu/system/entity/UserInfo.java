@@ -29,9 +29,6 @@ public class UserInfo extends BaseEntity {
     @ApiModelProperty("密码")
     private String password;
 
-    @ApiModelProperty("头像")
-    private String avatar;
-
     @ApiModelProperty("token")
     private String token;
 
