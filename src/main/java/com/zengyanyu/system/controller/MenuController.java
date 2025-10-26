@@ -55,7 +55,7 @@ public class MenuController extends BaseController {
     @ApiOperation("查询所有数据")
     @GetMapping("/findAll")
     public ResponseData<List<Menu>> findAll() {
-        return new ResponseData("根据ID查询指定数据", menuService.list());
+        return new ResponseData("查询所有数据", menuService.list());
     }
 
     @LogRecord("根据ID查询指定数据")

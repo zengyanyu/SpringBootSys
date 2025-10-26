@@ -55,7 +55,7 @@ public class DictItemController extends BaseController {
     @ApiOperation("查询所有数据")
     @GetMapping("/findAll")
     public ResponseData<List<DictItem>> findAll() {
-        return new ResponseData("根据ID查询指定数据", dictItemService.list());
+        return new ResponseData("查询所有数据", dictItemService.list());
     }
 
     @LogRecord("根据ID查询指定数据")

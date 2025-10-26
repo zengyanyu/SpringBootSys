@@ -62,7 +62,7 @@ public class PermissionRecordController extends BaseController {
     @ApiOperation("查询所有数据")
     @GetMapping("/findAll")
     public ResponseData<List<PermissionRecord>> findAll() {
-        return new ResponseData("根据ID查询指定数据", permissionRecordService.list());
+        return new ResponseData("查询所有数据", permissionRecordService.list());
     }
 
     @LogRecord("根据ID查询指定数据")
