@@ -6,6 +6,9 @@ import com.zengyanyu.system.util.DateUtils;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author zengyanyu
+ */
 @Component
 public class SysMetaObjectHandler implements MetaObjectHandler {
 

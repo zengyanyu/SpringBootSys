@@ -5,6 +5,9 @@ import org.quartz.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * @author zengyanyu
+ */
 @Configuration
 public class QuartzConfig {
 

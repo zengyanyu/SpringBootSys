@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 
 /**
  * 安全配置
+ * @author zengyanyu
  */
 @Configuration
 @EnableWebSecurity

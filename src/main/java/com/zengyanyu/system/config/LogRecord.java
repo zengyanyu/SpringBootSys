@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * 日志记录注解
+ * @author zengyanyu
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)

@@ -4,6 +4,7 @@ import com.zengyanyu.system.entity.UserInfo;
 
 /**
  * 用户上下文占位符
+ * @author zengyanyu
  */
 public class UserContextHolder {
 

@@ -19,6 +19,7 @@ import java.io.IOException;
 
 /**
  * 实现认证逻辑
+ * @author zengyanyu
  */
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
