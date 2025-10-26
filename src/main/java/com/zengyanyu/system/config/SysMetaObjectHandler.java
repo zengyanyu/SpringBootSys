@@ -12,7 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class SysMetaObjectHandler implements MetaObjectHandler {
 
-    // 新增填充
+    /**
+     * 新增填充
+     *
+     * @param metaObject
+     */
     @Override
     public void insertFill(MetaObject metaObject) {
         UserInfo userContext = UserContextHolder.getUserContext();
@@ -22,7 +26,11 @@ public class SysMetaObjectHandler implements MetaObjectHandler {
         metaObject.setValue("createTime", DateUtils.getCurrentTime());
     }
 
-    // 修改填充
+    /**
+     * 修改填充
+     *
+     * @param metaObject
+     */
     @Override
     public void updateFill(MetaObject metaObject) {
         UserInfo userContext = UserContextHolder.getUserContext();

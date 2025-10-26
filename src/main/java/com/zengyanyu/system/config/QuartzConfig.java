@@ -26,6 +26,8 @@ public class QuartzConfig {
                 .withIdentity("sampleJobTrigger", "group1")
                 // 每天的凌晨2点执行任务
                 .withSchedule(CronScheduleBuilder.cronSchedule("0 0 2 * * ?"))
+                // 每3秒执行一次
+//                .withSchedule(CronScheduleBuilder.cronSchedule("3/1 * * * * ?"))
                 .build();
     }
 
