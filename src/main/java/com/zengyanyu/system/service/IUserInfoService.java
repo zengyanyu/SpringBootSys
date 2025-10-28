@@ -80,9 +80,9 @@ public interface IUserInfoService extends IService<UserInfo> {
 
     /**
      * 根据用户名称加载用户
-     *
      * @param username 用户名称
      * @return
+     * @throws UsernameNotFoundException
      */
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 

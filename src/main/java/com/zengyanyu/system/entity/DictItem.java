@@ -27,7 +27,6 @@ import lombok.Setter;
 @ApiModel(value = "数据字典项", description = "数据字典项")
 public class DictItem extends BaseEntity {
 
-
     @ApiModelProperty("字典外键ID")
     private String dictId;
 
