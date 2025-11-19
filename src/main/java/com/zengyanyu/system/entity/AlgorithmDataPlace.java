@@ -21,13 +21,12 @@ import java.io.Serializable;
 @Entity
 @TableName("algorithm_data_place")
 @ApiModel(value = "AlgorithmDataPlace对象", description = "算法平台")
-public class AlgorithmDataPlace extends BaseEntity {
+public class AlgorithmDataPlace implements Serializable {
 
     @Id
     @ApiModelProperty("id")
     private Integer id;
 
-    @Id
     @ApiModelProperty("算法平台")
     private String place;
 

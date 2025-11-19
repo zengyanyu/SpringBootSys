@@ -21,13 +21,12 @@ import java.io.Serializable;
 @Entity
 @TableName("algorithm_data_language")
 @ApiModel(value = "AlgorithmDataLanguage对象", description = "算法编程语言")
-public class AlgorithmDataLanguage extends BaseEntity {
+public class AlgorithmDataLanguage implements Serializable {
 
     @Id
     @ApiModelProperty("id")
     private Integer id;
 
-    @Id
     @ApiModelProperty("算法编程语言")
     private String language;
 

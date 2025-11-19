@@ -18,12 +18,11 @@ import java.io.Serializable;
 @Entity
 @TableName("spatial_ref_sys")
 @ApiModel(value = "SpatialRefSys对象", description = "")
-public class SpatialRefSys extends BaseEntity {
+public class SpatialRefSys implements Serializable {
 
     @Id
     private Integer srid;
 
-    @Id
     private String authName;
 
     private Integer authSrid;

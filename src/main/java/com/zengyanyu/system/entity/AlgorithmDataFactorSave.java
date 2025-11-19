@@ -21,13 +21,12 @@ import java.io.Serializable;
 @Entity
 @TableName("algorithm_data_factor_save")
 @ApiModel(value = "AlgorithmDataFactorSave对象", description = "算法要素对应关系表")
-public class AlgorithmDataFactorSave extends BaseEntity {
+public class AlgorithmDataFactorSave implements Serializable {
 
     @Id
     @ApiModelProperty("id")
     private Integer id;
 
-    @Id
     @ApiModelProperty("要素对应的算法")
     private Integer dataId;
 

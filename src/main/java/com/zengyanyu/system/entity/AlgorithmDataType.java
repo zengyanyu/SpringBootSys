@@ -21,13 +21,12 @@ import java.io.Serializable;
 @Entity
 @TableName("algorithm_data_type")
 @ApiModel(value = "AlgorithmDataType对象", description = "算法类型")
-public class AlgorithmDataType extends BaseEntity {
+public class AlgorithmDataType implements Serializable {
 
     @Id
     @ApiModelProperty("id")
     private Integer id;
 
-    @Id
     @ApiModelProperty("算法类型")
     private String type;
 
