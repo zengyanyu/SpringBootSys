@@ -29,7 +29,7 @@ public class LogRecordServiceImpl extends ServiceImpl<LogRecordMapper, LogRecord
         LocalDateTime fiveDaysAgo = now.minus(5, ChronoUnit.DAYS);
         List<LogRecordEntity> logRecordEntityList = this.baseMapper.getLogRecordByCondition(fiveDaysAgo);
         if (null != logRecordEntityList && logRecordEntityList.size() > 0) {
-            this.removeBatchByIds(logRecordEntityList);
+//            this.baseMapper.removeBatchByIds(logRecordEntityList);
         }
     }
 

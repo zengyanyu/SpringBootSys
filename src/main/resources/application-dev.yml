@@ -11,7 +11,6 @@ spring:
       url: jdbc:postgresql://192.168.244.131:15432/test_sys?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
       username: postgres
       password: pgsql!@#12569088ht
-      #      password: postgres
       driver-class-name: org.postgresql.Driver
 
       web-stat-filter:
