@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 
@@ -22,6 +24,10 @@ import java.io.Serializable;
 @TableName("menu")
 @ApiModel(value = "菜单", description = "菜单")
 public class Menu extends BaseEntity {
+
+    @Id
+    @ApiModelProperty("主键ID")
+    private String id;
 
     @ApiModelProperty("菜单名称")
     private String name;
