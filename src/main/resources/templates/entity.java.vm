@@ -4,7 +4,6 @@ package ${package.Entity};
 import ${pkg};
 #end
 #if(${swagger})
-import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

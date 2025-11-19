@@ -1,15 +1,14 @@
 package com.zengyanyu.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+import java.io.Serializable;
 
 /**
  * 算法平台
