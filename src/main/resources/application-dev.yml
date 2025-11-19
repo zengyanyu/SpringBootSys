@@ -1,17 +1,18 @@
 server:
-  port: 8081  # 端口号
+  port: 8088  # 端口号
   servlet:
     context-path: /   #项目根路径（前面必须加/）
 
 spring:
   # Mysql配置
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: org.postgresql.Driver
     druid:
-      url: jdbc:mysql://127.0.0.1:3306/hola?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
-      username: root
-      password: admin
-      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:postgresql://192.168.244.131:15432/test_sys?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+      username: postgres
+      password: pgsql!@#12569088ht
+      #      password: postgres
+      driver-class-name: org.postgresql.Driver
 
       web-stat-filter:
         enabled: true

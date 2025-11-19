@@ -122,3 +122,6 @@
 /.idea/runConfigurations.xml
 /target/classes/com/zengyanyu/system/controller/FileController$1.class
 /target/classes/com/zengyanyu/system/controller/FileController.class
+/target/classes/com/zengyanyu/system/query/DepartmentQueryObject.class
+/target/classes/com/zengyanyu/system/SBootSysApplication.class
+/target/classes/com/zengyanyu/system/config/SysMetaObjectHandler.class
