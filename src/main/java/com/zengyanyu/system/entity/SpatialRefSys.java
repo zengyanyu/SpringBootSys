@@ -1,18 +1,15 @@
 package com.zengyanyu.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.io.Serializable;
+
 /**
- * 
- *
  * @author zengyanyu
  * @since 2025-11-19
  */
@@ -21,7 +18,7 @@ import lombok.Setter;
 @Entity
 @TableName("spatial_ref_sys")
 @ApiModel(value = "SpatialRefSys对象", description = "")
-public class SpatialRefSys implements Serializable {
+public class SpatialRefSys extends BaseEntity {
 
     @Id
     private Integer srid;
@@ -34,6 +31,5 @@ public class SpatialRefSys implements Serializable {
     private String srtext;
 
     private String proj4text;
-
 
 }

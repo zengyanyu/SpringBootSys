@@ -17,12 +17,7 @@ import java.util.Collections;
 public class CodeGenerator {
 
     public static void main(String[] args) {
-        codeGenerate("algorithm_data",
-                "algorithm_data_factor",
-                "algorithm_data_factor_save",
-                "algorithm_data_language",
-                "algorithm_data_place",
-                "algorithm_data_type");
+        codeGenerate("spatial_ref_sys");
     }
 
     /**
