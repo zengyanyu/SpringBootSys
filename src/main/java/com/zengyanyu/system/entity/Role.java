@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 
@@ -22,6 +24,10 @@ import java.io.Serializable;
 @TableName("role")
 @ApiModel(value = "角色", description = "角色")
 public class Role extends BaseEntity {
+
+    @Id
+    @ApiModelProperty("主键ID")
+    private String id;
 
     @ApiModelProperty("角色名称")
     private String roleName;

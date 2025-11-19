@@ -28,11 +28,6 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 public class BaseEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ApiModelProperty("主键ID")
-    private String id;
-
     @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty("创建人")
     private String createBy;
