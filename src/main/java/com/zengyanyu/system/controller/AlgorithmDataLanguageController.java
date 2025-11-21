@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.config.LogRecord;
 import com.zengyanyu.system.entity.AlgorithmDataLanguage;
+import com.zengyanyu.system.query.AlgorithmDataLanguageQueryObject;
 import com.zengyanyu.system.service.IAlgorithmDataLanguageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,10 +19,10 @@ import java.util.List;
  * @author zengyanyu
  * @since 2025-11-19
  */
+@Slf4j
 @RestController
 @Api(tags = "算法编程语言控制器")
 @RequestMapping("/algorithm-data-language")
-@Slf4j
 public class AlgorithmDataLanguageController extends BaseController {
 
     @Resource
@@ -67,10 +68,9 @@ public class AlgorithmDataLanguageController extends BaseController {
     @LogRecord("算法编程语言分页查询数据")
     @ApiOperation("算法编程语言分页查询数据")
     @GetMapping("/page")
-    public Page<AlgorithmDataLanguage> page(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public Page<AlgorithmDataLanguage> page(AlgorithmDataLanguageQueryObject queryObject) {
         QueryWrapper<AlgorithmDataLanguage> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("id");
-        return algorithmDataLanguageService.page(new Page<>(pageNum, pageSize), wrapper);
+        return algorithmDataLanguageService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 }
 

@@ -31,9 +31,9 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+@Slf4j
 @Api(tags = "文件控制器")
 @RestController
-@Slf4j
 public class FileController extends BaseController {
 
     @Value("${file.uploadFolder}")

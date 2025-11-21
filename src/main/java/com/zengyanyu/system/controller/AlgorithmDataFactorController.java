@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.config.LogRecord;
 import com.zengyanyu.system.entity.AlgorithmDataFactor;
+import com.zengyanyu.system.query.AlgorithmDataFactorQueryObject;
 import com.zengyanyu.system.service.IAlgorithmDataFactorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,10 +19,10 @@ import java.util.List;
  * @author zengyanyu
  * @since 2025-11-19
  */
+@Slf4j
 @RestController
 @Api(tags = "算法要素控制器")
 @RequestMapping("/algorithm-data-factor")
-@Slf4j
 public class AlgorithmDataFactorController extends BaseController {
 
     @Resource
@@ -67,10 +68,9 @@ public class AlgorithmDataFactorController extends BaseController {
     @LogRecord("算法要素分页查询数据")
     @ApiOperation("算法要素分页查询数据")
     @GetMapping("/page")
-    public Page<AlgorithmDataFactor> page(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public Page<AlgorithmDataFactor> page(AlgorithmDataFactorQueryObject queryObject) {
         QueryWrapper<AlgorithmDataFactor> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("id");
-        return algorithmDataFactorService.page(new Page<>(pageNum, pageSize), wrapper);
+        return algorithmDataFactorService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 }
 

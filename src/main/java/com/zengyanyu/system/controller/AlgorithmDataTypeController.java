@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.config.LogRecord;
 import com.zengyanyu.system.entity.AlgorithmDataType;
+import com.zengyanyu.system.query.AlgorithmDataTypeQueryObject;
 import com.zengyanyu.system.service.IAlgorithmDataTypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,10 +19,10 @@ import java.util.List;
  * @author zengyanyu
  * @since 2025-11-19
  */
+@Slf4j
 @RestController
 @Api(tags = "算法类型控制器")
 @RequestMapping("/algorithm-data-type")
-@Slf4j
 public class AlgorithmDataTypeController extends BaseController {
 
     @Resource
@@ -67,10 +68,9 @@ public class AlgorithmDataTypeController extends BaseController {
     @LogRecord("算法类型分页查询数据")
     @ApiOperation("算法类型分页查询数据")
     @GetMapping("/page")
-    public Page<AlgorithmDataType> page(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public Page<AlgorithmDataType> page(AlgorithmDataTypeQueryObject queryObject) {
         QueryWrapper<AlgorithmDataType> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("id");
-        return algorithmDataTypeService.page(new Page<>(pageNum, pageSize), wrapper);
+        return algorithmDataTypeService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 }
 

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.config.LogRecord;
 import com.zengyanyu.system.entity.AlgorithmDataFactorSave;
+import com.zengyanyu.system.query.AlgorithmDataFactorSaveQueryObject;
 import com.zengyanyu.system.service.IAlgorithmDataFactorSaveService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,10 +19,10 @@ import java.util.List;
  * @author zengyanyu
  * @since 2025-11-19
  */
+@Slf4j
 @RestController
 @Api(tags = "算法要素对应关系表控制器")
 @RequestMapping("/algorithm-data-factor-save")
-@Slf4j
 public class AlgorithmDataFactorSaveController extends BaseController {
 
     @Resource
@@ -67,10 +68,9 @@ public class AlgorithmDataFactorSaveController extends BaseController {
     @LogRecord("算法要素对应关系表分页查询数据")
     @ApiOperation("算法要素对应关系表分页查询数据")
     @GetMapping("/page")
-    public Page<AlgorithmDataFactorSave> page(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public Page<AlgorithmDataFactorSave> page(AlgorithmDataFactorSaveQueryObject queryObject) {
         QueryWrapper<AlgorithmDataFactorSave> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("id");
-        return algorithmDataFactorSaveService.page(new Page<>(pageNum, pageSize), wrapper);
+        return algorithmDataFactorSaveService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 }
 

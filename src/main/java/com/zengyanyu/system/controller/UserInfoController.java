@@ -15,10 +15,10 @@ import java.util.List;
  * @author zengyanyu
  * @since 2024-11-18
  */
+@Slf4j
 @RestController
 @Api(tags = "用户信息控制器")
 @RequestMapping("/user-info")
-@Slf4j
 public class UserInfoController extends BaseController {
 
     @LogRecord("用户保存或更新")

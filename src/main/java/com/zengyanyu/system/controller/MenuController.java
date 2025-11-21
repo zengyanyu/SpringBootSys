@@ -19,10 +19,10 @@ import java.util.List;
  * @author zengyanyu
  * @since 2025-07-18
  */
+@Slf4j
 @RestController
 @Api(tags = "菜单控制器")
 @RequestMapping("/menu")
-@Slf4j
 public class MenuController extends BaseController {
 
     @Resource

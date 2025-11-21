@@ -19,10 +19,10 @@ import java.util.List;
  * @author zengyanyu
  * @since 2025-07-18
  */
+@Slf4j
 @RestController
 @Api(tags = "数据字典项控制器")
 @RequestMapping("/dict-item")
-@Slf4j
 public class DictItemController extends BaseController {
 
     @Resource

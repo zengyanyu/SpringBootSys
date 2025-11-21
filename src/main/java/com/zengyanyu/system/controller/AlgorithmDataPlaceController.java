@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.config.LogRecord;
 import com.zengyanyu.system.entity.AlgorithmDataPlace;
+import com.zengyanyu.system.query.AlgorithmDataPlaceQueryObject;
 import com.zengyanyu.system.service.IAlgorithmDataPlaceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,10 +19,10 @@ import java.util.List;
  * @author zengyanyu
  * @since 2025-11-19
  */
+@Slf4j
 @RestController
 @Api(tags = "算法平台控制器")
 @RequestMapping("/algorithm-data-place")
-@Slf4j
 public class AlgorithmDataPlaceController extends BaseController {
 
     @Resource
@@ -67,10 +68,9 @@ public class AlgorithmDataPlaceController extends BaseController {
     @LogRecord("算法平台分页查询数据")
     @ApiOperation("算法平台分页查询数据")
     @GetMapping("/page")
-    public Page<AlgorithmDataPlace> page(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public Page<AlgorithmDataPlace> page(AlgorithmDataPlaceQueryObject queryObject) {
         QueryWrapper<AlgorithmDataPlace> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("id");
-        return algorithmDataPlaceService.page(new Page<>(pageNum, pageSize), wrapper);
+        return algorithmDataPlaceService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 }
 

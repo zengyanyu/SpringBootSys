@@ -20,10 +20,10 @@ import java.util.List;
  * @author zengyanyu
  * @since 2024-11-19
  */
+@Slf4j
 @RestController
 @Api(tags = "角色控制器")
 @RequestMapping("/role")
-@Slf4j
 public class RoleController extends BaseController {
 
     @Resource

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.config.LogRecord;
 import com.zengyanyu.system.entity.UserRole;
+import com.zengyanyu.system.query.UserRoleQueryObject;
 import com.zengyanyu.system.service.IUserRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,10 +19,10 @@ import java.util.List;
  * @author zengyanyu
  * @since 2025-07-18
  */
+@Slf4j
 @RestController
 @Api(tags = "用户关联的角色控制器")
 @RequestMapping("/user-role")
-@Slf4j
 public class UserRoleController extends BaseController {
 
     @Resource
@@ -67,10 +68,9 @@ public class UserRoleController extends BaseController {
     @LogRecord("用户关联的角色分页查询数据")
     @ApiOperation("用户关联的角色分页查询数据")
     @GetMapping("/page")
-    public Page<UserRole> page(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public Page<UserRole> page(UserRoleQueryObject queryObject) {
         QueryWrapper<UserRole> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("id");
-        return userRoleService.page(new Page<>(pageNum, pageSize), wrapper);
+        return userRoleService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 }
 

@@ -19,10 +19,10 @@ import java.util.List;
  * @author zengyanyu
  * @since 2025-07-18
  */
+@Slf4j
 @RestController
 @Api(tags = "部门管理控制器")
 @RequestMapping("/department")
-@Slf4j
 public class DepartmentController extends BaseController {
 
     @Resource
@@ -72,7 +72,6 @@ public class DepartmentController extends BaseController {
     public Page<Department> page(DepartmentQueryObject queryObject) {
         log.info("部门管理分页查询数据");
         QueryWrapper<Department> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("id");
         return departmentService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 }
