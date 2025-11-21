@@ -17,7 +17,7 @@ import java.util.Collections;
 public class CodeGenerator {
 
     public static void main(String[] args) {
-        codeGenerate("spatial_ref_sys");
+        codeGenerate("rubbish");
     }
 
     /**
