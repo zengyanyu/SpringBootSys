@@ -37,7 +37,7 @@ public class AlgorithmDataLanguageController extends BaseController {
 
     @LogRecord("删除算法编程语言")
     @ApiOperation("删除算法编程语言")
-    @GetMapping("/{id}")
+    @GetMapping("/del/{id}")
     public ResponseData delete(@PathVariable String id) {
         algorithmDataLanguageService.removeById(id);
         return new ResponseData("删除成功");

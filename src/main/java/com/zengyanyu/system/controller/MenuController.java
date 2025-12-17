@@ -37,7 +37,7 @@ public class MenuController extends BaseController {
 
     @LogRecord("删除菜单")
     @ApiOperation("删除菜单")
-    @GetMapping("/{id}")
+    @GetMapping("/del/{id}")
     public ResponseData delete(@PathVariable String id) {
         menuService.removeById(id);
         return new ResponseData("删除成功");

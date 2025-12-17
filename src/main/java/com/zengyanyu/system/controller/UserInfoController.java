@@ -55,7 +55,7 @@ public class UserInfoController extends BaseController {
 
     @LogRecord("删除用户")
     @ApiOperation("删除用户")
-    @GetMapping("/{id}")
+    @GetMapping("/del/{id}")
     public ResponseData delete(@PathVariable String id) {
         userInfoService.removeById(id);
         return new ResponseData("删除用户成功");

@@ -37,7 +37,7 @@ public class UserRoleController extends BaseController {
 
     @LogRecord("删除用户关联的角色")
     @ApiOperation("删除用户关联的角色")
-    @GetMapping("/{id}")
+    @GetMapping("/del/{id}")
     public ResponseData delete(@PathVariable String id) {
         userRoleService.removeById(id);
         return new ResponseData("删除成功");

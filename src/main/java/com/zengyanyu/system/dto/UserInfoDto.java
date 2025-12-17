@@ -8,6 +8,9 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * @author zengyanyu
+ */
 @Getter
 @Setter
 @ApiModel("用户信息dto对象")

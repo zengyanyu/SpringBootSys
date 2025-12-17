@@ -37,7 +37,7 @@ public class DictItemController extends BaseController {
 
     @LogRecord("删除数据字典项")
     @ApiOperation("删除数据字典项")
-    @GetMapping("/{id}")
+    @GetMapping("/del/{id}")
     public ResponseData delete(@PathVariable String id) {
         dictItemService.removeById(id);
         return new ResponseData("删除成功");

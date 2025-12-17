@@ -37,7 +37,7 @@ public class SpatialRefSysController extends BaseController {
 
     @LogRecord("删除")
     @ApiOperation("删除")
-    @GetMapping("/{id}")
+    @GetMapping("/del/{id}")
     public ResponseData delete(@PathVariable String id) {
         spatialRefSysService.removeById(id);
         return new ResponseData("删除成功");

@@ -37,7 +37,7 @@ public class AlgorithmDataPlaceController extends BaseController {
 
     @LogRecord("删除算法平台")
     @ApiOperation("删除算法平台")
-    @GetMapping("/{id}")
+    @GetMapping("/del/{id}")
     public ResponseData delete(@PathVariable String id) {
         algorithmDataPlaceService.removeById(id);
         return new ResponseData("删除成功");
