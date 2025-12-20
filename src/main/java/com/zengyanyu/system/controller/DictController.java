@@ -12,6 +12,7 @@ import com.zengyanyu.system.service.IDictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -100,11 +101,11 @@ public class DictController extends BaseController {
 
         // 模拟测试数据
         List<DictExportExcelDto> dtoList = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        List<Dict> dictList = dictService.list();
+        for (Dict dict : dictList) {
             // 创建对象
             DictExportExcelDto dto = new DictExportExcelDto();
-            dto.setCode("字典编码" + i);
-            dto.setName("字典名称" + i);
+            BeanUtils.copyProperties(dict, dto);
             dto.setExportDate(new Date());
             dtoList.add(dto);
         }

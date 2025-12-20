@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -96,11 +97,11 @@ public class RoleController extends BaseController {
 
         // 模拟测试数据
         List<RoleExportExcelDto> dtoList = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        List<Role> roleList = roleService.list();
+        for (Role role : roleList) {
             // 创建对象
             RoleExportExcelDto dto = new RoleExportExcelDto();
-            dto.setRoleCode("角色编码" + i);
-            dto.setRoleName("角色名称" + i);
+            BeanUtils.copyProperties(role, dto);
             dtoList.add(dto);
         }
         EasyExcel.write(response.getOutputStream(), RoleExportExcelDto.class)
