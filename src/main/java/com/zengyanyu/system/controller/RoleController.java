@@ -92,7 +92,7 @@ public class RoleController extends BaseController {
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setCharacterEncoding("UTF-8");
         String fileName = URLEncoder.encode("角色列表", "UTF-8");
-        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
 
         // 模拟测试数据
         List<RoleExportExcelDto> dtoList = new ArrayList<>();

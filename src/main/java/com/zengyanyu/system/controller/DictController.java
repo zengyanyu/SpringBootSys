@@ -96,7 +96,7 @@ public class DictController extends BaseController {
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setCharacterEncoding("UTF-8");
         String fileName = URLEncoder.encode("字典列表", "UTF-8");
-        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
 
         // 模拟测试数据
         List<DictExportExcelDto> dtoList = new ArrayList<>();
