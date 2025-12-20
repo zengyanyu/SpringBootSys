@@ -1,6 +1,7 @@
 package com.zengyanyu.system.service.impl;
 
 import com.alibaba.excel.EasyExcel;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.dto.DictImportExcelDto;
@@ -49,7 +50,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
     /**
      * 导入Excel文件
      *
-     * @param inputStream
+     * @param inputStream 文件输入流
      */
     @Override
     public void importExcel(InputStream inputStream) {
@@ -57,6 +58,17 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
                 .charset(Charset.forName("UTF-8"))// 设置中文编码
                 .sheet()// 读取第一个sheet(默认索引0,可指定sheetName .sheet("字典表"))
                 .doRead();// 执行读取
+    }
+
+    /**
+     * @param code
+     * @return
+     */
+    @Override
+    public Boolean selectDataByCondition(String code) {
+        QueryWrapper<Dict> wrapper = new QueryWrapper<>();
+        wrapper.eq("code", code);
+        return null != this.getOne(wrapper);
     }
 
 }

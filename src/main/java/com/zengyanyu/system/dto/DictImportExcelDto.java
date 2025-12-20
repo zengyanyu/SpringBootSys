@@ -10,12 +10,14 @@ import lombok.ToString;
 import java.io.Serializable;
 
 /**
+ * 字典导入ExcelDto对象
+ *
  * @author zengyanyu
  */
 @Getter
 @Setter
 @ToString
-@ApiModel("字典Dto对象")
+@ApiModel("字典导入ExcelDto对象")
 public class DictImportExcelDto implements Serializable {
 
     @ExcelProperty(value = "字典编码", index = 0)

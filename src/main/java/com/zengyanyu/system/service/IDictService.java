@@ -33,7 +33,13 @@ public interface IDictService extends IService<Dict> {
     /**
      * 导入Excel文件
      *
-     * @param inputStream
+     * @param inputStream 文件输入流
      */
     void importExcel(InputStream inputStream);
+
+    /**
+     * @param code
+     * @return
+     */
+    Boolean selectDataByCondition(String code);
 }

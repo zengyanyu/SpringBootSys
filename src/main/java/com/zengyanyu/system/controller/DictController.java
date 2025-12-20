@@ -108,7 +108,8 @@ public class DictController extends BaseController {
             dto.setExportDate(new Date());
             dtoList.add(dto);
         }
-        EasyExcel.write(response.getOutputStream(), DictExportExcelDto.class).sheet("字典列表").doWrite(dtoList);
+        EasyExcel.write(response.getOutputStream(), DictExportExcelDto.class)
+                .sheet("字典列表").doWrite(dtoList);
     }
 
     @LogRecord("导入Excel文件")

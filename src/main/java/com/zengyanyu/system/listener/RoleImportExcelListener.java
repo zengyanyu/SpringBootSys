@@ -2,9 +2,9 @@ package com.zengyanyu.system.listener;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
-import com.zengyanyu.system.dto.DictImportExcelDto;
-import com.zengyanyu.system.entity.Dict;
-import com.zengyanyu.system.service.IDictService;
+import com.zengyanyu.system.dto.RoleImportExcelDto;
+import com.zengyanyu.system.entity.Role;
+import com.zengyanyu.system.service.IRoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -16,9 +16,9 @@ import java.util.List;
 /**
  * @author zengyanyu
  */
-public class DictImportExcelListener extends AnalysisEventListener<DictImportExcelDto> {
+public class RoleImportExcelListener extends AnalysisEventListener<RoleImportExcelDto> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DictImportExcelListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RoleImportExcelListener.class);
 
     /**
      * 批量处理阈值
@@ -28,13 +28,13 @@ public class DictImportExcelListener extends AnalysisEventListener<DictImportExc
     /**
      * 执行批量处理,数据量
      */
-    private List<DictImportExcelDto> dictDtoList = new ArrayList<>();
+    private List<RoleImportExcelDto> roleDotList = new ArrayList<>();
 
     @Resource
-    private IDictService dictService;
+    private IRoleService roleService;
 
-    public DictImportExcelListener(IDictService dictService) {
-        this.dictService = dictService;
+    public RoleImportExcelListener(IRoleService roleService) {
+        this.roleService = roleService;
     }
 
     /**
@@ -44,7 +44,7 @@ public class DictImportExcelListener extends AnalysisEventListener<DictImportExc
      * @param context
      */
     @Override
-    public void invoke(DictImportExcelDto data, AnalysisContext context) {
+    public void invoke(RoleImportExcelDto data, AnalysisContext context) {
         // 数据校验
         if (isDataExist(data)) {
             LOGGER.info("读取到Excel数据: {},数据在数据库中已存在!", data);
@@ -53,13 +53,13 @@ public class DictImportExcelListener extends AnalysisEventListener<DictImportExc
         LOGGER.info("读取到Excel数据: {}", data);
 
         // add
-        dictDtoList.add(data);
+        roleDotList.add(data);
 
         // 达到批量阈值,执行批量处理
-        if (dictDtoList.size() >= BATCH_SIZE) {
+        if (roleDotList.size() >= BATCH_SIZE) {
             batchSave();
             // 清空列表,释放内存
-            dictDtoList.clear();
+            roleDotList.clear();
         }
     }
 
@@ -71,7 +71,7 @@ public class DictImportExcelListener extends AnalysisEventListener<DictImportExc
     @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
         // 处理剩余不足批量阈值的数据
-        if (!dictDtoList.isEmpty()) {
+        if (!roleDotList.isEmpty()) {
             batchSave();
         }
         LOGGER.info("Excel数据读取成功,共处理{}条数据", context.readRowHolder().getRowIndex());
@@ -81,18 +81,18 @@ public class DictImportExcelListener extends AnalysisEventListener<DictImportExc
      * 批量处理数据
      */
     private void batchSave() {
-        LOGGER.info("执行批量处理,数据量: {}", dictDtoList.size());
+        LOGGER.info("执行批量处理,数据量: {}", roleDotList.size());
         // 调用业务方法
-        List<Dict> dictList = new ArrayList<>();
-        for (DictImportExcelDto dictDto : dictDtoList) {
+        List<Role> dictList = new ArrayList<>();
+        for (RoleImportExcelDto dictDto : roleDotList) {
             // 创建对象,设置属性
-            Dict dict = new Dict();
-            BeanUtils.copyProperties(dictDto, dict);
+            Role role = new Role();
+            BeanUtils.copyProperties(dictDto, role);
             // add
-            dictList.add(dict);
+            dictList.add(role);
         }
         // 批量保存
-        dictService.batchSave(dictList);
+        roleService.batchSave(dictList);
     }
 
     /**
@@ -101,7 +101,7 @@ public class DictImportExcelListener extends AnalysisEventListener<DictImportExc
      * @param data
      * @return
      */
-    private Boolean isDataExist(DictImportExcelDto data) {
-        return dictService.selectDataByCondition(data.getCode());
+    private Boolean isDataExist(RoleImportExcelDto data) {
+        return roleService.selectDataByCondition(data.getRoleCode());
     }
 }
