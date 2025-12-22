@@ -1,14 +1,17 @@
 package com.zengyanyu.system.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.lang.reflect.Field;
 
 /**
  * 反射工具类
+ *
+ * @author zengyanyu
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ReflectionUtil {
-
-    private ReflectionUtil() {
-    }
 
     /**
      * 根据对象和字段名称获取字段对应值

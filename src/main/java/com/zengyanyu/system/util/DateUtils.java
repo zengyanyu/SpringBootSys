@@ -1,16 +1,22 @@
 package com.zengyanyu.system.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.text.SimpleDateFormat;
-import java.time.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 /**
  * 日期工具类
+ * @author zengyanyu
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DateUtils {
-
-    private DateUtils() {
-    }
 
     public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

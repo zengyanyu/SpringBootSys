@@ -1,12 +1,19 @@
 package com.zengyanyu.system.util;
 
-import com.google.zxing.*;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -18,11 +25,10 @@ import java.util.Map;
 
 /**
  * 二维码工具类
+ * @author zengyanyu
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class QRCodeUtil {
-
-    private QRCodeUtil(){
-    }
 
     /**
      * 生成二维码图片

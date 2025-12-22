@@ -1,5 +1,7 @@
 package com.zengyanyu.system.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
 
@@ -16,10 +18,8 @@ import java.nio.charset.Charset;
  * @author ZengYanyu
  * @Description
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HttpUtil {
-
-    private HttpUtil() {
-    }
 
     /**
      * 发送get请求

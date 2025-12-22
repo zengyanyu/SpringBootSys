@@ -1,12 +1,16 @@
 package com.zengyanyu.system.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.util.Map;
 import java.util.StringJoiner;
 
+/**
+ * @author zengyanyu
+ */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MapToStringUtil {
-
-    private MapToStringUtil() {
-    }
 
     public static String mapToString(Map<String, Object> map) {
         StringJoiner joiner = new StringJoiner("&");

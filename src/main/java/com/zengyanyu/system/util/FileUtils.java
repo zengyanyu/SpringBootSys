@@ -2,6 +2,8 @@ package com.zengyanyu.system.util;
 
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.dto.FileDto;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,11 +15,10 @@ import java.net.URL;
 
 /**
  * 文件操作工具类
+ * @author zengyanyu
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FileUtils {
-
-    private FileUtils() {
-    }
 
     /**
      * 文件上传

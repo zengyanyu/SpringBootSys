@@ -3,16 +3,19 @@ package com.zengyanyu.system.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * @author zengyanyu
+ */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JwtUtil {
-
-    private JwtUtil() {
-    }
 
     // 确保这个密钥在生产环境中安全存储和管理
     private static String secretKey = "your_secret_key";

@@ -1,5 +1,7 @@
 package com.zengyanyu.system.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 
 import java.io.ByteArrayOutputStream;
@@ -8,11 +10,10 @@ import java.io.InputStream;
 
 /**
  * IO工具类
+ * @author zengyanyu
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class IOUtils {
-
-    private IOUtils() {
-    }
 
     /**
      * @param inputStream

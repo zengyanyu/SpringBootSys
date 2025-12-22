@@ -1,6 +1,8 @@
 package com.zengyanyu.system.util;
 
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -9,12 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @Description HTTP请求的工具类, 用于获取Request、Response相关信息
+ * HTTP请求的工具类, 用于获取Request、Response相关信息
+ *
+ * @author zengyanyu
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class HttpRequestUtil {
-
-    private HttpRequestUtil() {
-    }
 
     /**
      * 从 SpringBoot 中获取 Request 请求对象

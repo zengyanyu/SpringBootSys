@@ -1,14 +1,16 @@
 package com.zengyanyu.system.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.util.Random;
 
 /**
  * 生成随机数工具类
+ * @author zengyanyu
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RandomUtil {
-
-    private RandomUtil() {
-    }
 
     /**
      * 生成一个6位随机数

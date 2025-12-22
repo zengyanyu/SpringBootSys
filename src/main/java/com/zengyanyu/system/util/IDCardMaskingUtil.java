@@ -1,12 +1,14 @@
 package com.zengyanyu.system.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * 身份证马赛克工具类
+ * @author zengyanyu
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class IDCardMaskingUtil {
-
-    private IDCardMaskingUtil(){
-    }
 
     /**
      * 马赛克
