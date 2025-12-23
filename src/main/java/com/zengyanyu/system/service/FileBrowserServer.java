@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class FileBrowserServer {
 
     private static final int PORT = 8081;
-    private static final String WEB_ROOT = "D:/data/uploads"; // 用于存放 CSS 等静态资源
+    private static final String WEB_ROOT = "D:/"; // 用于存放 CSS 等静态资源
 
     private final ServerSocket serverSocket;
     private final ExecutorService threadPool;
@@ -75,7 +75,9 @@ public class FileBrowserServer {
                  BufferedOutputStream dataOut = new BufferedOutputStream(clientSocket.getOutputStream())) {
 
                 String requestLine = in.readLine();
-                if (requestLine == null) return;
+                if (requestLine == null) {
+                    return;
+                }
                 log("请求: " + requestLine);
 
                 String[] tokens = requestLine.split(" ");
@@ -139,8 +141,12 @@ public class FileBrowserServer {
 
             // 排序：目录优先，然后按名称排序
             Arrays.sort(files, (f1, f2) -> {
-                if (f1.isDirectory() && f2.isFile()) return -1;
-                if (f1.isFile() && f2.isDirectory()) return 1;
+                if (f1.isDirectory() && f2.isFile()) {
+                    return -1;
+                }
+                if (f1.isFile() && f2.isDirectory()) {
+                    return 1;
+                }
                 return f1.getName().compareToIgnoreCase(f2.getName());
             });
 
@@ -230,7 +236,9 @@ public class FileBrowserServer {
         private String getQueryParameter(String uri, String key) {
             try {
                 String query = new URI(uri).getQuery();
-                if (query == null) return null;
+                if (query == null) {
+                    return null;
+                }
                 for (String param : query.split("&")) {
                     String[] pair = param.split("=");
                     if (pair.length == 2 && key.equals(pair[0])) {
@@ -244,20 +252,36 @@ public class FileBrowserServer {
         }
 
         private String formatFileSize(long bytes) {
-            if (bytes < 1024) return bytes + " B";
+            if (bytes < 1024) {
+                return bytes + " B";
+            }
             int exp = (int) (Math.log(bytes) / Math.log(1024));
             char pre = "KMGTPE".charAt(exp - 1);
             return String.format("%.1f %sB", bytes / Math.pow(1024, exp), pre);
         }
 
         private String getContentType(String fileName) {
-            if (fileName.endsWith(".css")) return "text/css";
-            if (fileName.endsWith(".js")) return "application/javascript";
-            if (fileName.endsWith(".png")) return "image/png";
-            if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) return "image/jpeg";
-            if (fileName.endsWith(".gif")) return "image/gif";
-            if (fileName.endsWith(".txt")) return "text/plain";
-            if (fileName.endsWith(".pdf")) return "application/pdf";
+            if (fileName.endsWith(".css")) {
+                return "text/css";
+            }
+            if (fileName.endsWith(".js")) {
+                return "application/javascript";
+            }
+            if (fileName.endsWith(".png")) {
+                return "image/png";
+            }
+            if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) {
+                return "image/jpeg";
+            }
+            if (fileName.endsWith(".gif")) {
+                return "image/gif";
+            }
+            if (fileName.endsWith(".txt")) {
+                return "text/plain";
+            }
+            if (fileName.endsWith(".pdf")) {
+                return "application/pdf";
+            }
             // 默认为二进制流，强制下载
             return "application/octet-stream";
         }
