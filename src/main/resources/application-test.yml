@@ -37,6 +37,10 @@ spring:
 logging:
   file:
     path: /usr/local/logs
+  level:
+    com.zengyanyu.system: debug
+    org.springframework: warn
+    springfox: error
 
 file:
   uploadFolder: D:/upload/
