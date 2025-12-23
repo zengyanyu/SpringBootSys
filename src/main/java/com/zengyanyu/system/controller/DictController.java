@@ -125,11 +125,11 @@ public class DictController extends BaseController {
         try (InputStream inputStream = file.getInputStream()) {
             // 导入Excel文件
             dictService.importExcel(inputStream);
+            return ResponseEntity.ok("Excel 导入成功,共处理" + file.getSize() + "字节数据");
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.ok("Excel 导入失败,失败原因: " + e.getMessage());
         }
-        return ResponseEntity.ok("Excel 导入成功,共处理" + file.getSize() + "字节数据");
     }
 
 }

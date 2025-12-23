@@ -17,7 +17,7 @@ import java.util.Collections;
 public class CodeGenerator {
 
     public static void main(String[] args) {
-        codeGenerate("rubbish");
+        codeGenerate("rubbish_beach");
     }
 
     /**
@@ -38,7 +38,7 @@ public class CodeGenerator {
                     builder.author("zengyanyu") // 设置作者
                             .commentDate("yyyy-MM-dd")
                             .enableSwagger() // 开启swagger模式
-                            .fileOverride() // 覆盖已生成文件
+//                            .fileOverride() // 覆盖已生成文件
                             .outputDir("D:/Projects/SpringbootSys/src/main/java/"); // 指定输出目录
                 })
                 // 包配置
