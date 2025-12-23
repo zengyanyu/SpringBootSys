@@ -10,6 +10,8 @@ import javax.annotation.Resource;
 
 /**
  * 定时删除-日志记录
+ *
+ * @author zengyanyu
  */
 public class RemoveLogRecordJob implements Job {
 

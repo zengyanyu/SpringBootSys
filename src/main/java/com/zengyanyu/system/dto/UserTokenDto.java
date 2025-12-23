@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * @author zengyanyu
+ */
 @Getter
 @Setter
 @ApiModel("用户tokenDto对象")

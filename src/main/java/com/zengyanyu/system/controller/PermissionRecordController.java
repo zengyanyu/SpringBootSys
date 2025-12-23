@@ -1,18 +1,29 @@
 package com.zengyanyu.system.controller;
 
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.config.LogRecord;
+import com.zengyanyu.system.dto.PermissionRecordExportExcelDto;
 import com.zengyanyu.system.entity.PermissionRecord;
 import com.zengyanyu.system.query.PermissionRecordQueryObject;
 import com.zengyanyu.system.service.IPermissionRecordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.BeanUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,7 +55,7 @@ public class PermissionRecordController extends BaseController {
 
     @LogRecord("删除")
     @ApiOperation("删除")
-    @GetMapping("/{id}")
+    @GetMapping("/del/{id}")
     public ResponseData delete(@PathVariable String id) {
         permissionRecordService.removeById(id);
         return new ResponseData("删除成功");
@@ -78,6 +89,28 @@ public class PermissionRecordController extends BaseController {
     public Page<PermissionRecord> page(PermissionRecordQueryObject queryObject) {
         QueryWrapper<PermissionRecord> wrapper = new QueryWrapper<>();
         return permissionRecordService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
+    }
+
+    @LogRecord("导出Excel文件")
+    @ApiOperation("导出Excel文件")
+    @PostMapping("/exportExcel")
+    public void exportExcel() throws IOException {
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setCharacterEncoding("UTF-8");
+        String fileName = URLEncoder.encode("权限记录列表", "UTF-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+
+        // 模拟测试数据
+        List<PermissionRecordExportExcelDto> dtoList = new ArrayList<>();
+        List<PermissionRecord> permissionRecordList = permissionRecordService.list();
+        for (PermissionRecord permissionRecord : permissionRecordList) {
+            // 创建对象
+            PermissionRecordExportExcelDto dto = new PermissionRecordExportExcelDto();
+            BeanUtils.copyProperties(permissionRecord, dto);
+            dtoList.add(dto);
+        }
+        EasyExcel.write(response.getOutputStream(), PermissionRecordExportExcelDto.class)
+                .sheet("权限记录列表").doWrite(dtoList);
     }
 
 }

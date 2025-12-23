@@ -19,5 +19,4 @@ public interface IRubbishService extends IService<Rubbish> {
      * @return
      */
     ResponseData saveOrUpdateRubbish(Rubbish rubbish);
-
 }

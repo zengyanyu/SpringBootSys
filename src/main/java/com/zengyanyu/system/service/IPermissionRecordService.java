@@ -1,8 +1,8 @@
 package com.zengyanyu.system.service;
 
-import com.zengyanyu.system.entity.PermissionRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zengyanyu.system.commons.ResponseData;
+import com.zengyanyu.system.entity.PermissionRecord;
 
 /**
  * 服务类

@@ -6,6 +6,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * @author zengyanyu
+ */
 @Getter
 @Setter
 @ApiModel("权限Dto对象")

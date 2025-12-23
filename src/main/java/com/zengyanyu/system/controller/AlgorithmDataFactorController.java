@@ -37,7 +37,7 @@ public class AlgorithmDataFactorController extends BaseController {
 
     @LogRecord("删除算法要素")
     @ApiOperation("删除算法要素")
-    @GetMapping("/{id}")
+    @GetMapping("/del/{id}")
     public ResponseData delete(@PathVariable String id) {
         algorithmDataFactorService.removeById(id);
         return new ResponseData("删除成功");

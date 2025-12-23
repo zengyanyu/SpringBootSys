@@ -38,7 +38,7 @@ public class RubbishController extends BaseController {
 
     @LogRecord("删除垃圾")
     @ApiOperation("删除垃圾")
-    @GetMapping("/{id}")
+    @GetMapping("/del/{id}")
     public ResponseData delete(@PathVariable String id) {
         rubbishService.removeById(id);
         return new ResponseData("删除成功");

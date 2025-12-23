@@ -6,12 +6,16 @@ import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.config.LogRecord;
 import com.zengyanyu.system.entity.AlgorithmData;
 import com.zengyanyu.system.query.AlgorithmDataQueryObject;
-import com.zengyanyu.system.query.QueryObject;
 import com.zengyanyu.system.service.IAlgorithmDataService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -38,7 +42,7 @@ public class AlgorithmDataController extends BaseController {
 
     @LogRecord("删除算法数据")
     @ApiOperation("删除算法数据")
-    @GetMapping("/{id}")
+    @GetMapping("/del/{id}")
     public ResponseData delete(@PathVariable String id) {
         algorithmDataService.removeById(id);
         return new ResponseData("删除成功");

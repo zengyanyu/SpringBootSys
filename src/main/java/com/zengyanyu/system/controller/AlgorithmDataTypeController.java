@@ -37,7 +37,7 @@ public class AlgorithmDataTypeController extends BaseController {
 
     @LogRecord("删除算法类型")
     @ApiOperation("删除算法类型")
-    @GetMapping("/{id}")
+    @GetMapping("/del/{id}")
     public ResponseData delete(@PathVariable String id) {
         algorithmDataTypeService.removeById(id);
         return new ResponseData("删除成功");

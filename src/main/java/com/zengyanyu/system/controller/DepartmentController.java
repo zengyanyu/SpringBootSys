@@ -38,7 +38,7 @@ public class DepartmentController extends BaseController {
 
     @LogRecord("删除部门管理")
     @ApiOperation("删除部门管理")
-    @GetMapping("/{id}")
+    @GetMapping("/del/{id}")
     public ResponseData delete(@PathVariable String id) {
         departmentService.removeById(id);
         return new ResponseData("删除成功");

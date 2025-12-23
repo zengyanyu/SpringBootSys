@@ -1,13 +1,19 @@
 package com.zengyanyu.system.service.impl;
 
+import com.alibaba.excel.EasyExcel;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zengyanyu.system.commons.ResponseData;
+import com.zengyanyu.system.dto.RoleImportExcelDto;
 import com.zengyanyu.system.entity.Role;
+import com.zengyanyu.system.listener.RoleImportExcelListener;
 import com.zengyanyu.system.mapper.RoleMapper;
 import com.zengyanyu.system.service.IRoleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +48,37 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         }
         this.saveOrUpdate(role);
         return new ResponseData("保存或更新角色成功");
+    }
+
+    /**
+     * 批量保存
+     *
+     * @param roleList
+     */
+    @Override
+    public void batchSave(List<Role> roleList) {
+        // 调用service接口中的方法(框架封装)
+        this.saveBatch(roleList);
+    }
+
+    @Override
+    public Boolean selectDataByCondition(String roleCode) {
+        QueryWrapper<Role> wrapper = new QueryWrapper<>();
+        wrapper.eq("role_code", roleCode);
+        return null != this.getOne(wrapper);
+    }
+
+    /**
+     * 导入Excel文件
+     *
+     * @param inputStream 文件输入流
+     */
+    @Override
+    public void importExcel(InputStream inputStream) {
+        EasyExcel.read(inputStream, RoleImportExcelDto.class, new RoleImportExcelListener(this))
+                .charset(Charset.forName("UTF-8"))// 设置中文编码
+                .sheet()// 读取第一个sheet(默认索引0,可指定sheetName .shseet("字典表"))
+                .doRead();// 执行读取
     }
 
 }

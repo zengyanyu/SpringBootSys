@@ -37,7 +37,7 @@ public class AlgorithmDataFactorSaveController extends BaseController {
 
     @LogRecord("删除算法要素对应关系表")
     @ApiOperation("删除算法要素对应关系表")
-    @GetMapping("/{id}")
+    @GetMapping("/del/{id}")
     public ResponseData delete(@PathVariable String id) {
         algorithmDataFactorSaveService.removeById(id);
         return new ResponseData("删除成功");

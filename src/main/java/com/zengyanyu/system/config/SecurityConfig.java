@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 
 /**
  * 安全配置
+ *
  * @author zengyanyu
  */
 @Configuration
@@ -49,9 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/ws/**", "/favicon.ico",
                         "/usr/local/upload/**",
                         "/preview/**", "/H5/**",
-                        "D:/upload/**", "D:/uploadH5/**"
+                        "D:/upload/**", "D:/uploadH5/**",
+                        "/**"// 测试,先全部请求进行放行,不需要加token
                 ).permitAll()
-                .antMatchers("/**").authenticated() // 其他所有接口需要认证
+                //.antMatchers("/**").authenticated() // 其他所有接口需要认证
                 .anyRequest().authenticated() // 所有未匹配的请求也需要认证
                 .and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
