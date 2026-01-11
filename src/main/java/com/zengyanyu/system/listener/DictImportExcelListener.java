@@ -2,6 +2,7 @@ package com.zengyanyu.system.listener;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import com.alibaba.excel.metadata.data.ReadCellData;
 import com.zengyanyu.system.dto.DictImportExcelDto;
 import com.zengyanyu.system.entity.Dict;
 import com.zengyanyu.system.service.IDictService;
@@ -12,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zengyanyu
@@ -103,5 +105,31 @@ public class DictImportExcelListener extends AnalysisEventListener<DictImportExc
      */
     private Boolean isDataExist(DictImportExcelDto data) {
         return dictService.selectDataByCondition(data.getCode());
+    }
+
+    /**
+     * 第一步执行：读取表头
+     * 只执行一次（除非有多行表头）
+     *
+     * @param headMap
+     * @param context
+     */
+    @Override
+    public void invokeHead(Map<Integer, ReadCellData<?>> headMap, AnalysisContext context) {
+        System.out.println(">>> [invokeHead] 正在读取表头...");
+
+        String[] titleNameList = new String[]{"字典编码标题", "字典名称标题"};
+
+        // 遍历表头
+        for (Map.Entry<Integer, ReadCellData<?>> entry : headMap.entrySet()) {
+            Integer colIndex = entry.getKey();
+            // 获取表头文字
+            String titleName = titleNameList[colIndex];
+            String headName = entry.getValue().getStringValue();
+            if (!titleName.equals(headName)) {
+                throw new RuntimeException("请下载合适的Excel文件模板进行上传;  标题名称为[ " + headName + " ]不匹配");
+            }
+        }
+        System.out.println(">>> [invokeHead] 表头读取结束，准备读取数据。\n");
     }
 }
