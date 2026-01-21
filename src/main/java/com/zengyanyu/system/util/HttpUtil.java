@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Http工具类
@@ -46,7 +46,7 @@ public class HttpUtil {
             conn.connect();
             // 定义输入流来读取URL的响应
             in = conn.getInputStream();
-            result = StreamUtils.copyToString(in, Charset.forName("utf-8"));
+            result = StreamUtils.copyToString(in, StandardCharsets.UTF_8);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -87,11 +87,11 @@ public class HttpUtil {
             os = conn.getOutputStream();
             // 注意编码格式，防止中文乱码
             if (StringUtils.hasText(paramStr)) {
-                os.write(paramStr.getBytes("utf-8"));
+                os.write(paramStr.getBytes(StandardCharsets.UTF_8.name()));
                 os.close();
             }
             in = conn.getInputStream();
-            result = StreamUtils.copyToString(in, Charset.forName("utf-8"));
+            result = StreamUtils.copyToString(in, StandardCharsets.UTF_8);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

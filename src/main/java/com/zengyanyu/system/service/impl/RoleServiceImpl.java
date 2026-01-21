@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,9 +76,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     @Override
     public void importExcel(InputStream inputStream) {
         EasyExcel.read(inputStream, RoleImportExcelDto.class, new RoleImportExcelListener(this))
-                .charset(Charset.forName("UTF-8"))// 设置中文编码
-                .sheet()// 读取第一个sheet(默认索引0,可指定sheetName .shseet("字典表"))
-                .doRead();// 执行读取
+                .charset(StandardCharsets.UTF_8).sheet().doRead();
     }
 
 }

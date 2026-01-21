@@ -13,16 +13,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,8 +92,8 @@ public class PermissionRecordController extends BaseController {
     @PostMapping("/exportExcel")
     public void exportExcel() throws IOException {
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setCharacterEncoding("UTF-8");
-        String fileName = URLEncoder.encode("权限记录列表", "UTF-8");
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        String fileName = URLEncoder.encode("权限记录列表", StandardCharsets.UTF_8.name());
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
 
         // 模拟测试数据

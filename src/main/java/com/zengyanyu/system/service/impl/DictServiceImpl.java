@@ -12,7 +12,7 @@ import com.zengyanyu.system.service.IDictService;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -55,9 +55,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
     @Override
     public void importExcel(InputStream inputStream) {
         EasyExcel.read(inputStream, DictImportExcelDto.class, new DictImportExcelListener(this))
-                .charset(Charset.forName("UTF-8"))// 设置中文编码
-                .sheet()// 读取第一个sheet(默认索引0,可指定sheetName .sheet("字典表"))
-                .doRead();// 执行读取
+                .charset(StandardCharsets.UTF_8).sheet().doRead();
     }
 
     /**

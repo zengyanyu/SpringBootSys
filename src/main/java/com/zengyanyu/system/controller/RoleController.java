@@ -16,19 +16,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,8 +86,8 @@ public class RoleController extends BaseController {
     @PostMapping("/exportExcel")
     public void exportExcel() throws IOException {
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setCharacterEncoding("UTF-8");
-        String fileName = URLEncoder.encode("角色列表", "UTF-8");
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        String fileName = URLEncoder.encode("角色列表", StandardCharsets.UTF_8.name());
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
 
         // 模拟测试数据
