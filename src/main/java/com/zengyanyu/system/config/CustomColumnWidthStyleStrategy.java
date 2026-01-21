@@ -33,29 +33,29 @@ public class CustomColumnWidthStyleStrategy extends AbstractColumnWidthStyleStra
     @Override
     protected void setColumnWidth(WriteSheetHolder writeSheetHolder, List<WriteCellData<?>> cellDataList,
                                   Cell cell, Head head, Integer relativeRowIndex, Boolean isHead) {
-        boolean needSetWidth = isHead || !cache.containsKey(writeSheetHolder.getSheetNo());
-        if (needSetWidth) {
+        // 需要设置宽度
+        if (isHead || !cache.containsKey(writeSheetHolder.getSheetNo())) {
             Map<Integer, Integer> maxColumnWidthMap = cache.computeIfAbsent(writeSheetHolder.getSheetNo(), k -> new HashMap<>());
 
             Integer columnWidth = this.dataLength();
 
             // 如果计算出的长度比之前的长度大，则更新（这里主要为了逻辑完整，固定宽度其实可以直接返回固定值）
-            if (columnWidth >= 0) {
-                Integer maxColumnWidth = maxColumnWidthMap.get(cell.getColumnIndex());
-                if (maxColumnWidth == null || columnWidth > maxColumnWidth) {
-                    maxColumnWidthMap.put(cell.getColumnIndex(), columnWidth);
-                    // 单位是 1/256 个字符
-                    writeSheetHolder.getSheet().setColumnWidth(cell.getColumnIndex(), columnWidth * 256);
-                }
+            Integer maxColumnWidth = maxColumnWidthMap.get(cell.getColumnIndex());
+            if (maxColumnWidth == null || columnWidth > maxColumnWidth) {
+                maxColumnWidthMap.put(cell.getColumnIndex(), columnWidth);
+                // 单位是 1/256 个字符
+                writeSheetHolder.getSheet().setColumnWidth(cell.getColumnIndex(), columnWidth * 256);
             }
         }
     }
 
     /**
-     * 这里直接返回固定的宽度值，例如 20
+     * 固定的宽度值
+     *
+     * @return 16
      */
     private Integer dataLength() {
-        // 这里设置你想要的默认列宽（字符数）
+        // 设置默认列宽（字符数）
         return 16;
     }
 }

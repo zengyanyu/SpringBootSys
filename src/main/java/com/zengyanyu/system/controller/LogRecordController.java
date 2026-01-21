@@ -3,6 +3,7 @@ package com.zengyanyu.system.controller;
 import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zengyanyu.system.config.CustomColumnWidthStyleStrategy;
 import com.zengyanyu.system.config.LogRecord;
 import com.zengyanyu.system.dto.LogRecordExportExcelDto;
 import com.zengyanyu.system.entity.LogRecordEntity;
@@ -62,6 +63,7 @@ public class LogRecordController extends BaseController {
             logRecordDtoList.add(logRecordDto);
         }
         EasyExcel.write(response.getOutputStream(), LogRecordExportExcelDto.class)
+                .registerWriteHandler(new CustomColumnWidthStyleStrategy())
                 .sheet("日志记录列表").doWrite(logRecordDtoList);
     }
 

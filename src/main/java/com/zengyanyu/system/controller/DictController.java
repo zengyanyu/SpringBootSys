@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zengyanyu.system.commons.ResponseData;
+import com.zengyanyu.system.config.CustomColumnWidthStyleStrategy;
 import com.zengyanyu.system.config.LogRecord;
 import com.zengyanyu.system.dto.DictExportExcelDto;
 import com.zengyanyu.system.entity.Dict;
@@ -105,6 +106,7 @@ public class DictController extends BaseController {
             dtoList.add(dto);
         }
         EasyExcel.write(response.getOutputStream(), DictExportExcelDto.class)
+                .registerWriteHandler(new CustomColumnWidthStyleStrategy())
                 .sheet("字典列表").doWrite(dtoList);
     }
 

@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zengyanyu.system.commons.ResponseData;
+import com.zengyanyu.system.config.CustomColumnWidthStyleStrategy;
 import com.zengyanyu.system.config.LogRecord;
 import com.zengyanyu.system.dto.RoleExportExcelDto;
 import com.zengyanyu.system.entity.Role;
@@ -100,6 +101,7 @@ public class RoleController extends BaseController {
             dtoList.add(dto);
         }
         EasyExcel.write(response.getOutputStream(), RoleExportExcelDto.class)
+                .registerWriteHandler(new CustomColumnWidthStyleStrategy())
                 .sheet("角色列表").doWrite(dtoList);
     }
 
