@@ -109,16 +109,15 @@ public class RoleController extends BaseController {
     public ResponseEntity<String> importExcel(@RequestParam("file") MultipartFile file) {
         // 校验文件是否为空
         if (file.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("请选择上传的Excel文件");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("请选择上传的Excel文件！");
         }
         // 自动关闭资源
         try (InputStream inputStream = file.getInputStream()) {
-            // 导入Excel文件
             roleService.importExcel(inputStream);
-            return ResponseEntity.ok("Excel 导入成功,共处理" + file.getSize() + "字节数据");
+            return ResponseEntity.ok("Excel文件导入成功！");
         } catch (IOException e) {
             e.printStackTrace();
-            return ResponseEntity.ok("Excel 导入失败,失败原因: " + e.getMessage());
+            return ResponseEntity.ok("Excel导入失败: " + e.getMessage());
         }
     }
 
