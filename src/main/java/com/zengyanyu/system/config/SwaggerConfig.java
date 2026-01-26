@@ -71,9 +71,14 @@ public class SwaggerConfig {
         return parameters;
     }
 
-    // linux 环境启动报空指针，使用这个方法处理
-    // org.springframework.context.ApplicationContextException: Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException
-    // 解决Spring Boot和Swagger冲突的配置
+    /**
+     * 解决Spring Boot和Swagger冲突的配置
+     * linux 环境启动报空指针，使用这个方法处理
+     * org.springframework.context.ApplicationContextException: Failed to start bean
+     * 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException
+     *
+     * @return
+     */
     @Bean
     public static BeanPostProcessor springfoxHandlerProviderBeanPostProcessor() {
         return new BeanPostProcessor() {
@@ -98,7 +103,7 @@ public class SwaggerConfig {
                     Field field = ReflectionUtils.findField(bean.getClass(), "handlerMappings");
                     field.setAccessible(true);
                     return (List<RequestMappingInfoHandlerMapping>) field.get(bean);
-                } catch (IllegalArgumentException | IllegalAccessException e) {
+                } catch (IllegalAccessException e) {
                     throw new IllegalStateException(e);
                 }
             }
