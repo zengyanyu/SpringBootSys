@@ -27,3 +27,5 @@
 .idea/libraries/
 /target/ZYY_SYS-0.0.1-SNAPSHOT.jar
 /target/ZYY_SYS-0.0.1-SNAPSHOT.jar.original
+/target/classes/spring-logback.xml
+/target/classes/static/style.css
