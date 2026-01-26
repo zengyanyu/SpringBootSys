@@ -5,8 +5,8 @@
     <groupId>com.zengyanyu</groupId>
     <artifactId>spring_boot_sys</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ZYY_SYS</name>
-    <description>Spring Boot</description>
+    <name>SPRING_BOOT_SYS</name>
+    <description>Spring Boot Framework</description>
 
     <!-- 打包格式 -->
     <packaging>jar</packaging>
