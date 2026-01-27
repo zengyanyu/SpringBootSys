@@ -1,5 +1,6 @@
 package com.zengyanyu.system.controller;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
 import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -118,8 +119,7 @@ public class RoleController extends BaseController {
             roleService.importExcel(inputStream);
             return ResponseEntity.ok("Excel文件导入成功！");
         } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.ok("Excel导入失败: " + e.getMessage());
+            return ResponseEntity.status(500).body("Excel文件导入失败：" + ExceptionUtil.stacktraceToString(e));
         }
     }
 
