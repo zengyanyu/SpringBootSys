@@ -110,7 +110,6 @@ public class RoleController extends BaseController {
     @ApiOperation("导入Excel文件")
     @PostMapping("/importExcel")
     public ResponseEntity<String> importExcel(@RequestParam("file") MultipartFile file) {
-        // 校验文件是否为空
         if (file.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("请选择上传的Excel文件！");
         }
