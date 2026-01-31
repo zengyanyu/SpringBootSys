@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <property name="log.path" value="D:/logs"/>
-    <property name="console.log.pattern"
-              value="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
+    <property name="console.log.pattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
     <property name="log.pattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
 
     <!-- 控制台输出 -->
@@ -13,7 +12,7 @@
         </encoder>
     </appender>
 
-    <!-- 系统日志输出 -->
+    <!-- 文件输出 -->
     <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.path}/sys-info.log</file>
         <!-- 滚动策略：固定窗口 -->
@@ -62,12 +61,9 @@
     <!-- Spring日志级别控制  -->
     <logger name="org.springframework" level="info"/>
 
-    <root level="info">
-        <appender-ref ref="console"/>
-    </root>
-
     <!--系统操作日志-->
     <root level="info">
+        <appender-ref ref="console"/>
         <appender-ref ref="file_info"/>
         <appender-ref ref="file_error"/>
     </root>
