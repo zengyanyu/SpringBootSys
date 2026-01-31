@@ -6,8 +6,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 
 /**
  * 登录处理拦截器
@@ -42,7 +40,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        log.info("处理之后----" + URLDecoder.decode(request.getRequestURL().toString(), StandardCharsets.UTF_8.name()));
+//        log.info("处理之后----" + URLDecoder.decode(request.getRequestURL().toString(), StandardCharsets.UTF_8.name()));
     }
 
     /**
@@ -56,6 +54,6 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
      */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        log.info("完成后----" + URLDecoder.decode(request.getRequestURL().toString(), StandardCharsets.UTF_8.name()));
+//        log.info("完成后----" + URLDecoder.decode(request.getRequestURL().toString(), StandardCharsets.UTF_8.name()));
     }
 }

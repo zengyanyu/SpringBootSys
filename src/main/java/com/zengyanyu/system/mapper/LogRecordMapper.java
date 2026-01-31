@@ -16,5 +16,11 @@ import java.util.List;
 @Mapper
 public interface LogRecordMapper extends BaseMapper<LogRecordEntity> {
 
+    /**
+     * 根据条件获取日志记录
+     * @param requestTime
+     * @return
+     */
     List<LogRecordEntity> getLogRecordByCondition(LocalDateTime requestTime);
+
 }

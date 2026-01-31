@@ -1,10 +1,10 @@
 package com.zengyanyu.system.job;
 
+import com.zengyanyu.system.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -16,17 +16,15 @@ import java.util.Date;
 @Component
 public class ScheduledTask {
 
-    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
     /**
      * 初始化延迟两分钟，然后每两分钟再执行一次
      */
     @Scheduled(initialDelay = 1000 * 60 * 2, fixedDelay = 1000 * 60 * 2)
     public void testTask() {
         log.info("com.zengyanyu.system.job.ScheduledTask 定时任务执行成功");
-        log.info("当前时间 = " + SIMPLE_DATE_FORMAT.format(new Date()));
+        log.info("当前时间 = " + DateUtils.SIMPLE_DATE_FORMAT.format(new Date()));
 
         log.error("com.zengyanyu.system.job.ScheduledTask 定时任务执行成功");
-        log.error("当前时间 = " + SIMPLE_DATE_FORMAT.format(new Date()));
+        log.error("当前时间 = " + DateUtils.SIMPLE_DATE_FORMAT.format(new Date()));
     }
 }
