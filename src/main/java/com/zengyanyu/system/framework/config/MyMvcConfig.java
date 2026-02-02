@@ -1,6 +1,6 @@
 package com.zengyanyu.system.framework.config;
 
-import com.zengyanyu.system.interceptor.LoginHandlerInterceptor;
+import com.zengyanyu.system.framework.interceptor.LoginHandlerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;

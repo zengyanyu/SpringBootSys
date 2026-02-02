@@ -1,4 +1,4 @@
-package com.zengyanyu.system.interceptor;
+package com.zengyanyu.system.framework.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
