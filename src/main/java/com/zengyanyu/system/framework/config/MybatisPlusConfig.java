@@ -1,4 +1,4 @@
-package com.zengyanyu.system.config;
+package com.zengyanyu.system.framework.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;

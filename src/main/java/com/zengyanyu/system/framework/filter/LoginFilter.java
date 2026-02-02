@@ -1,5 +1,6 @@
-package com.zengyanyu.system.config;
+package com.zengyanyu.system.framework.filter;
 
+import com.zengyanyu.system.config.UserContextHolder;
 import com.zengyanyu.system.entity.UserInfo;
 import com.zengyanyu.system.service.IUserInfoService;
 import org.springframework.context.annotation.Configuration;

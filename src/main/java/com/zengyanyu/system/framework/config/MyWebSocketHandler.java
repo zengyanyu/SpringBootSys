@@ -1,4 +1,4 @@
-package com.zengyanyu.system.config;
+package com.zengyanyu.system.framework.config;
 
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;

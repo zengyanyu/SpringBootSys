@@ -1,4 +1,4 @@
-package com.zengyanyu.system.config;
+package com.zengyanyu.system.framework.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

@@ -1,5 +1,6 @@
-package com.zengyanyu.system.config;
+package com.zengyanyu.system.framework.config;
 
+import com.zengyanyu.system.framework.filter.JwtAuthFilter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;

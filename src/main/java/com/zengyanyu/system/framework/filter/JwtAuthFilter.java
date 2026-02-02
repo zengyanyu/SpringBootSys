@@ -1,4 +1,4 @@
-package com.zengyanyu.system.config;
+package com.zengyanyu.system.framework.filter;
 
 import com.zengyanyu.system.service.IUserInfoService;
 import org.springframework.stereotype.Component;

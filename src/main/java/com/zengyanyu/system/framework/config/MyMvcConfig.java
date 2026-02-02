@@ -1,4 +1,4 @@
-package com.zengyanyu.system.config;
+package com.zengyanyu.system.framework.config;
 
 import com.zengyanyu.system.interceptor.LoginHandlerInterceptor;
 import org.springframework.context.annotation.Bean;
