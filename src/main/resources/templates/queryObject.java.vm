@@ -1,0 +1,17 @@
+package com.zengyanyu.system.query;
+
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+/**
+ * ${table.comment}查询对象
+ *
+ * @author ${author}
+ */
+@Data
+@Accessors(chain = true)
+@ApiModel("${table.comment}查询对象")
+public class ${entity}QueryObject extends QueryObject {
+
+}

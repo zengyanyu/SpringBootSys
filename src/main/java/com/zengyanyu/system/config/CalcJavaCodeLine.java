@@ -23,46 +23,44 @@ public class CalcJavaCodeLine {
     private static int totalLineNum = 0;
 
     public static void main(String[] args) {
-        try {
-            System.out.println("===== 开始统计Java文件代码行数 =====");
-            // 1. 初始化输出目录
-            File outputDir = new File(OUTPUT_DIR);
-            // mkdirs()创建多级目录，mkdir()仅单级
-            if (!outputDir.exists() && !outputDir.mkdirs()) {
-                throw new RuntimeException("输出目录创建失败：" + OUTPUT_DIR);
+        System.out.println("===== 开始统计Java文件代码行数 =====");
+        // 1. 初始化输出目录
+        File outputDir = new File(OUTPUT_DIR);
+        // mkdirs()创建多级目录，mkdir()仅单级
+        if (!outputDir.exists() && !outputDir.mkdirs()) {
+            throw new RuntimeException("输出目录创建失败：" + OUTPUT_DIR);
+        }
+        File outputFile = new File(outputDir, OUTPUT_FILE_NAME);
+
+        // 2. 遍历所有Java文件
+        File sourceRoot = new File(SOURCE_ROOT_DIR);
+        List<File> javaFileList = listAllJavaFiles(sourceRoot);
+        if (javaFileList.isEmpty()) {
+            System.out.println("未找到任何" + FILE_SUFFIX + "文件");
+            return;
+        }
+        System.out.println("共找到" + javaFileList.size() + "个" + FILE_SUFFIX + "文件，开始逐文件统计...");
+
+        // 3. 重定向System.out到输出文件
+        try (FileOutputStream fos = new FileOutputStream(outputFile, true);
+             PrintStream filePrintStream = new PrintStream(fos, true, StandardCharsets.UTF_8.name());
+             PrintStream originalOut = System.out) {
+
+            // 重定向标准输出
+            System.setOut(filePrintStream);
+            // 4. 逐文件统计行数并输出内容
+            for (File file : javaFileList) {
+                calcSingleFileLine(file);
             }
-            File outputFile = new File(outputDir, OUTPUT_FILE_NAME);
-
-            // 2. 遍历所有Java文件
-            File sourceRoot = new File(SOURCE_ROOT_DIR);
-            List<File> javaFileList = listAllJavaFiles(sourceRoot);
-            if (javaFileList.isEmpty()) {
-                System.out.println("未找到任何" + FILE_SUFFIX + "文件");
-                return;
-            }
-            System.out.println("共找到" + javaFileList.size() + "个" + FILE_SUFFIX + "文件，开始逐文件统计...");
-
-            // 3. 重定向System.out到输出文件
-            try (FileOutputStream fos = new FileOutputStream(outputFile, true);
-                 PrintStream filePrintStream = new PrintStream(fos, true, StandardCharsets.UTF_8.name());
-                 PrintStream originalOut = System.out) {
-
-                // 重定向标准输出
-                System.setOut(filePrintStream);
-                // 4. 逐文件统计行数并输出内容
-                for (File file : javaFileList) {
-                    calcSingleFileLine(file);
-                }
-                // 输出总行数到文件
+            // 输出总行数到文件
 //                System.out.println("\n===== 统计结果 =====");
 //                System.out.println("Java文件总行数：" + totalLineNum);
 
-                // 恢复标准输出到控制台
-                System.setOut(originalOut);
-                System.out.println("===== 统计完成 =====");
-                System.out.println("共统计" + javaFileList.size() + "个Java文件，总行数：" + totalLineNum);
-                System.out.println("文件内容已输出至：" + outputFile.getAbsolutePath());
-            }
+            // 恢复标准输出到控制台
+            System.setOut(originalOut);
+            System.out.println("===== 统计完成 =====");
+            System.out.println("共统计" + javaFileList.size() + "个Java文件，总行数：" + totalLineNum);
+            System.out.println("文件内容已输出至：" + outputFile.getAbsolutePath());
         } catch (Exception e) {
             System.err.println("程序执行失败：" + e.getMessage());
             e.printStackTrace();

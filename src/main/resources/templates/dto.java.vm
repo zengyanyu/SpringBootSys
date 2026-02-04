@@ -1,0 +1,45 @@
+package com.zengyanyu.system.dto;
+
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+#foreach($field in ${table.fields})
+    #if(${field.propertyType} == "LocalDateTime")
+    import java.time.LocalDateTime;
+    #end
+    #if(${field.propertyType} == "LocalDate")
+    import java.time.LocalDate;
+    #end
+    #if(${field.propertyType} == "BigDecimal")
+    import java.math.BigDecimal;
+    #end
+#end
+
+/**
+ * ${table.comment} DTO 对象
+ *
+ * @author ${author}
+ */
+@Data
+@Accessors(chain = true)
+@ApiModel("${entity}Dto对象")
+public class ${entity}Dto implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    #foreach($field in ${table.fields})
+        #if(${field.name} != 'id' && ${field.name} != 'createTime' && ${field.name} != 'updateTime' && ${field.name} !=
+            'deleted')
+            /**
+             * ${field.comment}
+             */
+            @ApiModelProperty("${field.comment}")
+            private ${field.propertyType} ${field.propertyName};
+
+        #end
+    #end
+}
