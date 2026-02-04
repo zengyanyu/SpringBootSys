@@ -3,13 +3,12 @@ package ${package.Entity};
 #foreach($pkg in ${table.importPackages})
 import ${pkg};
 #end
-#if(${swagger})
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-#end
+
 #if(${entityLombokModel})
 import lombok.Getter;
 import lombok.Setter;
@@ -33,9 +32,7 @@ import lombok.experimental.Accessors;
 #end
 @Entity
 @TableName("${schemaName}${table.name}")
-#if(${swagger})
 @ApiModel(value = "${entity}对象", description = "$!{table.comment}")
-#end
 #if(${superEntityClass})
 public class ${entity} extends ${superEntityClass}#if(${activeRecord})<${entity}>#end {
 #elseif(${activeRecord})
@@ -53,13 +50,10 @@ public class ${entity} {
 #set($keyPropertyName=${field.propertyName})
 #end
 #if("$!field.comment" != "")
-  #if(${swagger})
-    @ApiModelProperty("${field.comment}")
-  #else
     /**
      * ${field.comment}
      */
-  #end
+    @ApiModelProperty("${field.comment}")
 #end
 #if(${field.keyFlag})
 ## 主键
