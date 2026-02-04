@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.querys.PostgreSqlQuery;
-import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
 import com.zengyanyu.system.controller.BaseController;
 
 import java.util.Collections;
@@ -42,27 +41,7 @@ public class CodeGenerator {
                             .outputDir(System.getProperty("user.dir") + "/src/main/java/")// 指定输出目录
                             .disableOpenDir(); // 生成代码后不自动打开目录
                 })
-                // 自定义文件注入配置
-                .injectionConfig(builder -> {
-                    // 自定义文件生成（Dto对象）
-                    builder.customFile(fileBuilder -> {
-                        // 文件名：例如 UserDTO.java
-                        fileBuilder.fileName("Dto.java")
-                                .templatePath("/templates/dto.java.vm")
-                                .packageName("dto")
-                                // 启用文件覆盖
-                                .enableFileOverride();
-                    });
-                    // 自定义文件生成（QueryObject对象）
-                    builder.customFile(fileBuilder -> {
-                        // 文件名：例如 UserDTO.java
-                        fileBuilder.fileName("QueryObject.java")
-                                .templatePath("/templates/queryObject.java.vm")
-                                .packageName("query")
-                                // 启用文件覆盖
-                                .enableFileOverride();
-                    });
-                })
+
                 // --- 包配置 ---
                 .packageConfig(builder ->
                         builder.parent("com.zengyanyu") // 设置父包名
@@ -114,9 +93,33 @@ public class CodeGenerator {
                     // 启用Service的文件覆盖
                     builder.serviceBuilder().enableFileOverride();
                 })
-                .templateConfig(builder -> builder.entity("templates/entity.java"))
-                // 默认的是Velocity引擎模板
-                .templateEngine(new VelocityTemplateEngine())
+
+                // 自定义文件注入配置
+                .injectionConfig(builder -> {
+                    // 自定义文件生成（Dto对象）
+                    builder.customFile(fileBuilder -> {
+                        // 文件名：例如 UserDTO.java
+                        fileBuilder.fileName("Dto.java")
+                                .templatePath("/templates/dto.java.vm")
+                                .packageName("dto")
+                                // 启用文件覆盖
+                                .enableFileOverride();
+                    });
+                    // 自定义文件生成（QueryObject对象）
+                    builder.customFile(fileBuilder -> {
+                        // 文件名：例如 UserDTO.java
+                        fileBuilder.fileName("QueryObject.java")
+                                .templatePath("/templates/queryObject.java.vm")
+                                .packageName("query")
+                                // 启用文件覆盖
+                                .enableFileOverride();
+                    });
+                })
+
+                // 默认就是这个名称，可以不写
+//                .templateConfig(builder -> builder.entity("templates/entity.java"))
+                // 默认的是Velocity引擎模板（默认）
+//                .templateEngine(new VelocityTemplateEngine())
                 .execute();
     }
 

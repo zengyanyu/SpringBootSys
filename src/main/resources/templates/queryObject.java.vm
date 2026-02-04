@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-@ApiModel("${entity}查询对象")
+@ApiModel("${table.comment}查询对象")
 public class ${entity}QueryObject extends QueryObject {
 
 }

@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-@ApiModel("DictCopy1查询对象")
+@ApiModel("字典Copy对象查询对象")
 public class DictCopy1QueryObject extends QueryObject {
 
 }
