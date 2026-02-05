@@ -3,21 +3,20 @@ package com.zengyanyu.system.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
-import lombok.Getter;
-import lombok.Setter;
+import java.io.Serializable;
 
 /**
  * 字典Copy对象
  *
  * @author zengyanyu
- * @since 2026-02-04
+ * @since 2026-02-05
  */
 @Getter
 @Setter

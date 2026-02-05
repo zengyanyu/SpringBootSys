@@ -19,16 +19,16 @@ import java.io.Serializable;
 public class DictCopy1Dto implements Serializable {
     private static final long serialVersionUID = 1L;
 
-            /**
-             * 字典编码
-             */
-            @ApiModelProperty("字典编码")
-            private String code;
+    /**
+     * 字典编码
+     */
+    @ApiModelProperty("字典编码")
+    private String code;
 
-            /**
-             * 字典名称
-             */
-            @ApiModelProperty("字典名称")
-            private String name;
+    /**
+     * 字典名称
+     */
+    @ApiModelProperty("字典名称")
+    private String name;
 
 }

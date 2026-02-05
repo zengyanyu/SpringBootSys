@@ -8,7 +8,7 @@ import com.zengyanyu.system.commons.ResponseData;
  * 字典Copy对象 服务类
  *
  * @author zengyanyu
- * @since 2026-02-04
+ * @since 2026-02-05
  */
 public interface IDictCopy1Service extends IService<DictCopy1> {
 
