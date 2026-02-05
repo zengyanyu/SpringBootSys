@@ -1,7 +1,7 @@
 spring:
   profiles:
     # 打包时，需要激活的配置  默认：dev,test
-    active: test
+    active: dev
   # ================ 配置通用的属性-开始 ================
   mvc:
     pathmatch:
@@ -22,11 +22,11 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml #指定Mybatis的Mapper文件
   type-aliases-package: com.zengyanyu.*.entity  #指定Mybatis的实体目录
 
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #打印SQL语句
-    map-underscore-to-camel-case: true #开启驼峰命名
-    cache-enabled: true  # 开启MyBatis二级缓存
-  global-config:
-    banner: off #关闭mybatisplus启动图标
+#mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #打印SQL语句
+#    map-underscore-to-camel-case: true #开启驼峰命名
+#    cache-enabled: true  # 开启MyBatis二级缓存
+#  global-config:
+#    banner: off #关闭mybatisplus启动图标
 # ================ 配置通用的属性-结束 ================

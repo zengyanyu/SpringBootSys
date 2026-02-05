@@ -38,8 +38,10 @@ public class CodeGenerator {
                 .globalConfig(builder -> {
                     builder.author("zengyanyu") // 设置作者
                             .commentDate("yyyy-MM-dd")
-                            .outputDir(System.getProperty("user.dir") + "/src/main/java/")// 指定输出目录
-                            .disableOpenDir(); // 生成代码后不自动打开目录
+                            // 指定输出目录
+                            .outputDir(System.getProperty("user.dir") + "/src/main/java/")
+                            // 生成代码后不自动打开目录
+                            .disableOpenDir();
                 })
 
                 // --- 包配置 ---
