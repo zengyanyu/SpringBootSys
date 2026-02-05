@@ -42,7 +42,6 @@ spring:
 #    org.springframework: warn
 #    springfox: error
 
-# application.yml 配置
 mybatis:
   configuration:
     # 强制指定使用SLF4J（logback基于SLF4J）输出日志，不使用其他日志框架
