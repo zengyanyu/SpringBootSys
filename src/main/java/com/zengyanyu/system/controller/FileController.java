@@ -42,8 +42,9 @@ public class FileController extends BaseController {
     @Value("${file.uploadH5Folder}")
     private String uploadH5Folder;
 
-    private static final long ZIP_MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
-    private static final String baseURL = "https://holaapi.openhola.com";
+    // 2MB
+    private static final long ZIP_MAX_FILE_SIZE = 2 * 1024 * 1024;
+    private static final String baseURL = "https://www.baidu.com";
 
     /**
      * 文件上传
