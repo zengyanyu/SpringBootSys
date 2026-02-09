@@ -18,6 +18,7 @@ import java.util.Map;
 /**
  * 德鲁伊连接池配置
  * /druid/index.html
+ *
  * @author zengyanyu
  */
 @Configuration
@@ -29,7 +30,11 @@ public class DruidConfig {
         return DruidDataSourceBuilder.create().build();
     }
 
-    // 配置Druid监控
+    /**
+     * 配置Druid监控
+     *
+     * @return
+     */
     @Bean
     public ServletRegistrationBean<StatViewServlet> statViewServlet() {
         ServletRegistrationBean<StatViewServlet> bean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");

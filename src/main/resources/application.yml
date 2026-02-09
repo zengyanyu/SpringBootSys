@@ -12,6 +12,7 @@ spring:
       max-file-size: 10MB
   main:
     banner-mode: off
+#    lazy-initialization: true #全局开启延迟初始化
   jpa:
     hibernate:
       ddl-auto: update
@@ -21,6 +22,8 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*.xml #指定Mybatis的Mapper文件
   type-aliases-package: com.zengyanyu.*.entity  #指定Mybatis的实体目录
+  configuration:
+    lazy-loading-enabled: true  # 关闭启动时加载所有 resultMap，提速！
 
 #mybatis-plus:
 #  configuration:
