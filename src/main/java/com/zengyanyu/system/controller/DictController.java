@@ -14,6 +14,7 @@ import com.zengyanyu.system.service.IDictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -84,6 +85,9 @@ public class DictController extends BaseController {
     @GetMapping("/page")
     public Page<Dict> page(DictQueryObject queryObject) {
         QueryWrapper<Dict> wrapper = new QueryWrapper<>();
+        if (StringUtils.isNotEmpty(queryObject.getName())) {
+            wrapper.like("name", queryObject.getName());
+        }
         return dictService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 

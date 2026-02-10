@@ -13,6 +13,7 @@ import com.zengyanyu.system.service.IPermissionRecordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -85,6 +86,12 @@ public class PermissionRecordController extends BaseController {
     @GetMapping("/page")
     public Page<PermissionRecord> page(PermissionRecordQueryObject queryObject) {
         QueryWrapper<PermissionRecord> wrapper = new QueryWrapper<>();
+        if (StringUtils.isNotEmpty(queryObject.getMethodName())) {
+            wrapper.like("method_name", queryObject.getMethodName());
+        }
+        if (StringUtils.isNotEmpty(queryObject.getApiOperationName())) {
+            wrapper.like("api_operation_name", queryObject.getApiOperationName());
+        }
         return permissionRecordService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 

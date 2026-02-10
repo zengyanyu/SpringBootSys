@@ -4,29 +4,26 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.config.LogRecord;
+import com.zengyanyu.system.entity.DictCopy1;
+import com.zengyanyu.system.query.DictCopy1QueryObject;
+import com.zengyanyu.system.service.IDictCopy1Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import java.util.List;
-
-import com.zengyanyu.system.service.IDictCopy1Service;
-import com.zengyanyu.system.entity.DictCopy1;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
-import com.zengyanyu.system.controller.BaseController;
 
 /**
  * @author zengyanyu
  * @since 2026-02-05
  */
+@Slf4j
 @RestController
 @Api(tags = "字典Copy对象控制器")
-@RequestMapping("/system/dict-copy1")
-@Slf4j
+@RequestMapping("/dict-copy1")
 public class DictCopy1Controller extends BaseController {
 
     @Resource
@@ -72,10 +69,12 @@ public class DictCopy1Controller extends BaseController {
     @LogRecord("字典Copy对象分页查询数据")
     @ApiOperation("字典Copy对象分页查询数据")
     @GetMapping("/page")
-    public Page<DictCopy1> page(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public Page<DictCopy1> page(DictCopy1QueryObject queryObject) {
         QueryWrapper<DictCopy1> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("id");
-        return dictCopy1Service.page(new Page<>(pageNum, pageSize), wrapper);
+        if (StringUtils.isNotEmpty(queryObject.getName())) {
+            wrapper.like("name", queryObject.getName());
+        }
+        return dictCopy1Service.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 }
 

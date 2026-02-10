@@ -10,6 +10,7 @@ import com.zengyanyu.system.service.IMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -70,6 +71,9 @@ public class MenuController extends BaseController {
     @GetMapping("/page")
     public Page<Menu> page(MenuQueryObject queryObject) {
         QueryWrapper<Menu> wrapper = new QueryWrapper<>();
+        if (StringUtils.isNotEmpty(queryObject.getName())) {
+            wrapper.like("name", queryObject.getName());
+        }
         return menuService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 

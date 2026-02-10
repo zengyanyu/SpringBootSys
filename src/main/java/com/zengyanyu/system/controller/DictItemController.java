@@ -10,6 +10,7 @@ import com.zengyanyu.system.service.IDictItemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -70,6 +71,9 @@ public class DictItemController extends BaseController {
     @GetMapping("/page")
     public Page<DictItem> page(DictItemQueryObject queryObject) {
         QueryWrapper<DictItem> wrapper = new QueryWrapper<>();
+        if (StringUtils.isNotEmpty(queryObject.getName())) {
+            wrapper.like("name", queryObject.getName());
+        }
         return dictItemService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 

@@ -11,6 +11,7 @@ import com.zengyanyu.system.query.LogRecordQueryObject;
 import com.zengyanyu.system.service.ILogRecordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +42,12 @@ public class LogRecordController extends BaseController {
     @GetMapping("/page")
     public Page<LogRecordEntity> page(LogRecordQueryObject queryObject) {
         QueryWrapper<LogRecordEntity> wrapper = new QueryWrapper<>();
+//        if (null != queryObject.getStartTime() && null != queryObject.getEndTime()) {
+//            wrapper.between("", queryObject.getStartTime(), queryObject.getEndTime());
+//        }
+        if (StringUtils.isNotEmpty(queryObject.getOperateUsername())) {
+            wrapper.like("operate_username", queryObject.getOperateUsername());
+        }
         return logRecordEntityService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 

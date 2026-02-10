@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
+import com.baomidou.mybatisplus.generator.config.querys.MySqlQuery;
 import com.baomidou.mybatisplus.generator.config.querys.PostgreSqlQuery;
 import com.zengyanyu.system.controller.BaseController;
 
@@ -20,13 +21,15 @@ public class CodeGenerator {
         codeGenerate("dict_copy1");
     }
 
+    // 数据库驱动类型
+    private static final String driverType = "mysql";
+
     /**
      * 代码生成
      *
      * @param tableNames 表名集合（可变参数）
      */
     private static void codeGenerate(String... tableNames) {
-        // 使用自定义entity模板
         // 使用MySQL驱动
 //        FastAutoGenerator.create(
 //                "jdbc:mysql://localhost:3306/hola?serverTimezone=GMT%2b8",
@@ -34,7 +37,7 @@ public class CodeGenerator {
 //                "admin")
 //        使用PostGreSQL驱动
         FastAutoGenerator.create(getDataSourceConfig())
-                // --- 全局配置 ---
+                // === 全局配置 ===
                 .globalConfig(builder -> {
                     builder.author("zengyanyu") // 设置作者
                             .commentDate("yyyy-MM-dd")
@@ -44,7 +47,7 @@ public class CodeGenerator {
                             .disableOpenDir();
                 })
 
-                // --- 包配置 ---
+                // === 包配置 ===
                 .packageConfig(builder ->
                         builder.parent("com.zengyanyu") // 设置父包名
                                 .moduleName("system") // 设置父包模块名
@@ -57,7 +60,7 @@ public class CodeGenerator {
                                 .pathInfo(Collections.singletonMap(OutputFile.xml,
                                         System.getProperty("user.dir") + "/src/main/resources/mapper/")) // 设置mapperXml生成路径
                 )
-                // 策略配置
+                // === 策略配置 ===
                 .strategyConfig(builder -> {
                     // 建立Mapper
                     builder.mapperBuilder()
@@ -131,6 +134,13 @@ public class CodeGenerator {
      * @return
      */
     private static DataSourceConfig.Builder getDataSourceConfig() {
+        // 使用MySQL驱动
+        if ("mysql".equals(driverType)) {
+            return new DataSourceConfig.Builder("jdbc:mysql://localhost:3306/hola?serverTimezone=GMT%2b8",
+                    "root", "admin")
+                    .dbQuery(new MySqlQuery());
+        }
+        // 使用PostGreSQL驱动
         return new DataSourceConfig.Builder("jdbc:postgresql://192.168.244.131:15432/test_sys",
                 "postgres", "pgsql!@#12569088ht")
                 .dbQuery(new PostgreSqlQuery());

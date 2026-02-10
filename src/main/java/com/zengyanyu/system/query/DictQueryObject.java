@@ -14,4 +14,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @ApiModel("字典查询对象")
 public class DictQueryObject extends QueryObject {
+
+    @ApiModelProperty("字典名称")
+    private String name;
 }
