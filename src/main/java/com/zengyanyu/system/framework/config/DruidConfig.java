@@ -4,6 +4,8 @@ import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.alibaba.druid.support.http.ResourceServlet;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -16,17 +18,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 德鲁伊连接池配置
+ * 【德鲁伊】连接池配置
  * /druid/index.html
  *
  * @author zengyanyu
  */
+@Slf4j
 @Configuration
+@ConditionalOnProperty(prefix = "spring.datasource", name = "type", havingValue = "com.alibaba.druid.pool.DruidDataSource")
 public class DruidConfig {
 
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource.druid")
     public DataSource druidDataSource() {
+        log.info("==== 使用Druid（德鲁伊）连接池 ====");
         return DruidDataSourceBuilder.create().build();
     }
 
