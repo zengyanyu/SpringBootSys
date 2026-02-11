@@ -1,10 +1,9 @@
 package com.zengyanyu.system.service;
 
-import com.zengyanyu.system.entity.Dict;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zengyanyu.system.commons.ResponseData;
+import com.zengyanyu.system.entity.Dict;
 
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -13,7 +12,7 @@ import java.util.List;
  * @author zengyanyu
  * @since 2025-07-18
  */
-public interface IDictService extends IService<Dict> {
+public interface IDictService extends IService<Dict>, IImportExcelService {
 
     /**
      * 保存或更新数据字典
@@ -29,13 +28,6 @@ public interface IDictService extends IService<Dict> {
      * @param dictList
      */
     void batchSave(List<Dict> dictList);
-
-    /**
-     * 导入Excel文件
-     *
-     * @param inputStream 文件输入流
-     */
-    void importExcel(InputStream inputStream);
 
     /**
      * @param code
