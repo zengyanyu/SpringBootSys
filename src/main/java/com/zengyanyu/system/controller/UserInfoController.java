@@ -4,11 +4,13 @@ import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.config.LogRecord;
 import com.zengyanyu.system.dto.UserInfoDto;
 import com.zengyanyu.system.entity.UserInfo;
+import com.zengyanyu.system.service.IUserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -20,6 +22,9 @@ import java.util.List;
 @Api(tags = "用户信息控制器")
 @RequestMapping("/user-info")
 public class UserInfoController extends BaseController {
+
+    @Resource
+    private IUserInfoService userInfoService;
 
     @LogRecord("用户保存或更新")
     @ApiOperation("用户保存或更新")
