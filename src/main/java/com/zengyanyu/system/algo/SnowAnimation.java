@@ -11,6 +11,7 @@ import java.util.Random;
  * 基于 Swing 实现，包含雪花的随机生成、下落、飘动效果
  */
 public class SnowAnimation extends JFrame {
+
     // 雪花列表，存储所有雪花对象
     private final List<Snowflake> snowflakes;
     // 随机数生成器
@@ -20,6 +21,14 @@ public class SnowAnimation extends JFrame {
     private static final int HEIGHT = 600;
     // 雪花数量
     private static final int SNOWFLAKE_COUNT = 200;
+
+    // 程序入口
+    public static void main(String[] args) {
+        // Swing 组件需要在事件调度线程中运行
+        SwingUtilities.invokeLater(() -> {
+            new SnowAnimation().setVisible(true);
+        });
+    }
 
     // 雪花实体类，封装雪花的属性和行为
     private static class Snowflake {
@@ -127,11 +136,4 @@ public class SnowAnimation extends JFrame {
         }
     }
 
-    // 程序入口
-    public static void main(String[] args) {
-        // Swing 组件需要在事件调度线程中运行
-        SwingUtilities.invokeLater(() -> {
-            new SnowAnimation().setVisible(true);
-        });
-    }
 }

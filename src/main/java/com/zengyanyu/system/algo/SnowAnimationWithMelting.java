@@ -11,6 +11,7 @@ import java.util.Random;
  * 雪花接近底部时逐渐透明、缩小，模拟融化
  */
 public class SnowAnimationWithMelting extends JFrame {
+
     // 雪花列表
     private final List<Snowflake> snowflakes;
     private final Random random;
@@ -21,6 +22,13 @@ public class SnowAnimationWithMelting extends JFrame {
     private static final int SNOWFLAKE_COUNT = 200;
     // 融化触发高度（雪花落到这个高度开始融化）
     private static final int MELT_HEIGHT = HEIGHT - 100;
+
+    // 程序入口
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new SnowAnimationWithMelting().setVisible(true);
+        });
+    }
 
     // 雪花实体类（新增融化相关属性）
     private static class Snowflake {
@@ -165,10 +173,4 @@ public class SnowAnimationWithMelting extends JFrame {
         }
     }
 
-    // 程序入口
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new SnowAnimationWithMelting().setVisible(true);
-        });
-    }
 }
