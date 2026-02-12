@@ -1,5 +1,7 @@
 package com.zengyanyu.system.service;
 
+import org.springframework.http.HttpHeaders;
+
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
@@ -179,7 +181,7 @@ public class FileBrowserServer {
 
             // 设置下载头
             Map<String, String> headers = new HashMap<>();
-            headers.put("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(file.getName(), "UTF-8") + "\"");
+            headers.put(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + URLEncoder.encode(file.getName(), "UTF-8") + "\"");
 
             sendResponse(out, dataOut, 200, "OK", contentType, fileData, headers);
         }
