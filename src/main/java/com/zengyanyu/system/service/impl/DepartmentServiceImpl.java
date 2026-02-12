@@ -52,7 +52,8 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
      */
     @Override
     public void importExcel(InputStream inputStream) {
-        EasyExcel.read(inputStream, DepartmentImportExcelDto.class, new DepartmentImportExcelListener(this))
+        EasyExcel.read(inputStream, DepartmentImportExcelDto.class,
+                new DepartmentImportExcelListener(this))
                 .charset(StandardCharsets.UTF_8).sheet().doRead();
     }
 }

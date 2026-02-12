@@ -75,7 +75,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
      */
     @Override
     public void importExcel(InputStream inputStream) {
-        EasyExcel.read(inputStream, RoleImportExcelDto.class, new RoleImportExcelListener(this))
+        EasyExcel.read(inputStream, RoleImportExcelDto.class,
+                new RoleImportExcelListener(this))
                 .charset(StandardCharsets.UTF_8).sheet().doRead();
     }
 
