@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ZYY_SYS.iml" filepath="$PROJECT_DIR$/ZYY_SYS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SpringBootSys.iml" filepath="$PROJECT_DIR$/SpringBootSys.iml" />
     </modules>
   </component>
 </project>
