@@ -82,7 +82,7 @@ public class DepartmentController extends BaseController {
     @LogRecord("部门管理分页查询数据")
     @ApiOperation("部门管理分页查询数据")
     @GetMapping("/page")
-    public Page<Department> page(@org.jetbrains.annotations.NotNull DepartmentQueryObject queryObject) {
+    public Page<Department> page(DepartmentQueryObject queryObject) {
         log.info("部门管理分页查询数据");
         QueryWrapper<Department> wrapper = new QueryWrapper<>();
         return departmentService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
