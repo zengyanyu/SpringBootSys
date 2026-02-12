@@ -33,8 +33,7 @@ public class ApplicationContextHelper implements ApplicationContextAware {
         return applicationContext != null ? applicationContext.getBean(name) : null;
     }
 
-
-    public static <T> Map<String, T> getBeanOfType(Class<T> clazz) {
+    public static <T> Map<String, T> getBeansOfType(Class<T> clazz) {
         return applicationContext != null ? applicationContext.getBeansOfType(clazz) : null;
     }
 
@@ -47,4 +46,5 @@ public class ApplicationContextHelper implements ApplicationContextAware {
     public static String getConfigValue(String key) {
         return applicationContext.getEnvironment().getProperty(key);
     }
+
 }

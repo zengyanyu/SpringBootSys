@@ -18,7 +18,8 @@ import java.util.concurrent.TimeUnit;
 public class FileBrowserServer {
 
     private static final int PORT = 8081;
-    private static final String WEB_ROOT = "D:/"; // 用于存放 CSS 等静态资源
+    // 用于存放 CSS 等静态资源
+    private static final String WEB_ROOT = "D:/";
 
     private final ServerSocket serverSocket;
     private final ExecutorService threadPool;
@@ -69,7 +70,7 @@ public class FileBrowserServer {
         log("服务器已关闭。");
     }
 
-    private static class ClientHandler implements Runnable {
+    private class ClientHandler implements Runnable {
         private final Socket clientSocket;
 
         public ClientHandler(Socket socket) {
