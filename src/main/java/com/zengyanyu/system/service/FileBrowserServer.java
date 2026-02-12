@@ -21,6 +21,12 @@ public class FileBrowserServer {
     private final ServerSocket serverSocket;
     private final ExecutorService threadPool;
 
+    public static void main(String[] args) throws IOException {
+        FileBrowserServer server = new FileBrowserServer(PORT);
+        Runtime.getRuntime().addShutdownHook(new Thread(server::stop));
+        server.start();
+    }
+
     public FileBrowserServer(int port) throws IOException {
         this.serverSocket = new ServerSocket(port);
         this.threadPool = Executors.newCachedThreadPool();
@@ -331,10 +337,5 @@ public class FileBrowserServer {
         System.out.println("[ " + java.time.LocalTime.now() + " ] " + message);
     }
 
-    public static void main(String[] args) throws IOException {
-        FileBrowserServer server = new FileBrowserServer(PORT);
-        Runtime.getRuntime().addShutdownHook(new Thread(server::stop));
-        server.start();
-    }
 }
 

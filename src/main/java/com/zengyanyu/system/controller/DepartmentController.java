@@ -1,18 +1,31 @@
 package com.zengyanyu.system.controller;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.config.LogRecord;
+import com.zengyanyu.system.dto.DepartmentExportExcelDto;
 import com.zengyanyu.system.entity.Department;
+import com.zengyanyu.system.framework.strategy.CustomColumnWidthStyleStrategy;
 import com.zengyanyu.system.query.DepartmentQueryObject;
 import com.zengyanyu.system.service.IDepartmentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,10 +82,49 @@ public class DepartmentController extends BaseController {
     @LogRecord("部门管理分页查询数据")
     @ApiOperation("部门管理分页查询数据")
     @GetMapping("/page")
-    public Page<Department> page(DepartmentQueryObject queryObject) {
+    public Page<Department> page(@org.jetbrains.annotations.NotNull DepartmentQueryObject queryObject) {
         log.info("部门管理分页查询数据");
         QueryWrapper<Department> wrapper = new QueryWrapper<>();
         return departmentService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
+    }
+
+    @LogRecord("导出Excel文件")
+    @ApiOperation("导出Excel文件")
+    @PostMapping("/exportExcel")
+    public void exportExcel() throws IOException {
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        String fileName = URLEncoder.encode("部门列表", StandardCharsets.UTF_8.name());
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+
+        // 模拟测试数据
+        List<DepartmentExportExcelDto> dtoList = new ArrayList<>();
+        List<Department> departmentList = departmentService.list();
+        for (Department department : departmentList) {
+            // 创建对象
+            DepartmentExportExcelDto dto = new DepartmentExportExcelDto();
+            BeanUtils.copyProperties(department, dto);
+            dtoList.add(dto);
+        }
+        EasyExcel.write(response.getOutputStream(), DepartmentExportExcelDto.class)
+                .registerWriteHandler(new CustomColumnWidthStyleStrategy())
+                .sheet("部门列表").doWrite(dtoList);
+    }
+
+    @LogRecord("导入Excel文件")
+    @ApiOperation("导入Excel文件")
+    @PostMapping("/importExcel")
+    public ResponseEntity<String> importExcel(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("请选择上传的Excel文件！");
+        }
+        // 自动关闭资源
+        try (InputStream inputStream = file.getInputStream()) {
+            departmentService.importExcel(inputStream);
+            return ResponseEntity.ok("Excel文件导入成功！");
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body("Excel文件导入失败：" + ExceptionUtil.stacktraceToString(e));
+        }
     }
 }
 

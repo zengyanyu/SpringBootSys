@@ -10,7 +10,7 @@ import com.zengyanyu.system.commons.ResponseData;
  * @author zengyanyu
  * @since 2025-07-18
  */
-public interface IDepartmentService extends IService<Department> {
+public interface IDepartmentService extends IService<Department>, IImportExcelService {
 
     /**
      * 保存或更新部门管理

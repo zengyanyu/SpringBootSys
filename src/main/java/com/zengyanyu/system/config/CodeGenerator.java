@@ -17,12 +17,13 @@ import java.util.Collections;
  */
 public class CodeGenerator {
 
+    // 数据库驱动类型
+    private static final String driverType = "mysql1";
+
     public static void main(String[] args) {
         codeGenerate("dict_copy1");
     }
 
-    // 数据库驱动类型
-    private static final String driverType = "mysql";
 
     /**
      * 代码生成

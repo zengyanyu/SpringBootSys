@@ -43,15 +43,6 @@ spring:
 #    org.springframework: warn
 #    springfox: error
 
-mybatis:
-  configuration:
-    # 强制指定使用SLF4J（logback基于SLF4J）输出日志，不使用其他日志框架
-    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
-# 如果你用的是MyBatis-Plus，添加以下配置（二选一即可）
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
-
 file:
   uploadFolder: D:/upload/
   uploadH5Folder: D:/uploadH5/
