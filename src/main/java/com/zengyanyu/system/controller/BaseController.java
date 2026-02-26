@@ -1,6 +1,5 @@
 package com.zengyanyu.system.controller;
 
-import com.zengyanyu.system.service.IUserInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -21,6 +20,16 @@ public class BaseController {
     protected HttpServletRequest request;
     @Resource
     protected HttpServletResponse response;
-    @Resource
-    protected IUserInfoService userInfoService;
+
+//    protected ServletRequestAttributes getServletRequestAttributes() {
+//        return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//    }
+//
+//    protected HttpServletRequest getRequest() {
+//        return getServletRequestAttributes().getRequest();
+//    }
+//
+//    protected HttpServletResponse getResponse() {
+//        return getServletRequestAttributes().getResponse();
+//    }
 }

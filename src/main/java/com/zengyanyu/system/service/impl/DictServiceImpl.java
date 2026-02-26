@@ -54,7 +54,8 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
      */
     @Override
     public void importExcel(InputStream inputStream) {
-        EasyExcel.read(inputStream, DictImportExcelDto.class, new DictImportExcelListener(this))
+        EasyExcel.read(inputStream, DictImportExcelDto.class,
+                new DictImportExcelListener(this))
                 .charset(StandardCharsets.UTF_8).sheet().doRead();
     }
 

@@ -1,5 +1,7 @@
 package com.zengyanyu.system.service;
 
+import org.springframework.http.HttpHeaders;
+
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
@@ -16,10 +18,17 @@ import java.util.concurrent.TimeUnit;
 public class FileBrowserServer {
 
     private static final int PORT = 8081;
-    private static final String WEB_ROOT = "D:/"; // 用于存放 CSS 等静态资源
+    // 用于存放 CSS 等静态资源
+    private static final String WEB_ROOT = "D:/";
 
     private final ServerSocket serverSocket;
     private final ExecutorService threadPool;
+
+    public static void main(String[] args) throws IOException {
+        FileBrowserServer server = new FileBrowserServer(PORT);
+        Runtime.getRuntime().addShutdownHook(new Thread(server::stop));
+        server.start();
+    }
 
     public FileBrowserServer(int port) throws IOException {
         this.serverSocket = new ServerSocket(port);
@@ -61,7 +70,7 @@ public class FileBrowserServer {
         log("服务器已关闭。");
     }
 
-    private static class ClientHandler implements Runnable {
+    private class ClientHandler implements Runnable {
         private final Socket clientSocket;
 
         public ClientHandler(Socket socket) {
@@ -173,7 +182,7 @@ public class FileBrowserServer {
 
             // 设置下载头
             Map<String, String> headers = new HashMap<>();
-            headers.put("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(file.getName(), "UTF-8") + "\"");
+            headers.put(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + URLEncoder.encode(file.getName(), "UTF-8") + "\"");
 
             sendResponse(out, dataOut, 200, "OK", contentType, fileData, headers);
         }
@@ -331,10 +340,5 @@ public class FileBrowserServer {
         System.out.println("[ " + java.time.LocalTime.now() + " ] " + message);
     }
 
-    public static void main(String[] args) throws IOException {
-        FileBrowserServer server = new FileBrowserServer(PORT);
-        Runtime.getRuntime().addShutdownHook(new Thread(server::stop));
-        server.start();
-    }
 }
 

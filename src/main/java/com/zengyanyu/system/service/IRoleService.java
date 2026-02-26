@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.entity.Role;
 
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -13,7 +12,7 @@ import java.util.List;
  * @author zengyanyu
  * @since 2024-11-19
  */
-public interface IRoleService extends IService<Role> {
+public interface IRoleService extends IService<Role>, IImportExcelService {
 
     /**
      * 保存或更新角色
@@ -36,10 +35,4 @@ public interface IRoleService extends IService<Role> {
      */
     Boolean selectDataByCondition(String roleCode);
 
-    /**
-     * 导入Excel文件
-     *
-     * @param inputStream 文件输入流
-     */
-    void importExcel(InputStream inputStream);
 }

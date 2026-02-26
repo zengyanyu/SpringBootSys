@@ -1,149 +1,42 @@
 package com.zengyanyu.system.listener;
 
-import com.alibaba.excel.context.AnalysisContext;
-import com.alibaba.excel.event.AnalysisEventListener;
-import com.alibaba.excel.metadata.data.ReadCellData;
 import com.zengyanyu.system.dto.RoleImportExcelDto;
 import com.zengyanyu.system.entity.Role;
 import com.zengyanyu.system.service.IRoleService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
+ * 角色导入Excel监听器
+ *
  * @author zengyanyu
  */
-public class RoleImportExcelListener extends AnalysisEventListener<RoleImportExcelDto> {
+public class RoleImportExcelListener extends BaseImportExcelListener<RoleImportExcelDto> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RoleImportExcelListener.class);
-
-    /**
-     * 批量处理阈值
-     */
-    private static final int BATCH_SIZE = 100;
-
-    /**
-     * 执行批量处理,数据量
-     */
-    private List<RoleImportExcelDto> roleDotList = new ArrayList<>();
-
-    @Resource
-    private IRoleService roleService;
+    private final IRoleService roleService;
 
     public RoleImportExcelListener(IRoleService roleService) {
         this.roleService = roleService;
     }
 
-    /**
-     * 逐行读取Excel数据(每读一行执行一次)
-     *
-     * @param data
-     * @param context
-     */
     @Override
-    public void invoke(RoleImportExcelDto data, AnalysisContext context) {
-        // 数据校验
-        if (isDataExist(data)) {
-            LOGGER.info("读取到Excel数据: {},数据在数据库中已存在!", data);
-            return;
-        }
-        LOGGER.info("读取到Excel数据: {}", data);
-
-        // add
-        roleDotList.add(data);
-
-        // 达到批量阈值,执行批量处理
-        if (roleDotList.size() >= BATCH_SIZE) {
-            batchSave();
-            // 清空列表,释放内存
-            roleDotList.clear();
-        }
-    }
-
-    /**
-     * Excel读取完成后执行(最后一批数据处理)
-     *
-     * @param context
-     */
-    @Override
-    public void doAfterAllAnalysed(AnalysisContext context) {
-        // 处理剩余不足批量阈值的数据
-        if (!roleDotList.isEmpty()) {
-            batchSave();
-        }
-        LOGGER.info("Excel数据读取成功,共处理{}条数据", context.readRowHolder().getRowIndex());
-    }
-
-    /**
-     * 当 EasyExcel 开始解析 Excel 文件时，读完第一行（表头行）之后，会立即调用这个方法
-     * 触发时机
-     * 它会在读取所有数据行（invoke 方法）之前被调用。通常只在读取整个 Sheet 的第一行时触发一次。
-     * <p>
-     * 主要使用场景：
-     * 在实际开发中，重写这个方法最常用的目的是 表头校验（模板校验）。
-     * <p>
-     * 场景举例：
-     * 假设你的系统要求用户上传的 Excel 必须包含特定的列，比如“姓名”、“手机号”、“身份证号”。
-     * 如果用户上传了一个乱七八糟的文件，你希望在读取数据之前就报错，而不是读到一半才发现数据对应不上。
-     *
-     * @param headMap
-     * @param context
-     */
-    @Override
-    public void invokeHead(Map<Integer, ReadCellData<?>> headMap, AnalysisContext context) {
-        // 1.调用父类方法（可选）
-        super.invokeHead(headMap, context);
-
-        // 2.将表头数据转为字符串列表（方便比较）
-        // 这里的 headMap.values() 包含了所有列的表头信息
-        List<String> headList = headMap.values().stream()
-                .map(cellData -> cellData.getStringValue())
-                .collect(Collectors.toList());
-
-        // 3.定义预期的表头
-        List<String> expectedHeads = Arrays.asList("姓名", "年龄", "手机号");
-
-        // 4.校验表头是否匹配
-//        if (!headList.equals(expectedHeads)) {
-//            // 抛出异常终止读取，或者记录日志
-//            throw new RuntimeException("上传的 Excel 模板不正确，请下载最新模板！期望表头：" + expectedHeads + "，实际表头：" + headList);
-//        }
-
-        System.out.println("表头校验通过，开始读取数据...");
-    }
-
-    /**
-     * 批量处理数据
-     */
-    private void batchSave() {
-        LOGGER.info("执行批量处理,数据量: {}", roleDotList.size());
-        // 调用业务方法
-        List<Role> dictList = new ArrayList<>();
-        for (RoleImportExcelDto dictDto : roleDotList) {
-            // 创建对象,设置属性
-            Role role = new Role();
-            BeanUtils.copyProperties(dictDto, role);
-            // add
-            dictList.add(role);
-        }
-        // 批量保存
-        roleService.batchSave(dictList);
-    }
-
-    /**
-     * 数据是否存在
-     *
-     * @param data
-     * @return
-     */
-    private Boolean isDataExist(RoleImportExcelDto data) {
+    protected boolean isDataExist(RoleImportExcelDto data) {
         return roleService.selectDataByCondition(data.getRoleCode());
+    }
+
+    @Override
+    protected void saveData() {
+        logger.info("执行批量处理,数据量: {}", cachedDataList.size());
+
+        List<Role> roleList = new ArrayList<>();
+        for (RoleImportExcelDto dto : cachedDataList) {
+            Role role = new Role();
+            BeanUtils.copyProperties(dto, role);
+            roleList.add(role);
+        }
+
+        roleService.batchSave(roleList);
     }
 }
