@@ -1,7 +1,7 @@
 spring:
   profiles:
     # 打包时，需要激活的配置  默认：dev,test
-    active: dev
+    active: test
   # ================ 配置通用的属性-开始 ================
   web:
     resources:
