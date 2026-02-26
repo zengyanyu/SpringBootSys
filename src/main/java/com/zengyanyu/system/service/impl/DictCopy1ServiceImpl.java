@@ -8,18 +8,18 @@ import org.springframework.stereotype.Service;
 import com.zengyanyu.system.commons.ResponseData;
 
 /**
- * 字典Copy对象 服务实现类
+ *  服务实现类
  *
  * @author zengyanyu
- * @since 2026-02-05
+ * @since 2026-02-26
  */
 @Service
 public class DictCopy1ServiceImpl extends ServiceImpl<DictCopy1Mapper, DictCopy1> implements IDictCopy1Service {
 
     /**
-     * 保存或更新字典Copy对象
+     * 保存或更新
      *
-     * @param dictCopy1 字典Copy对象
+     * @param dictCopy1 
      * @return
      */
     @Override

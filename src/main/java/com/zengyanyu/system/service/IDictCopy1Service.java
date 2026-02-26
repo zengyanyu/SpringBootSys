@@ -5,17 +5,17 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.zengyanyu.system.commons.ResponseData;
 
 /**
- * 字典Copy对象 服务类
+ *  服务类
  *
  * @author zengyanyu
- * @since 2026-02-05
+ * @since 2026-02-26
  */
 public interface IDictCopy1Service extends IService<DictCopy1> {
 
     /**
-     * 保存或更新字典Copy对象
+     * 保存或更新
      *
-     * @param dictCopy1 字典Copy对象
+     * @param dictCopy1 
      * @return
      */
     ResponseData saveOrUpdateDictCopy1(DictCopy1 dictCopy1);

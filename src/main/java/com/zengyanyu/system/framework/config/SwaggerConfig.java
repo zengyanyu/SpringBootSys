@@ -37,7 +37,7 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
-                .globalOperationParameters(getGlobalParameters());// 添加全局参数
+                /*.globalOperationParameters(getGlobalParameters())*/;// 添加全局参数
     }
 
     private ApiInfo apiInfo() {
@@ -63,45 +63,5 @@ public class SwaggerConfig {
                 .build());
         return parameters;
     }
-
-    /**
-     * 解决Spring Boot和Swagger冲突的配置（项目启动不正常）
-     * 处理方案一：spring.mvc.pathmatch.matching-strategy=ant_path_matcher
-     * 处理方案二：springfoxHandlerProviderBeanPostProcessor()
-     * org.springframework.context.ApplicationContextException: Failed to start bean
-     * 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException
-     *
-     * @return
-     */
-//    @Bean
-//    public static BeanPostProcessor springfoxHandlerProviderBeanPostProcessor() {
-//        return new BeanPostProcessor() {
-//            @Override
-//            public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-//                if (bean instanceof WebMvcRequestHandlerProvider) {
-//                    customizeSpringfoxHandlerMappings(getHandlerMappings(bean));
-//                }
-//                return bean;
-//            }
-//
-//            private void customizeSpringfoxHandlerMappings(List<RequestMappingInfoHandlerMapping> mappings) {
-//                List<RequestMappingInfoHandlerMapping> copy = mappings.stream()
-//                        .filter(mapping -> mapping.getPatternParser() == null)
-//                        .collect(Collectors.toList());
-//                mappings.clear();
-//                mappings.addAll(copy);
-//            }
-//
-//            private List<RequestMappingInfoHandlerMapping> getHandlerMappings(Object bean) {
-//                try {
-//                    Field field = ReflectionUtils.findField(bean.getClass(), "handlerMappings");
-//                    field.setAccessible(true);
-//                    return (List<RequestMappingInfoHandlerMapping>) field.get(bean);
-//                } catch (IllegalAccessException e) {
-//                    throw new IllegalStateException(e);
-//                }
-//            }
-//        };
-//    }
 
 }
