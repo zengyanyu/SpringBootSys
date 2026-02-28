@@ -1,6 +1,5 @@
 package com.zengyanyu.system.util;
 
-
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.web.context.request.RequestAttributes;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author zengyanyu
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class HttpRequestUtil {
+public class HttpRequestUtil {
 
     /**
      * 从 SpringBoot 中获取 Request 请求对象
@@ -24,12 +23,7 @@ public final class HttpRequestUtil {
      * @return 返回当前请求的 Request 对象
      */
     public static HttpServletRequest getRequest() {
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        if (requestAttributes == null) {
-            return null;
-        }
-        ServletRequestAttributes attributes = (ServletRequestAttributes) requestAttributes;
-        return attributes.getRequest();
+        return getServletRequestAttributes().getRequest();
     }
 
     /**
@@ -38,12 +32,20 @@ public final class HttpRequestUtil {
      * @return 返回当前请求的 Response 对象
      */
     public static HttpServletResponse getResponse() {
+        return getServletRequestAttributes().getResponse();
+    }
+
+    /**
+     * 获取ServletRequestAttributes
+     *
+     * @return
+     */
+    public static ServletRequestAttributes getServletRequestAttributes() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes == null) {
             return null;
         }
-        ServletRequestAttributes attributes = (ServletRequestAttributes) requestAttributes;
-        return attributes.getResponse();
+        return (ServletRequestAttributes) requestAttributes;
     }
 
 }
