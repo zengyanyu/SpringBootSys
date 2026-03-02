@@ -101,6 +101,8 @@ public class JavaAuthorAnnotationAdder {
 
             // 检测类/接口/枚举定义（简化版，仅处理常见情况）
             if ((line.startsWith("public class") || line.startsWith("class") ||
+                    line.startsWith("public abstract class") ||
+                    line.startsWith("@") || // 判断类名上是否有注解，在有注解的上一行进行添加
                     line.startsWith("public interface") || line.startsWith("interface") ||
                     line.startsWith("public enum") || line.startsWith("enum")) &&
                     !line.contains("//") && !line.contains("/*")) {
