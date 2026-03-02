@@ -9,6 +9,7 @@ import java.util.Random;
 /**
  * Java 下雪动画程序
  * 基于 Swing 实现，包含雪花的随机生成、下落、飘动效果
+ * @author zengyanyu
  */
 public class SnowAnimation extends JFrame {
 

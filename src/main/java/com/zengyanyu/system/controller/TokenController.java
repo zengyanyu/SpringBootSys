@@ -15,6 +15,9 @@ import java.util.Date;
 @RestController
 @Api(tags = "Token控制器")
 @RequestMapping("/token")
+/**
+ * @author zengyanyu
+ */
 public class TokenController {
 
     private static final String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxODg4ODg4ODg4OCIsImV4cCI6MTc0MjExNDc5NCwiaWF0IjoxNzM5NTIyNzk0fQ.v7g_DMZsIRRnOorrsNmGV7Tt0cAaczR-cV3vi3s3S74";

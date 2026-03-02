@@ -9,6 +9,7 @@ import java.util.Random;
 /**
  * Java 下雪动画（带雪花融化效果）
  * 雪花接近底部时逐渐透明、缩小，模拟融化
+ * @author zengyanyu
  */
 public class SnowAnimationWithMelting extends JFrame {
 
