@@ -7,7 +7,8 @@ package com.zengyanyu.system.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author zengyanyu
  */
-@Controller
 public class BaseController {
 
     protected static final Logger logger = LoggerFactory.getLogger(BaseController.class);
@@ -26,15 +26,15 @@ public class BaseController {
     @Resource
     protected HttpServletResponse response;
 
-//    protected ServletRequestAttributes getServletRequestAttributes() {
-//        return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-//    }
-//
-//    protected HttpServletRequest getRequest() {
-//        return getServletRequestAttributes().getRequest();
-//    }
-//
-//    protected HttpServletResponse getResponse() {
-//        return getServletRequestAttributes().getResponse();
-//    }
+    protected ServletRequestAttributes getServletRequestAttributes() {
+        return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+    }
+
+    protected HttpServletRequest getRequest() {
+        return getServletRequestAttributes().getRequest();
+    }
+
+    protected HttpServletResponse getResponse() {
+        return getServletRequestAttributes().getResponse();
+    }
 }
