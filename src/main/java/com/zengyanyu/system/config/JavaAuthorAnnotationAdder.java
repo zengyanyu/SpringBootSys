@@ -27,7 +27,7 @@ public class JavaAuthorAnnotationAdder {
 
     public static void main(String[] args) {
         // 请替换为你要处理的根目录路径
-        String rootDir = "D:\\Projects\\SpringBootSys\\src\\main\\java";
+        String rootDir = System.getProperty("user.dir") + "/src/main/java";
 
         try {
             // 遍历指定目录下的所有Java文件
