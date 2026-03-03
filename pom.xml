@@ -257,6 +257,44 @@
                     </nonFilteredFileExtensions>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>4.2</version>
+                <configuration>
+                    <!-- 指定License模板文件路径 -->
+                    <header>src/main/resources/license-header.txt</header>
+                    <!-- 需要处理的文件类型 -->
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                    <!-- 排除不需要处理的文件 -->
+                    <excludes>
+                        <exclude>**/target/**</exclude>
+                        <exclude>**/test/**</exclude>
+                    </excludes>
+                    <!-- 保持文件编码一致 -->
+                    <encoding>UTF-8</encoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>add-license</id>
+                        <phase>compile</phase> <!-- 编译阶段自动执行 -->
+                        <goals>
+                            <!-- 新版本用 format 替代 update，不会报错 -->
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                    <!--
+                    # 批量为所有 Java 文件添加/更新 License（核心命令）
+                    mvn license:format
+
+                    # 移除所有文件中的 License 注释（慎用）
+                    mvn license:remove
+                    -->
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
