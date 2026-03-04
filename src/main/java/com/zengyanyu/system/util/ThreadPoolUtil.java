@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026, 曾衍育 All rights reserved.
+ * 自定义License声明
+ * ZENGYANYU PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.zengyanyu.system.util;
 
 import com.zengyanyu.system.bean.DefaultThreadFactory;
@@ -6,6 +11,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author zengyanyu
+ */
 public class ThreadPoolUtil {
 
     /**

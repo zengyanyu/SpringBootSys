@@ -1,9 +1,15 @@
+/*
+ * Copyright (c) 2026, 曾衍育 All rights reserved.
+ * 自定义License声明
+ * ZENGYANYU PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.zengyanyu.system.algo;
 
 import java.util.Arrays;
 
 /**
  * Java 实现十大经典排序算法
+ * @author zengyanyu
  */
 public class SortAlgorithms {
 

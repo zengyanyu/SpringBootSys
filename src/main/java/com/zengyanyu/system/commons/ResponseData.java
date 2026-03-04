@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026, 曾衍育 All rights reserved.
+ * 自定义License声明
+ * ZENGYANYU PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.zengyanyu.system.commons;
 
 import io.swagger.annotations.ApiModel;
@@ -7,6 +12,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * @author zengyanyu
+ */
 @Getter
 @Setter
 @NoArgsConstructor

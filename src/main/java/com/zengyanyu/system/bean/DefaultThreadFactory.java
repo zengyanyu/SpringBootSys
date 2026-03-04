@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026, 曾衍育 All rights reserved.
+ * 自定义License声明
+ * ZENGYANYU PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.zengyanyu.system.bean;
 
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 默认线程工厂
+ * @author zengyanyu
  */
 @Slf4j
 public class DefaultThreadFactory implements ThreadFactory {

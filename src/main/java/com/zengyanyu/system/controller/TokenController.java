@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026, 曾衍育 All rights reserved.
+ * 自定义License声明
+ * ZENGYANYU PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.zengyanyu.system.controller;
 
 import com.zengyanyu.system.commons.ResponseData;
@@ -12,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 
+/**
+ * @author zengyanyu
+ */
 @RestController
 @Api(tags = "Token控制器")
 @RequestMapping("/token")

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026, 曾衍育 All rights reserved.
+ * 自定义License声明
+ * ZENGYANYU PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.zengyanyu.system.algo;
 
 import javax.swing.*;
@@ -9,6 +14,7 @@ import java.util.Random;
 /**
  * Java 下雪动画程序
  * 基于 Swing 实现，包含雪花的随机生成、下落、飘动效果
+ * @author zengyanyu
  */
 public class SnowAnimation extends JFrame {
 

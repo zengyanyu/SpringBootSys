@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026, 曾衍育 All rights reserved.
+ * 自定义License声明
+ * ZENGYANYU PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.zengyanyu.system.algo;
 
 import java.math.BigDecimal;
@@ -7,6 +12,7 @@ import java.util.Map;
 
 /**
  * Java 实现斐波那契数列的多种算法
+ * @author zengyanyu
  */
 public class Fibonacci {
 

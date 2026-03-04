@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026, 曾衍育 All rights reserved.
+ * 自定义License声明
+ * ZENGYANYU PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.zengyanyu.system.controller;
 
 import com.zengyanyu.system.commons.ResponseData;
@@ -31,6 +36,9 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+/**
+ * @author zengyanyu
+ */
 @Slf4j
 @Api(tags = "文件控制器")
 @RestController
