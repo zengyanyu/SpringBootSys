@@ -1,5 +1,4 @@
-/log/
-/target/
+/logs/
 /.idea/
 /target/
-/ZYY_SYS.iml
+/*.iml
