@@ -13,6 +13,7 @@ import java.util.List;
 
 import $!{package.Service}.${table.serviceName};
 import ${package.Entity}.${entity};
+import com.zengyanyu.system.query.QueryObject;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -29,6 +30,7 @@ import ${superControllerClassPackage};
  * @author ${author}
  * @since ${date}
  */
+@Slf4j
 #if(${restControllerStyle})
 @RestController
 @Api(tags = "$!{table.comment}控制器")
@@ -36,16 +38,11 @@ import ${superControllerClassPackage};
 @Controller
 #end
 @RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
-@Slf4j
-#if(${kotlin})
-class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
-
-#else
-    #if(${superControllerClass})
+#if(${superControllerClass})
 public class ${table.controllerName} extends ${superControllerClass} {
-    #else
+#else
 public class ${table.controllerName} {
-    #end
+#end
 
     @Resource
     private ${table.serviceName} ${table.entityPath}Service;
@@ -90,11 +87,8 @@ public class ${table.controllerName} {
     @LogRecord("$!{table.comment}分页查询数据")
     @ApiOperation("$!{table.comment}分页查询数据")
     @GetMapping("/page")
-    public Page<${entity}> page(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public Page<${entity}> page(QueryObject queryObject) {
         QueryWrapper<${entity}> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("id");
-        return ${table.entityPath}Service.page(new Page<>(pageNum, pageSize), wrapper);
+        return ${table.entityPath}Service.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 }
-
-#end
