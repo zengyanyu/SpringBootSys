@@ -29,7 +29,7 @@ public class CodeGenerator {
     private static final String ROOT_DIR = System.getProperty("user.dir");
 
     public static void main(String[] args) {
-        codeGenerate("deparatment");
+        codeGenerate("department");
     }
 
     /**
