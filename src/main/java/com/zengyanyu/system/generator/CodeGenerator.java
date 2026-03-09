@@ -62,8 +62,9 @@ public class CodeGenerator {
                                 .mapper("mapper")
                                 .controller("controller")
                                 .xml("mapper.xml")
-                                // 设置mapperXml生成路径
-                                .pathInfo(Collections.singletonMap(OutputFile.mapperXml, ROOT_DIR + "/src/main/resources/mapper/"))
+                                .pathInfo(Collections.singletonMap(OutputFile.mapperXml,
+                                        // 设置mapperXml生成路径
+                                        ROOT_DIR + "/src/main/resources/mapper/"))
                 )
                 // 策略配置
                 .strategyConfig(builder -> {
