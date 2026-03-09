@@ -25,6 +25,9 @@ public class CodeGenerator {
 
     private static final String dataBaseType = "mysql";
 
+    // 系统跟目录
+    private static final String ROOT_DIR = System.getProperty("user.dir");
+
     public static void main(String[] args) {
         codeGenerate("dict_copy1");
     }
@@ -37,47 +40,36 @@ public class CodeGenerator {
     private static void codeGenerate(String... tableNames) {
         // 使用自定义entity模板
         FastAutoGenerator.create(getDataSourceConfig())
-                // --- 全局配置 ---
+                // 全局配置
                 .globalConfig(builder -> {
-                    builder.author("zengyanyu") // 设置作者
-                            .commentDate("yyyy-MM-dd").fileOverride()
+                    builder.author("zengyanyu")
+                            .commentDate("yyyy-MM-dd")
+                            .fileOverride()
                             // 指定输出目录
-                            .outputDir(System.getProperty("user.dir") + "/src/main/java/")
+                            .outputDir(ROOT_DIR + "/src/main/java/")
                             // 生成代码后不自动打开目录
                             .disableOpenDir();
                 })
-
-                // --- 包配置 ---
+                // 包配置
                 .packageConfig(builder ->
-                        builder.parent("com.zengyanyu") // 设置父包名
-                                .moduleName("system") // 设置父包模块名
-                                .entity("entity")   // Entity 包名
-                                .service("service") // Service 包名
-                                .serviceImpl("service.impl") // Service Impl 包名
-                                .mapper("mapper")   // Mapper 包名
-                                .controller("controller") // Controller 包名
-                                .xml("mapper") // Mapper XML 包名 (通常放在 resources/mapper 下，需配合 pathConfig)
-                                .pathInfo(Collections.singletonMap(OutputFile.mapperXml,
-                                        System.getProperty("user.dir") + "/src/main/resources/mapper/")) // 设置mapperXml生成路径
+                        // 设置父包名
+                        builder.parent("com.zengyanyu")
+                                // 设置父包模块名
+                                .moduleName("system")
+                                .entity("entity")
+                                .service("service")
+                                .serviceImpl("service.impl")
+                                .mapper("mapper")
+                                .controller("controller")
+                                .xml("mapper.xml")
+                                // 设置mapperXml生成路径
+                                .pathInfo(Collections.singletonMap(OutputFile.mapperXml, ROOT_DIR + "/src/main/resources/mapper/"))
                 )
                 // 策略配置
                 .strategyConfig(builder -> {
-                    // 建立Mapper
-                    builder.mapperBuilder()
-                            // 启用Mapper注解
-                            .enableMapperAnnotation()
-                            // .enableBaseResultMap()// 通用查询映射结果
-                            // .enableBaseColumnList()// 通用查询结果列
-                            .build();
-                    // 建立Controller
-                    builder.controllerBuilder()
-                            // 开启驼峰转连字符
-                            .enableHyphenStyle()
-                            .superClass(BaseController.class)
-                            .enableRestStyle(); // 开启生成@RestController控制器
-
                     // 设置需要生成的表名
                     builder.addInclude(tableNames);
+
                     // 建立Entity
                     builder.entityBuilder()
                             .idType(IdType.AUTO) // 主键类型（自增）
@@ -89,10 +81,24 @@ public class CodeGenerator {
                             .addSuperEntityColumns("create_time", "create_by", "update_time", "update_by")
                             .enableLombok();
 
-                    // 启用Service的文件覆盖
-                    builder.serviceBuilder();
-                })
+                    // 建立Mapper
+                    builder.mapperBuilder()
+                            // 启用Mapper注解
+                            .enableMapperAnnotation();
 
+                    // 建立Service
+                    builder.serviceBuilder();
+
+                    // 建立Controller
+                    builder.controllerBuilder()
+                            // 开启驼峰转连字符
+                            .enableHyphenStyle()
+                            .superClass(BaseController.class)
+                            // 开启生成@RestController控制器
+                            .enableRestStyle();
+
+                    builder.build();
+                })
                 // 默认就是这个名称，可以不写
                 .templateConfig(builder -> builder.entity("templates/entity.java"))
                 // 默认的是Velocity引擎模板（默认）
