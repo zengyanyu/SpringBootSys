@@ -3,7 +3,7 @@
  * 自定义License声明
  * ZENGYANYU PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.zengyanyu.system.config;
+package com.zengyanyu.system.generator;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
@@ -29,7 +29,7 @@ public class CodeGenerator {
     private static final String ROOT_DIR = System.getProperty("user.dir");
 
     public static void main(String[] args) {
-        codeGenerate("dict_copy1");
+        codeGenerate("deparatment");
     }
 
     /**
