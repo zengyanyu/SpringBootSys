@@ -15,10 +15,6 @@ import org.apache.ibatis.annotations.Mapper;
 #if(${mapperAnnotation})
 @Mapper
 #end
-#if(${kotlin})
-interface ${table.mapperName} : ${superMapperClass}<${entity}>
-#else
 public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
 
 }
-#end

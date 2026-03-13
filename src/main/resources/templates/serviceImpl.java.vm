@@ -14,11 +14,6 @@ import com.zengyanyu.system.commons.ResponseData;
  * @since ${date}
  */
 @Service
-#if(${kotlin})
-open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
-
-}
-#else
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
 
     /**
@@ -34,4 +29,3 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
     }
 
 }
-#end

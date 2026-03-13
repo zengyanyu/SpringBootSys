@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.zengyanyu</groupId>
-    <artifactId>spring_boot_sys</artifactId>
+    <artifactId>springBootSys</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring_boot_sys</name>
+    <name>Spring Boot Sys</name>
     <description>Spring Boot Framework</description>
 
     <!-- 打包格式 -->
@@ -88,7 +88,7 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
             <version>3.5.1</version>
-<!--            <version>3.5.3.1</version>-->
+            <!--            <version>3.5.3.1</version>-->
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -176,11 +176,11 @@
         </dependency>
         <!-- 这个knife4j的界面比较好看，但是提示导出功能的时候，会报BUG
           BUG信息：Failed to execute 'createObjectURL' on 'URL': Overload resolution failed-->
-       <!-- <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>2.0.9</version>
-        </dependency>-->
+        <!-- <dependency>
+             <groupId>com.github.xiaoymin</groupId>
+             <artifactId>knife4j-spring-boot-starter</artifactId>
+             <version>2.0.9</version>
+         </dependency>-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
