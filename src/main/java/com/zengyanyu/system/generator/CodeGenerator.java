@@ -3,7 +3,7 @@
  * 自定义License声明
  * ZENGYANYU PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.zengyanyu.system.config;
+package com.zengyanyu.system.generator;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
@@ -25,6 +25,11 @@ public class CodeGenerator {
 
     private static final String dataBaseType = "mysql";
 
+    /**
+     * 系统跟目录
+     */
+    private static final String ROOT_DIR = System.getProperty("user.dir");
+
     public static void main(String[] args) {
         codeGenerate("dict_copy1");
     }
@@ -39,45 +44,37 @@ public class CodeGenerator {
         FastAutoGenerator.create(getDataSourceConfig())
                 // --- 全局配置 ---
                 .globalConfig(builder -> {
-                    builder.author("zengyanyu") // 设置作者
-                            .commentDate("yyyy-MM-dd").fileOverride()
+                    builder.author("zengyanyu")
+                            .commentDate("yyyy-MM-dd")
+                            .enableSwagger()
+                            .fileOverride()
                             // 指定输出目录
-                            .outputDir(System.getProperty("user.dir") + "/src/main/java/")
+                            .outputDir(ROOT_DIR + "/src/main/java/")
                             // 生成代码后不自动打开目录
                             .disableOpenDir();
                 })
 
                 // --- 包配置 ---
                 .packageConfig(builder ->
-                        builder.parent("com.zengyanyu") // 设置父包名
-                                .moduleName("system") // 设置父包模块名
-                                .entity("entity")   // Entity 包名
-                                .service("service") // Service 包名
-                                .serviceImpl("service.impl") // Service Impl 包名
-                                .mapper("mapper")   // Mapper 包名
-                                .controller("controller") // Controller 包名
-                                .xml("mapper") // Mapper XML 包名 (通常放在 resources/mapper 下，需配合 pathConfig)
+                        // 设置父包名
+                        builder.parent("com.zengyanyu.system")
+                                // 设置父包模块名
+                                .moduleName("")
+                                .entity("entity")
+                                .mapper("mapper")
+                                .xml("mapper.xml")
+                                .service("service")
+                                .serviceImpl("service.impl")
+                                .controller("controller")
                                 .pathInfo(Collections.singletonMap(OutputFile.mapperXml,
-                                        System.getProperty("user.dir") + "/src/main/resources/mapper/")) // 设置mapperXml生成路径
+                                        // 设置mapperXml生成路径
+                                        ROOT_DIR + "/src/main/resources/mapper/"))
                 )
                 // 策略配置
                 .strategyConfig(builder -> {
-                    // 建立Mapper
-                    builder.mapperBuilder()
-                            // 启用Mapper注解
-                            .enableMapperAnnotation()
-                            // .enableBaseResultMap()// 通用查询映射结果
-                            // .enableBaseColumnList()// 通用查询结果列
-                            .build();
-                    // 建立Controller
-                    builder.controllerBuilder()
-                            // 开启驼峰转连字符
-                            .enableHyphenStyle()
-                            .superClass(BaseController.class)
-                            .enableRestStyle(); // 开启生成@RestController控制器
-
                     // 设置需要生成的表名
                     builder.addInclude(tableNames);
+
                     // 建立Entity
                     builder.entityBuilder()
                             .idType(IdType.AUTO) // 主键类型（自增）
@@ -89,8 +86,24 @@ public class CodeGenerator {
                             .addSuperEntityColumns("create_time", "create_by", "update_time", "update_by")
                             .enableLombok();
 
-                    // 启用Service的文件覆盖
-                    builder.serviceBuilder();
+                    // 建立Mapper
+                    builder.mapperBuilder()
+                            // 启用Mapper注解
+                            .enableMapperAnnotation();
+
+                    // 建立Service
+//                    builder.serviceBuilder()
+//                            .superServiceClass(IService.class);
+
+                    // 建立Controller
+                    builder.controllerBuilder()
+                            // 开启驼峰转连字符
+                            .enableHyphenStyle()
+                            .superClass(BaseController.class)
+                            // 开启生成@RestController控制器
+                            .enableRestStyle();
+
+                    builder.build();
                 })
 
                 // 默认就是这个名称，可以不写
@@ -106,12 +119,14 @@ public class CodeGenerator {
      * @return
      */
     private static DataSourceConfig.Builder getDataSourceConfig() {
+        // 使用MySQL驱动
         if ("mysql".equals(dataBaseType)) {
-            return new DataSourceConfig.Builder("jdbc:mysql://localhost:3306/hola?serverTimezone=GMT%2b8",
+            return new DataSourceConfig.Builder("jdbc:mysql://localhost:3306/hola?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai",
                     "root", "admin")
                     .dbQuery(new MySqlQuery());
         }
-        return new DataSourceConfig.Builder("jdbc:postgresql://192.168.244.131:15432/test_sys",
+        // 使用PostGreSQL驱动
+        return new DataSourceConfig.Builder("jdbc:postgresql://192.168.244.131:15432/test_sys?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai",
                 "postgres", "pgsql!@#12569088ht")
                 .dbQuery(new PostgreSqlQuery());
     }
