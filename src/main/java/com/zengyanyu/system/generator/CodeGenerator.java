@@ -25,11 +25,13 @@ public class CodeGenerator {
 
     private static final String dataBaseType = "mysql";
 
-    // 系统跟目录
+    /**
+     * 系统跟目录
+     */
     private static final String ROOT_DIR = System.getProperty("user.dir");
 
     public static void main(String[] args) {
-        codeGenerate("department");
+        codeGenerate("system");
     }
 
     /**
@@ -40,28 +42,30 @@ public class CodeGenerator {
     private static void codeGenerate(String... tableNames) {
         // 使用自定义entity模板
         FastAutoGenerator.create(getDataSourceConfig())
-                // 全局配置
+                // --- 全局配置 ---
                 .globalConfig(builder -> {
                     builder.author("zengyanyu")
                             .commentDate("yyyy-MM-dd")
+                            .enableSwagger()
                             .fileOverride()
                             // 指定输出目录
                             .outputDir(ROOT_DIR + "/src/main/java/")
                             // 生成代码后不自动打开目录
                             .disableOpenDir();
                 })
-                // 包配置
+
+                // --- 包配置 ---
                 .packageConfig(builder ->
                         // 设置父包名
-                        builder.parent("com.zengyanyu")
+                        builder.parent("com.zengyanyu.system")
                                 // 设置父包模块名
-                                .moduleName("system")
+                                .moduleName("")
                                 .entity("entity")
+                                .mapper("mapper")
+                                .xml("mapper.xml")
                                 .service("service")
                                 .serviceImpl("service.impl")
-                                .mapper("mapper")
                                 .controller("controller")
-                                .xml("mapper.xml")
                                 .pathInfo(Collections.singletonMap(OutputFile.mapperXml,
                                         // 设置mapperXml生成路径
                                         ROOT_DIR + "/src/main/resources/mapper/"))
@@ -88,7 +92,8 @@ public class CodeGenerator {
                             .enableMapperAnnotation();
 
                     // 建立Service
-                    builder.serviceBuilder();
+//                    builder.serviceBuilder()
+//                            .superServiceClass(IService.class);
 
                     // 建立Controller
                     builder.controllerBuilder()
@@ -100,6 +105,7 @@ public class CodeGenerator {
 
                     builder.build();
                 })
+
                 // 默认就是这个名称，可以不写
                 .templateConfig(builder -> builder.entity("templates/entity.java"))
                 // 默认的是Velocity引擎模板（默认）
@@ -113,12 +119,14 @@ public class CodeGenerator {
      * @return
      */
     private static DataSourceConfig.Builder getDataSourceConfig() {
+        // 使用MySQL驱动
         if ("mysql".equals(dataBaseType)) {
-            return new DataSourceConfig.Builder("jdbc:mysql://localhost:3306/hola?serverTimezone=GMT%2b8",
+            return new DataSourceConfig.Builder("jdbc:mysql://localhost:3306/hola?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai",
                     "root", "admin")
                     .dbQuery(new MySqlQuery());
         }
-        return new DataSourceConfig.Builder("jdbc:postgresql://192.168.244.131:15432/test_sys",
+        // 使用PostGreSQL驱动
+        return new DataSourceConfig.Builder("jdbc:postgresql://192.168.244.131:15432/test_sys?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai",
                 "postgres", "pgsql!@#12569088ht")
                 .dbQuery(new PostgreSqlQuery());
     }
