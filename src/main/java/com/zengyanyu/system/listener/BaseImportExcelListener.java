@@ -7,8 +7,7 @@ package com.zengyanyu.system.listener;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +19,10 @@ import java.util.List;
  * @param <DTO> Excel行数据对应的DTO类型
  * @author zengyanyu
  */
+@Slf4j
 public abstract class BaseImportExcelListener<DTO> extends AnalysisEventListener<DTO> {
 
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
+//    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * 批量处理阈值
@@ -41,10 +41,10 @@ public abstract class BaseImportExcelListener<DTO> extends AnalysisEventListener
     public void invoke(DTO data, AnalysisContext context) {
         // 数据校验：如果数据已存在，跳过
         if (isDataExist(data)) {
-            logger.info("读取到Excel数据: {},数据在数据库中已存在!", data);
+            log.info("读取到Excel数据: {},数据在数据库中已存在!", data);
             return;
         }
-        logger.info("读取到Excel数据: {}", data);
+        log.info("读取到Excel数据: {}", data);
 
         // 加入缓存
         cachedDataList.add(data);
@@ -66,7 +66,7 @@ public abstract class BaseImportExcelListener<DTO> extends AnalysisEventListener
         if (!cachedDataList.isEmpty()) {
             saveData();
         }
-        logger.info("Excel数据读取成功,共处理{}条数据", context.readRowHolder().getRowIndex());
+        log.info("Excel数据读取成功,共处理{}条数据", context.readRowHolder().getRowIndex());
     }
 
     /**

@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class BaseController {
 
-    protected static final Logger logger = LoggerFactory.getLogger(BaseController.class);
+//    protected static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 
     @Resource
     protected HttpServletRequest request;

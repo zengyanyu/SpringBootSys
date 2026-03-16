@@ -8,6 +8,7 @@ package com.zengyanyu.system.listener;
 import com.zengyanyu.system.dto.RoleImportExcelDto;
 import com.zengyanyu.system.entity.Role;
 import com.zengyanyu.system.service.IRoleService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
  *
  * @author zengyanyu
  */
+@Slf4j
 public class RoleImportExcelListener extends BaseImportExcelListener<RoleImportExcelDto> {
 
     private final IRoleService roleService;
@@ -33,7 +35,7 @@ public class RoleImportExcelListener extends BaseImportExcelListener<RoleImportE
 
     @Override
     protected void saveData() {
-        logger.info("执行批量处理,数据量: {}", cachedDataList.size());
+        log.info("执行批量处理,数据量: {}", cachedDataList.size());
 
         List<Role> roleList = new ArrayList<>();
         for (RoleImportExcelDto dto : cachedDataList) {

@@ -8,6 +8,7 @@ package com.zengyanyu.system.listener;
 import com.zengyanyu.system.dto.DepartmentImportExcelDto;
 import com.zengyanyu.system.entity.Department;
 import com.zengyanyu.system.service.IDepartmentService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
  *
  * @author zengyanyu
  */
+@Slf4j
 public class DepartmentImportExcelListener extends BaseImportExcelListener<DepartmentImportExcelDto> {
 
     private final IDepartmentService departmentService;
@@ -34,7 +36,7 @@ public class DepartmentImportExcelListener extends BaseImportExcelListener<Depar
 
     @Override
     protected void saveData() {
-        logger.info("执行批量处理,数据量: {}", cachedDataList.size());
+        log.info("执行批量处理,数据量: {}", cachedDataList.size());
 
         List<Department> departmentList = new ArrayList<>();
         for (DepartmentImportExcelDto dto : cachedDataList) {

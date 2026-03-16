@@ -8,6 +8,7 @@ package com.zengyanyu.system.listener;
 import com.zengyanyu.system.dto.DictImportExcelDto;
 import com.zengyanyu.system.entity.Dict;
 import com.zengyanyu.system.service.IDictService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
  *
  * @author zengyanyu
  */
+@Slf4j
 public class DictImportExcelListener extends BaseImportExcelListener<DictImportExcelDto> {
 
     private final IDictService dictService;
@@ -33,7 +35,7 @@ public class DictImportExcelListener extends BaseImportExcelListener<DictImportE
 
     @Override
     protected void saveData() {
-        logger.info("执行批量处理,数据量: {}", cachedDataList.size());
+        log.info("执行批量处理,数据量: {}", cachedDataList.size());
 
         List<Dict> dictList = new ArrayList<>();
         for (DictImportExcelDto dto : cachedDataList) {
