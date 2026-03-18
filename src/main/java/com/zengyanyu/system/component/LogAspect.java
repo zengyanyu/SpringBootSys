@@ -5,6 +5,7 @@
  */
 package com.zengyanyu.system.component;
 
+import com.zengyanyu.system.config.LogRecord;
 import com.zengyanyu.system.config.UserContextHolder;
 import com.zengyanyu.system.entity.LogRecordEntity;
 import com.zengyanyu.system.entity.UserInfo;
@@ -26,6 +27,7 @@ import java.util.Map;
 
 /**
  * 自定义日志切面
+ *
  * @author zengyanyu
  */
 // 标记当前类是一个切面类
@@ -82,9 +84,9 @@ public class LogAspect {
         // 反射获取调用方法
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-        if (method.isAnnotationPresent(com.zengyanyu.system.config.LogRecord.class)) {
+        if (method.isAnnotationPresent(LogRecord.class)) {
             // 获取注解信息
-            com.zengyanyu.system.config.LogRecord annotation = method.getAnnotation(com.zengyanyu.system.config.LogRecord.class);
+            LogRecord annotation = method.getAnnotation(LogRecord.class);
             entity.setOperateName(annotation.value());
         }
         // 获取全限定类名称
