@@ -25,7 +25,7 @@ import java.io.Serializable;
 @ApiModel("部门导入ExcelDto对象")
 public class DepartmentImportExcelDto implements Serializable {
 
-    @ExcelProperty(value = "字典编码", index = 0)
+    @ExcelProperty(value = "部门名称", index = 0)
     @ApiModelProperty("部门名称")
     private String deptName;
 }
