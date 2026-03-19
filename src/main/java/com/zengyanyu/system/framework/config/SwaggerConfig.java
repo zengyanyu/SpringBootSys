@@ -23,8 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 调试工具中的文字默认显示为中文，操作更简单，界面更清晰
- * 访问地址：http://localhost:8083/doc.html
+ * /doc.html
  *
  * @author zengyanyu
  */
@@ -39,7 +38,7 @@ public class SwaggerConfig {
                 .groupName("所有API").pathMapping("/")
                 .select()
                 // API基础扫描路径
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.zengyanyu.system"))
                 .paths(PathSelectors.any())
                 .build()
                 /*.globalOperationParameters(getGlobalParameters())*/;// 添加全局参数

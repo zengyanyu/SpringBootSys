@@ -23,9 +23,14 @@ public interface LogRecordMapper extends BaseMapper<LogRecordEntity> {
 
     /**
      * 根据条件获取日志记录
+     *
      * @param requestTime
      * @return
      */
     List<LogRecordEntity> getLogRecordByCondition(LocalDateTime requestTime);
 
+    /**
+     * @param logRecordEntityList
+     */
+    void removeBatchByIds(List<LogRecordEntity> logRecordEntityList);
 }

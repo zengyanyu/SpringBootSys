@@ -7,4 +7,8 @@
         FROM log_record_entity
         WHERE request_time &lt; #{requestTiime}
     </select>
+
+    <delete id="removeBatchByIds">
+
+    </delete>
 </mapper>

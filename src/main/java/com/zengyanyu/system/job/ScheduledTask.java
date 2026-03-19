@@ -28,8 +28,5 @@ public class ScheduledTask {
     public void testTask() {
         log.info("com.zengyanyu.system.job.ScheduledTask 定时任务执行成功");
         log.info("当前时间 = " + DateUtils.SIMPLE_DATE_FORMAT.format(new Date()));
-
-//        log.error("com.zengyanyu.system.job.ScheduledTask 定时任务执行成功");
-//        log.error("当前时间 = " + DateUtils.SIMPLE_DATE_FORMAT.format(new Date()));
     }
 }
