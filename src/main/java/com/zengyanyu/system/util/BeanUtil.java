@@ -6,6 +6,8 @@
 package com.zengyanyu.system.util;
 
 import com.zengyanyu.system.dto.Person;
+import com.zengyanyu.system.entity.BaseEntity;
+import com.zengyanyu.system.entity.Department;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
@@ -68,6 +70,24 @@ public class BeanUtil {
     }
 
     public static void main(String[] args) throws Exception {
+//        test1();
+        test2();
+    }
+
+    private static void test2() throws Exception {
+        // 获取javaBean属性描述的包装对象
+        BeanInfo beanInfo = Introspector.getBeanInfo(Department.class, BaseEntity.class);
+        // 获取属性描述器
+        PropertyDescriptor[] pds = beanInfo.getPropertyDescriptors();
+        for (PropertyDescriptor pd : pds) {
+            String name = pd.getName();
+            Class<?> propertyType = pd.getPropertyType();
+            String str = "private " + propertyType.getSimpleName() + " " + name + ";";
+            System.out.println(str);
+        }
+    }
+
+    private static void test1() throws Exception {
         Person person = new Person("曾衍育", 18, "男");
         Map<String, Object> map = bean2map(person);
         System.out.println(map);
