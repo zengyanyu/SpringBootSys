@@ -10,8 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-
 /**
  * 注解式：定时任务 @Scheduled
  *
@@ -26,7 +24,7 @@ public class ScheduledTask {
      */
     @Scheduled(initialDelay = 1000 * 60 * 2, fixedDelay = 1000 * 60 * 2)
     public void testTask() {
-        log.info("com.zengyanyu.system.job.ScheduledTask 定时任务执行成功");
-        log.info("当前时间 = " + DateUtils.SIMPLE_DATE_FORMAT.format(new Date()));
+        log.info("定时任务执行成功");
+        log.info("当前时间:{}", DateUtils.SIMPLE_DATE_FORMAT.format(DateUtils.getCurrentDate()));
     }
 }
