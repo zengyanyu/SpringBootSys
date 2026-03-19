@@ -19,7 +19,7 @@ import java.util.List;
 public class CalcJavaCodeLine {
 
     // 配置常量：消除硬编码，修改此处即可适配不同场景
-    private static final String SOURCE_ROOT_DIR = "D:/Projects/sz-data-processing/src/main/java/cn/piesat";
+    private static final String SOURCE_ROOT_DIR = System.getProperty("user.dir") + "/src/main/java";
     private static final String OUTPUT_DIR = "D:/sourceCode";
     private static final String OUTPUT_FILE_NAME = "java_output.txt";
     private static final String FILE_SUFFIX = ".java";
