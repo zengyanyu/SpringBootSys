@@ -1,8 +1,10 @@
 spring:
   profiles:
     # 打包时，需要激活的配置  默认：dev,test
-    active: test
+    active: dev
   # ================ 配置通用的属性-开始 ================
+  application:
+    name: SpringBootSys V2.7.6
   web:
     resources:
       # 静态资源路径

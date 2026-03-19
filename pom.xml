@@ -9,8 +9,8 @@
     <name>Spring Boot Sys</name>
     <description>Spring Boot Framework</description>
 
-    <!-- 打包格式 -->
-    <packaging>jar</packaging>
+    <!-- 打包格式，打包方式默认为jar -->
+    <!--<packaging>jar</packaging>-->
 
     <properties>
         <java.version>1.8</java.version>
