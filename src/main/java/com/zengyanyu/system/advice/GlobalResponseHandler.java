@@ -3,9 +3,8 @@
  * 自定义License声明
  * ZENGYANYU PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.zengyanyu.system.framework.handler;
+package com.zengyanyu.system.advice;
 
-import com.zengyanyu.system.config.IgnoreResponseAdvice;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -15,10 +14,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
+ * 全局响应处理器
+ *
  * @author zengyanyu
  */
 @RestControllerAdvice
-public class ResponseHandler implements ResponseBodyAdvice<Object> {
+public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
 
     /**
      * @param returnType
@@ -46,7 +47,14 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
      * @return
      */
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
+                                  Class<? extends HttpMessageConverter<?>> selectedConverterType,
+                                  ServerHttpRequest request, ServerHttpResponse response) {
+        String path = request.getURI().getPath();
+        // 判断是否为 Swagger 相关接口
+        if (path.contains("/swagger-resources") || path.contains("/v2/api-docs")) {
+            return body;
+        }
         return body;
     }
 }

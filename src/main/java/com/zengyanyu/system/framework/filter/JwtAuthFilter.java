@@ -18,6 +18,7 @@ import java.io.IOException;
 
 /**
  * 实现认证逻辑
+ *
  * @author zengyanyu
  */
 @Component
@@ -26,6 +27,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Resource
     private IUserInfoService userInfoService;
 
+    /**
+     * @param request  请求对象
+     * @param response 响应对象
+     * @param chain    过滤链
+     * @throws ServletException servlet异常
+     * @throws IOException      IO异常
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {

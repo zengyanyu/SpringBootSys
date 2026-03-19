@@ -17,6 +17,7 @@ import java.io.IOException;
 
 /**
  * 登录过滤器
+ *
  * @author zengyanyu
  */
 @Configuration
@@ -25,6 +26,13 @@ public class LoginFilter implements Filter {
     @Resource
     private IUserInfoService userInfoService;
 
+    /**
+     * @param request
+     * @param response
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
