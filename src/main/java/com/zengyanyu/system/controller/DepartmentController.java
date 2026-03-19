@@ -19,6 +19,7 @@ import com.zengyanyu.system.service.IDepartmentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -91,6 +92,9 @@ public class DepartmentController extends BaseController {
     public Page<Department> page(DepartmentQueryObject queryObject) {
         log.info("部门管理分页查询数据");
         QueryWrapper<Department> wrapper = new QueryWrapper<>();
+        if (StringUtils.isNotEmpty(queryObject.getDeptName())) {
+            wrapper.like("dept_name", queryObject.getDeptName());
+        }
         return departmentService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 

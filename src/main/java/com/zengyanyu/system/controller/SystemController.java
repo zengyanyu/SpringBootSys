@@ -15,6 +15,7 @@ import com.zengyanyu.system.service.ISystemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -80,6 +81,9 @@ public class SystemController extends BaseController {
     @GetMapping("/page")
     public Page<System> page(SystemQueryObject queryObject) {
         QueryWrapper<System> wrapper = new QueryWrapper<>();
+        if (StringUtils.isNotEmpty(queryObject.getName())) {
+            wrapper.like("name", queryObject.getName());
+        }
         return systemService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 }

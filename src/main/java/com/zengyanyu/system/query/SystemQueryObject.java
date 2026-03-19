@@ -6,6 +6,7 @@
 package com.zengyanyu.system.query;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,4 +19,10 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @ApiModel("系统查询对象")
 public class SystemQueryObject extends QueryObject {
+
+    /**
+     * 系统名称
+     */
+    @ApiModelProperty("系统名称")
+    private String name;
 }
