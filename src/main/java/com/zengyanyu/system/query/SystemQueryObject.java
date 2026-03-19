@@ -20,9 +20,6 @@ import lombok.ToString;
 @ApiModel("系统查询对象")
 public class SystemQueryObject extends QueryObject {
 
-    /**
-     * 系统名称
-     */
     @ApiModelProperty("系统名称")
     private String name;
 }
