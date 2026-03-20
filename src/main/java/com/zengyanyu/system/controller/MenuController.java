@@ -102,8 +102,8 @@ public class MenuController extends BaseController {
 
         // 模拟测试数据
         List<MenuExportExcelDto> dtoList = new ArrayList<>();
-        List<Menu> roleList = menuService.list();
-        for (Menu menu : roleList) {
+        List<Menu> menuList = menuService.list();
+        for (Menu menu : menuList) {
             // 创建对象
             MenuExportExcelDto dto = new MenuExportExcelDto();
             BeanUtils.copyProperties(menu, dto);
