@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.net.InetAddress;
@@ -18,6 +19,7 @@ import java.net.InetAddress;
  * @author zengyanyu
  */
 @Slf4j
+@EnableRetry
 @EnableScheduling
 @SpringBootApplication
 public class SpringBootSysApplication {
