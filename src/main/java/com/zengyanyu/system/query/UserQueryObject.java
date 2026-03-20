@@ -23,6 +23,4 @@ public class UserQueryObject extends QueryObject {
     @ApiModelProperty("用户名称")
     private String username;
 
-    @ApiModelProperty("企业ID")
-    private String compId;
 }

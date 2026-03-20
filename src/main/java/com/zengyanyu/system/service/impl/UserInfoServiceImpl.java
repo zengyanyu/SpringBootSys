@@ -36,17 +36,6 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     }
 
     /**
-     * 获取登录成功的用户信息
-     *
-     * @param token
-     * @return
-     */
-    @Override
-    public ResponseData userInfo(String token) {
-        return null;
-    }
-
-    /**
      * 退出
      *
      * @param token

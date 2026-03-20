@@ -5,14 +5,18 @@
  */
 package com.zengyanyu.system.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.config.LogRecord;
 import com.zengyanyu.system.dto.UserInfoDto;
 import com.zengyanyu.system.entity.UserInfo;
+import com.zengyanyu.system.query.UserQueryObject;
 import com.zengyanyu.system.service.IUserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -43,15 +47,6 @@ public class UserInfoController extends BaseController {
     @PostMapping("/login")
     public ResponseData login(@RequestBody UserInfoDto userInfoDto) {
         return userInfoService.login(userInfoDto);
-    }
-
-    @LogRecord("获取用户信息")
-    @ApiOperation("获取用户信息")
-    @GetMapping("/userInfo")
-    public ResponseData userInfo() {
-        // 从请求头中获取凭证
-        String authorization = request.getHeader("authorization");
-        return userInfoService.userInfo(authorization.split(" ")[1]);
     }
 
     @LogRecord("用户退出")
@@ -91,6 +86,17 @@ public class UserInfoController extends BaseController {
     @GetMapping("/get/{id}")
     public ResponseData<UserInfo> get(@PathVariable String id) {
         return new ResponseData("根据ID查询指定数据", userInfoService.getById(id));
+    }
+
+    @LogRecord("用户信息分页查询数据")
+    @ApiOperation("用户信息分页查询数据")
+    @GetMapping("/page")
+    public Page<UserInfo> page(UserQueryObject queryObject) {
+        QueryWrapper<UserInfo> wrapper = new QueryWrapper<>();
+        if (StringUtils.isNotEmpty(queryObject.getUsername())) {
+            wrapper.like("username", queryObject.getUsername());
+        }
+        return userInfoService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 
 }

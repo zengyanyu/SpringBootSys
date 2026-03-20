@@ -28,12 +28,6 @@ public interface IUserInfoService extends IService<UserInfo> {
      * @param token
      * @return
      */
-    ResponseData userInfo(String token);
-
-    /**
-     * @param token
-     * @return
-     */
     ResponseData logout(String token);
 
     /**
