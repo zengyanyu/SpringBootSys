@@ -93,19 +93,5 @@ public class UserInfoController extends BaseController {
         return new ResponseData("根据ID查询指定数据", userInfoService.getById(id));
     }
 
-    @LogRecord("是否锁定修改状态")
-    @ApiOperation("是否锁定修改状态")
-    @PostMapping("/isLockUpdate")
-    public ResponseData isLockUpdate(@RequestBody UserInfoDto userInfo) {
-        return userInfoService.isLockUpdate(userInfo);
-    }
-
-    @LogRecord("重置密码")
-    @ApiOperation("重置密码")
-    @PostMapping("/resetPassword")
-    public ResponseData resetPassword(@RequestBody UserInfoDto userInfo) {
-        return userInfoService.resetPassword(userInfo);
-    }
-
 }
 

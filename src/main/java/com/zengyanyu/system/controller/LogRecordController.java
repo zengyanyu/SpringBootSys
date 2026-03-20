@@ -48,9 +48,9 @@ public class LogRecordController extends BaseController {
     @GetMapping("/page")
     public Page<LogRecordEntity> page(LogRecordQueryObject queryObject) {
         QueryWrapper<LogRecordEntity> wrapper = new QueryWrapper<>();
-//        if (null != queryObject.getStartTime() && null != queryObject.getEndTime()) {
-//            wrapper.between("", queryObject.getStartTime(), queryObject.getEndTime());
-//        }
+        if (null != queryObject.getStartTime() && null != queryObject.getEndTime()) {
+            wrapper.between("request_time", queryObject.getStartTime(), queryObject.getEndTime());
+        }
         if (StringUtils.isNotEmpty(queryObject.getOperateUsername())) {
             wrapper.like("operate_username", queryObject.getOperateUsername());
         }
