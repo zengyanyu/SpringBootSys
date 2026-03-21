@@ -26,6 +26,6 @@ public class LogRecordQueryObject extends QueryObject {
     @ApiModelProperty("结束时间")
     private String endTime;
 
-    @ApiModelProperty("操作人")
-    private String operateUsername;
+    @ApiModelProperty("操作名称")
+    private String operateName;
 }
