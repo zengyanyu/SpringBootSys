@@ -20,6 +20,9 @@ import lombok.ToString;
 @ApiModel("角色查询对象")
 public class RoleQueryObject extends QueryObject {
 
+    @ApiModelProperty("角色编码")
+    private String roleCode;
+
     @ApiModelProperty("角色名称")
     private String roleName;
 
