@@ -55,6 +55,7 @@ public class LogRecordController extends BaseController {
                 && null != queryObject.getEndTime() && StringUtils.isNotEmpty(queryObject.getEndTime())) {
             wrapper.between("request_time", queryObject.getStartTime(), queryObject.getEndTime());
         }
+        wrapper.orderByDesc("request_time");
         return logRecordEntityService.page(new Page<>(queryObject.getPageNum(), queryObject.getPageSize()), wrapper);
     }
 

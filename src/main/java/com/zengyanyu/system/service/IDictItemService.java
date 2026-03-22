@@ -25,4 +25,11 @@ public interface IDictItemService extends IService<DictItem> {
      */
     ResponseData saveOrUpdateDictItem(DictItem dictItem);
 
+    /**
+     * 根据字典ID查询字典项数据
+     *
+     * @param dictId
+     * @return
+     */
+    ResponseData getDictItemByDictId(String dictId);
 }

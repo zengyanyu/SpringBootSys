@@ -91,6 +91,9 @@ public class DictController extends BaseController {
     @GetMapping("/page")
     public Page<Dict> page(DictQueryObject queryObject) {
         QueryWrapper<Dict> wrapper = new QueryWrapper<>();
+        if (StringUtils.isNotEmpty(queryObject.getCode())) {
+            wrapper.like("code", queryObject.getCode());
+        }
         if (StringUtils.isNotEmpty(queryObject.getName())) {
             wrapper.like("name", queryObject.getName());
         }

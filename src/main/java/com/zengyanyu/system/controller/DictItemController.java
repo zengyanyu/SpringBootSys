@@ -21,7 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpHeaders;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -48,6 +53,13 @@ public class DictItemController extends BaseController {
     @PostMapping("/save")
     public ResponseData save(@RequestBody DictItem dictItem) {
         return dictItemService.saveOrUpdateDictItem(dictItem);
+    }
+
+    @LogRecord("根据字典ID查询字典项数据")
+    @ApiOperation("根据字典ID查询字典项数据")
+    @PostMapping("/getDictItemByDictId/{dictId}")
+    public ResponseData getDictItemByDictId(@PathVariable String dictId) {
+        return dictItemService.getDictItemByDictId(dictId);
     }
 
     @LogRecord("删除数据字典项")
