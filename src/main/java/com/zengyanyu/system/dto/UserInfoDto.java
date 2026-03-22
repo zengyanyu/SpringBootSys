@@ -20,10 +20,16 @@ import java.io.Serializable;
 @ApiModel("用户信息dto对象")
 public class UserInfoDto implements Serializable {
 
+    @ApiModelProperty("主键ID")
+    private Long id;
+
     @ApiModelProperty("用户名")
     private String username;
 
     @ApiModelProperty("密码")
     private String password;
+
+    @ApiModelProperty("token")
+    private String token;
 
 }

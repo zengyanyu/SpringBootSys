@@ -82,7 +82,6 @@ public class RoleController extends BaseController {
     @GetMapping("/page")
     public Page<Role> page(RoleQueryObject queryObject) {
         QueryWrapper<Role> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("role_code");
         // 角色编码
         if (StringUtils.isNotEmpty(queryObject.getRoleCode())) {
             wrapper.like("role_code", queryObject.getRoleCode());

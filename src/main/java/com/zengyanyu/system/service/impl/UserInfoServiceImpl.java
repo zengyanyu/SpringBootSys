@@ -5,6 +5,7 @@
  */
 package com.zengyanyu.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.dto.UserInfoDto;
@@ -66,7 +67,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
      */
     @Override
     public ResponseData<UserInfo> getUserInfoByToken(String token) {
-        UserInfo userInfo = this.baseMapper.userInfo(token);
+        QueryWrapper<UserInfo> wrapper = new QueryWrapper<>();
+        wrapper.eq("token", token);
+        UserInfo userInfo = getOne(wrapper);
         return new ResponseData("根据token获取用户信息成功", userInfo);
     }
 
