@@ -9,8 +9,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
-import com.baomidou.mybatisplus.generator.config.querys.MySqlQuery;
-import com.baomidou.mybatisplus.generator.config.querys.PostgreSqlQuery;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
 import com.zengyanyu.system.controller.BaseController;
 
@@ -122,13 +120,11 @@ public class CodeGenerator {
         // 使用MySQL驱动
         if ("mysql".equals(dataBaseType)) {
             return new DataSourceConfig.Builder("jdbc:mysql://localhost:3306/hola?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai",
-                    "root", "admin")
-                    .dbQuery(new MySqlQuery());
+                    "root", "admin");
         }
         // 使用PostGreSQL驱动
         return new DataSourceConfig.Builder("jdbc:postgresql://192.168.244.131:15432/test_sys?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai",
-                "postgres", "pgsql!@#12569088ht")
-                .dbQuery(new PostgreSqlQuery());
+                "postgres", "pgsql!@#12569088ht");
     }
 
 }
