@@ -109,8 +109,8 @@ public class DictController extends BaseController {
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName + ".xlsx");
 
         // 模拟测试数据
-        List<DictExportExcelDto> dtoList = new ArrayList<>();
         List<Dict> dictList = dictService.list();
+        List<DictExportExcelDto> dtoList = new ArrayList<>(dictList.size());
         for (Dict dict : dictList) {
             // 创建对象
             DictExportExcelDto dto = new DictExportExcelDto();

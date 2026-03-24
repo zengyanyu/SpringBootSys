@@ -67,8 +67,8 @@ public class LogRecordController extends BaseController {
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName + ".xlsx");
 
         // 模拟测试数据
-        List<LogRecordExportExcelDto> logRecordDtoList = new ArrayList<>();
         List<LogRecordEntity> logRecordEntityList = logRecordEntityService.list();
+        List<LogRecordExportExcelDto> logRecordDtoList = new ArrayList<>(logRecordEntityList.size());
         for (LogRecordEntity logRecordEntity : logRecordEntityList) {
             // 创建对象
             LogRecordExportExcelDto logRecordDto = new LogRecordExportExcelDto();

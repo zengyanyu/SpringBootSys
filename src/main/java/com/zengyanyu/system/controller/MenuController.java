@@ -100,8 +100,8 @@ public class MenuController extends BaseController {
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName + ".xlsx");
 
         // 模拟测试数据
-        List<MenuExportExcelDto> dtoList = new ArrayList<>();
         List<Menu> menuList = menuService.list();
+        List<MenuExportExcelDto> dtoList = new ArrayList<>(menuList.size());
         for (Menu menu : menuList) {
             // 创建对象
             MenuExportExcelDto dto = new MenuExportExcelDto();

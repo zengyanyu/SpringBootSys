@@ -104,8 +104,8 @@ public class RoleController extends BaseController {
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName + ".xlsx");
 
         // 模拟测试数据
-        List<RoleExportExcelDto> dtoList = new ArrayList<>();
         List<Role> roleList = roleService.list();
+        List<RoleExportExcelDto> dtoList = new ArrayList<>(roleList.size());
         for (Role role : roleList) {
             // 创建对象
             RoleExportExcelDto dto = new RoleExportExcelDto();
