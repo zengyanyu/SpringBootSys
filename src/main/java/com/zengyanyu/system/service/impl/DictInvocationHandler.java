@@ -5,7 +5,6 @@
  */
 package com.zengyanyu.system.service.impl;
 
-import com.zengyanyu.system.pxoxy.TransactionManager;
 import com.zengyanyu.system.service.IDictService;
 
 import javax.annotation.Resource;
@@ -22,8 +21,6 @@ public class DictInvocationHandler implements InvocationHandler {
 
     @Resource
     private IDictService dictService;
-    @Resource
-    private TransactionManager transactionManager;
 
     @Resource
     private Object target;
@@ -40,12 +37,13 @@ public class DictInvocationHandler implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         try {
             // 开始事务
-            transactionManager.begin();
+            // TODO
+
             // 原封不动调用真实对象的的方法
             method.invoke(dictService, args);
 
             // 提交事务
-            transactionManager.commit();
+            // TODO
         } catch (Exception e) {
             e.printStackTrace();
         }
