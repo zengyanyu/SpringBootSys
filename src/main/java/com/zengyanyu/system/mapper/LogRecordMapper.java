@@ -16,7 +16,6 @@ import java.util.List;
  * Mapper 接口
  *
  * @author zengyanyu
- * @since 2025-07-16
  */
 @Mapper
 public interface LogRecordMapper extends BaseMapper<LogRecordEntity> {

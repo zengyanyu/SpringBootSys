@@ -13,7 +13,6 @@ import com.zengyanyu.system.commons.ResponseData;
  * 数据字典项 服务类
  *
  * @author zengyanyu
- * @since 2025-07-18
  */
 public interface IDictItemService extends IService<DictItem> {
 

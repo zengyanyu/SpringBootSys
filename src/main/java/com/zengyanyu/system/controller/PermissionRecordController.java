@@ -32,7 +32,6 @@ import java.util.List;
 
 /**
  * @author zengyanyu
- * @since 2025-07-18
  */
 @Slf4j
 @RestController
@@ -111,8 +110,8 @@ public class PermissionRecordController extends BaseController {
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName + ".xlsx");
 
         // 模拟测试数据
-        List<PermissionRecordExportExcelDto> dtoList = new ArrayList<>();
         List<PermissionRecord> permissionRecordList = permissionRecordService.list();
+        List<PermissionRecordExportExcelDto> dtoList = new ArrayList<>(permissionRecordList.size());
         for (PermissionRecord permissionRecord : permissionRecordList) {
             // 创建对象
             PermissionRecordExportExcelDto dto = new PermissionRecordExportExcelDto();

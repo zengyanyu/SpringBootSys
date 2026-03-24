@@ -15,7 +15,6 @@ import java.util.List;
  * 部门管理 服务类
  *
  * @author zengyanyu
- * @since 2025-07-18
  */
 public interface IDepartmentService extends IService<Department>, IImportExcelService {
 

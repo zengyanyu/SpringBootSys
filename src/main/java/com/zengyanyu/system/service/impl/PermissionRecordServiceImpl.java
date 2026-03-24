@@ -29,7 +29,6 @@ import java.util.Map;
  * 服务实现类
  *
  * @author zengyanyu
- * @since 2025-07-18
  */
 @Service
 public class PermissionRecordServiceImpl extends ServiceImpl<PermissionRecordMapper, PermissionRecord> implements IPermissionRecordService {

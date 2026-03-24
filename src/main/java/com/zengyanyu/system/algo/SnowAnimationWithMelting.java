@@ -29,7 +29,6 @@ public class SnowAnimationWithMelting extends JFrame {
     // 融化触发高度（雪花落到这个高度开始融化）
     private static final int MELT_HEIGHT = HEIGHT - 100;
 
-    // 程序入口
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new SnowAnimationWithMelting().setVisible(true);

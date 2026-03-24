@@ -37,7 +37,6 @@ import java.util.List;
 
 /**
  * @author zengyanyu
- * @since 2025-07-18
  */
 @Slf4j
 @RestController
@@ -108,8 +107,8 @@ public class DepartmentController extends BaseController {
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName + ".xlsx");
 
         // 模拟测试数据
-        List<DepartmentExportExcelDto> dtoList = new ArrayList<>();
         List<Department> departmentList = departmentService.list();
+        List<DepartmentExportExcelDto> dtoList = new ArrayList<>(departmentList.size());
         for (Department department : departmentList) {
             // 创建对象
             DepartmentExportExcelDto dto = new DepartmentExportExcelDto();

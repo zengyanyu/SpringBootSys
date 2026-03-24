@@ -37,7 +37,6 @@ import java.util.List;
 
 /**
  * @author zengyanyu
- * @since 2025-07-18
  */
 @Slf4j
 @RestController
@@ -113,8 +112,8 @@ public class DictItemController extends BaseController {
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName + ".xlsx");
 
         // 模拟测试数据
-        List<DictItemExportExcelDto> dtoList = new ArrayList<>();
         List<DictItem> dictItemList = dictItemService.list();
+        List<DictItemExportExcelDto> dtoList = new ArrayList<>(dictItemList.size());
         for (DictItem dictItem : dictItemList) {
             // 创建对象
             DictItemExportExcelDto dto = new DictItemExportExcelDto();
