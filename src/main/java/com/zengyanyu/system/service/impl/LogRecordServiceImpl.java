@@ -20,7 +20,6 @@ import java.util.List;
  * 服务实现类
  *
  * @author zengyanyu
- * @since 2025-07-16
  */
 @Service
 public class LogRecordServiceImpl extends ServiceImpl<LogRecordMapper, LogRecordEntity> implements ILogRecordService {

@@ -13,7 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * 日志记录 服务类
  *
  * @author zengyanyu
- * @since 2025-07-16
  */
 public interface ILogRecordService extends IService<LogRecordEntity> {
 

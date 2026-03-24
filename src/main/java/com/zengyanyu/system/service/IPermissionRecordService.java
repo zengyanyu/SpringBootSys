@@ -13,7 +13,6 @@ import com.zengyanyu.system.entity.PermissionRecord;
  * 服务类
  *
  * @author zengyanyu
- * @since 2025-07-18
  */
 public interface IPermissionRecordService extends IService<PermissionRecord> {
 

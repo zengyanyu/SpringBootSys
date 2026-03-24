@@ -24,7 +24,6 @@ import java.util.List;
  * 数据字典 服务实现类
  *
  * @author zengyanyu
- * @since 2025-07-18
  */
 @Service
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements IDictService {

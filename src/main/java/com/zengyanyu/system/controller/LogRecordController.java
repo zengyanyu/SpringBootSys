@@ -32,7 +32,6 @@ import java.util.List;
 
 /**
  * @author zengyanyu
- * @since 2025-07-16
  */
 @RestController
 @Api(tags = "日志记录控制器")

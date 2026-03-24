@@ -23,7 +23,6 @@ import java.util.List;
  * 部门管理 服务实现类
  *
  * @author zengyanyu
- * @since 2025-07-18
  */
 @Service
 public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Department> implements IDepartmentService {

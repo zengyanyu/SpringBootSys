@@ -19,7 +19,6 @@ import java.io.Serializable;
  * 权限记录
  *
  * @author zengyanyu
- * @since 2025-07-18
  */
 @Getter
 @Setter

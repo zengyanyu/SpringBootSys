@@ -18,7 +18,6 @@ import javax.persistence.Id;
  * 菜单
  *
  * @author zengyanyu
- * @since 2025-07-18
  */
 @Getter
 @Setter
