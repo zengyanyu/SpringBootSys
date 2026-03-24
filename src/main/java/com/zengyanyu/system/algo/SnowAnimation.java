@@ -28,7 +28,6 @@ public class SnowAnimation extends JFrame {
     // 雪花数量
     private static final int SNOWFLAKE_COUNT = 200;
 
-    // 程序入口
     public static void main(String[] args) {
         // Swing 组件需要在事件调度线程中运行
         SwingUtilities.invokeLater(() -> {

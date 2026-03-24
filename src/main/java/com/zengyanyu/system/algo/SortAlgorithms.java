@@ -9,11 +9,16 @@ import java.util.Arrays;
 
 /**
  * Java 实现十大经典排序算法
+ *
  * @author zengyanyu
  */
 public class SortAlgorithms {
 
     public static void main(String[] args) {
+        test1();
+    }
+
+    private static void test1() {
         // 测试数组（包含重复、正负值，覆盖常见场景）
         int[] arr = {34, -5, 12, 8, 34, 0, 9, -1, 78, 23};
         System.out.println("原始数组：" + Arrays.toString(arr));

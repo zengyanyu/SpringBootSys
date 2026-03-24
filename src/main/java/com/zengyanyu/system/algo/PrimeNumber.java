@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Java 实现质数（素数）的判断与生成
+ *
  * @author zengyanyu
  */
 public class PrimeNumber {

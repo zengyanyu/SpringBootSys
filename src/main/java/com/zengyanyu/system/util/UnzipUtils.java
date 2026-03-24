@@ -70,9 +70,4 @@ public class UnzipUtils {
         System.out.println("✅ 解压成功：" + entry.getName());
     }
 
-    public static void main(String[] args) {
-        String zipFilePath = "E:\\ResultZIP\\S3A_OL_1_EFR____20260126T021301_20260126T021601_20260127T030317_0179_135_217_2520_PS1_O_NT_004.SEN3.zip";
-        String targetDir = "E:\\ResultZIP";
-        unzipAll(zipFilePath, targetDir);
-    }
 }
