@@ -74,16 +74,14 @@ public class BeanUtil {
     public static void main(String[] args) throws Exception {
 //        test1();
 //        test2();
-        test3();
+        test3(Department.class);
     }
 
-    private static void test3() throws Exception {
+    private static void test3(Class<?> clazz) throws Exception {
         // 这里传入 子类.class、父类.class（会自动忽略父类中的 class 属性）
-        BeanInfo beanInfo = Introspector.getBeanInfo(Department.class, BaseEntity.class.getSuperclass());
-
+        BeanInfo beanInfo = Introspector.getBeanInfo(clazz, BaseEntity.class.getSuperclass());
         // 获取所有属性描述器
         PropertyDescriptor[] pds = beanInfo.getPropertyDescriptors();
-
         for (PropertyDescriptor pd : pds) {
             // 属性名：userName → userName
             String fieldName = pd.getName();
@@ -92,7 +90,7 @@ public class BeanUtil {
             Class<?> fieldType = pd.getPropertyType();
 
             // ✅ 关键：通过属性名反射拿到真实字段（包括父类字段）
-            Field field = getField(Department.class, fieldName);
+            Field field = getField(clazz, fieldName);
 
             System.out.println("========================");
             System.out.println("字段名：" + field.getName());
