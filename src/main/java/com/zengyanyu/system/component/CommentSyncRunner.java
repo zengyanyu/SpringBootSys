@@ -34,10 +34,10 @@ public class CommentSyncRunner implements CommandLineRunner {
 
     private static final String ENTITY_PACKAGE = "com.zengyanyu.system.entity";
     // 指定数据库类型
-    private static final String dataBaseType = "mysql1";
+    private static final String dataBaseType = "mysql";
 
     // 是否开启扫描添加注释
-    private static final Boolean isEnabled = false;
+    private static final Boolean isEnabled = true;
 
     /**
      * @param args
@@ -50,7 +50,9 @@ public class CommentSyncRunner implements CommandLineRunner {
                 List<Class<?>> classList = ClassScannerUtil.getClasses(ENTITY_PACKAGE);
 
                 for (Class<?> clazz : classList) {
-                    if (!clazz.isAnnotationPresent(TableName.class)) continue;
+                    if (!clazz.isAnnotationPresent(TableName.class)) {
+                        continue;
+                    }
                     syncTableComment(clazz);
                     syncAllFields(clazz);
                 }
@@ -69,7 +71,9 @@ public class CommentSyncRunner implements CommandLineRunner {
     private void syncTableComment(Class<?> clazz) {
         TableName tableName = clazz.getAnnotation(TableName.class);
         ApiModel apiModel = clazz.getAnnotation(ApiModel.class);
-        if (tableName == null || apiModel == null) return;
+        if (tableName == null || apiModel == null) {
+            return;
+        }
 
         String table = tableName.value();
         String comment = apiModel.value();
@@ -94,7 +98,9 @@ public class CommentSyncRunner implements CommandLineRunner {
      */
     private void syncAllFields(Class<?> clazz) {
         TableName tableName = clazz.getAnnotation(TableName.class);
-        if (tableName == null) return;
+        if (tableName == null) {
+            return;
+        }
         String table = tableName.value();
 
         List<Field> allFields = getAllFields(clazz);
@@ -119,9 +125,17 @@ public class CommentSyncRunner implements CommandLineRunner {
 
             String sql = "";
             if ("mysql".equals(dataBaseType)) {
-                // MySQL 字段注释语法
-                sql = String.format("ALTER TABLE %s MODIFY COLUMN %s COMMENT '%s'",
-                        table, columnName, comment.replace("'", "''"));
+                String columnType = getMySQLColumnType(table, columnName);
+                String safeComment = comment.replace("'", "''");
+                if (columnType == null) {
+                    continue;
+                }
+
+                // MySQL 标准语法：MODIFY COLUMN 字段 原类型 COMMENT '注释'
+                sql = String.format(
+                        "ALTER TABLE %s MODIFY COLUMN %s %s COMMENT '%s'",
+                        table, columnName, columnType, safeComment
+                );
             } else {
                 // postgresql
                 sql = String.format("COMMENT ON COLUMN %s.%s IS '%s';",
@@ -132,13 +146,32 @@ public class CommentSyncRunner implements CommandLineRunner {
     }
 
     /**
+     * 查询 MySQL 字段真实类型
+     *
+     * @param table  表名称
+     * @param column 列名称
+     * @return
+     */
+    private String getMySQLColumnType(String table, String column) {
+        try {
+            String sql = "SELECT COLUMN_TYPE FROM information_schema.COLUMNS "
+                    + "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = ?";
+            return jdbcTemplate.queryForObject(sql, String.class, table, column);
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    /**
      * 【关键】驼峰 → 下划线
      *
      * @param str
      * @return
      */
     private String camelToUnderline(String str) {
-        if (str == null || str.isEmpty()) return str;
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
         StringBuilder sb = new StringBuilder();
         for (char c : str.toCharArray()) {
             if (Character.isUpperCase(c)) {
