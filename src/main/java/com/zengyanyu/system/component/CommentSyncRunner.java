@@ -1,0 +1,185 @@
+package com.zengyanyu.system.component;
+
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.Comment;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+
+import java.io.File;
+import java.lang.reflect.Field;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.List;
+
+/**
+ * 自动同步表/字段注释到 PostgreSQL（支持父类 + 驼峰转下划线）
+ *
+ * @author zengyanyu
+ */
+@Component
+public class CommentSyncRunner implements CommandLineRunner {
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public CommentSyncRunner(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    private static final String ENTITY_PACKAGE = "com.zengyanyu.system.entity";
+
+    /**
+     * @param args
+     */
+    @Override
+    public void run(String... args) {
+        try {
+            System.out.println("🚀 开始自动同步【表+字段+父类】注释...");
+            List<Class<?>> classList = ClassScannerUtil.getClasses(ENTITY_PACKAGE);
+
+            for (Class<?> clazz : classList) {
+                if (!clazz.isAnnotationPresent(TableName.class)) continue;
+                syncTableComment(clazz);
+                syncAllFields(clazz);
+            }
+            System.out.println("✅ 注释同步完成！");
+        } catch (Exception e) {
+            System.err.println("❌ 注释同步失败：" + e.getMessage());
+        }
+    }
+
+    /**
+     * 同步表注释
+     *
+     * @param clazz
+     */
+    private void syncTableComment(Class<?> clazz) {
+        TableName tableName = clazz.getAnnotation(TableName.class);
+        ApiModel apiModel = clazz.getAnnotation(ApiModel.class);
+        if (tableName == null || apiModel == null) return;
+
+        String table = tableName.value();
+        String comment = apiModel.value();
+        if (org.springframework.util.StringUtils.hasText(comment)) {
+            execute(String.format("COMMENT ON TABLE %s IS '%s';", table, comment.replace("'", "''")));
+        }
+    }
+
+    /**
+     * 同步当前类 + 所有父类字段
+     *
+     * @param clazz
+     */
+    private void syncAllFields(Class<?> clazz) {
+        TableName tableName = clazz.getAnnotation(TableName.class);
+        if (tableName == null) return;
+        String table = tableName.value();
+
+        List<Field> allFields = getAllFields(clazz);
+
+        for (Field field : allFields) {
+            // 优先取 @Comment，没有则取 @ApiModelProperty
+            Comment commentAnno = field.getAnnotation(Comment.class);
+            ApiModelProperty apiModelAnno = field.getAnnotation(ApiModelProperty.class);
+
+            String comment = null;
+            if (commentAnno != null) {
+                comment = commentAnno.value();
+            } else if (apiModelAnno != null) {
+                comment = apiModelAnno.value();
+            }
+            if (comment == null) {
+                continue;
+            }
+
+            // 关键：驼峰转下划线 updateTime → update_time
+            String columnName = camelToUnderline(field.getName());
+
+            String sql = String.format("COMMENT ON COLUMN %s.%s IS '%s';",
+                    table, columnName, comment.replace("'", "''"));
+            execute(sql);
+        }
+    }
+
+    /**
+     * 【关键】驼峰 → 下划线
+     *
+     * @param str
+     * @return
+     */
+    private String camelToUnderline(String str) {
+        if (str == null || str.isEmpty()) return str;
+        StringBuilder sb = new StringBuilder();
+        for (char c : str.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                sb.append("_");
+                sb.append(Character.toLowerCase(c));
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 获取当前类 + 所有父类字段
+     *
+     * @param clazz
+     * @return
+     */
+    private List<Field> getAllFields(Class<?> clazz) {
+        List<Field> fields = new ArrayList<>();
+        while (clazz != null && clazz != Object.class) {
+            fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+            clazz = clazz.getSuperclass();
+        }
+        return fields;
+    }
+
+    private void execute(String sql) {
+        try {
+            jdbcTemplate.execute(sql);
+        } catch (DataAccessException ignored) {
+        }
+    }
+
+    /**
+     * 包扫描工具
+     */
+    public static class ClassScannerUtil {
+        public static List<Class<?>> getClasses(String packageName) {
+            List<Class<?>> classes = new ArrayList<>();
+            try {
+                Enumeration<URL> resources = Thread.currentThread().getContextClassLoader()
+                        .getResources(packageName.replace(".", "/"));
+                while (resources.hasMoreElements()) {
+                    File dir = new File(resources.nextElement().toURI());
+                    scanDir(dir, packageName, classes);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return classes;
+        }
+
+        private static void scanDir(File file, String packageName, List<Class<?>> classes) throws ClassNotFoundException {
+            if (!file.exists()) return;
+            if (file.isDirectory()) {
+                File[] files = file.listFiles();
+                if (files != null) for (File f : files)
+                    scanDir(f, packageName + (f.isDirectory() ? "." + f.getName() : ""), classes);
+            } else {
+                String fileName = file.getName();
+                if (fileName.endsWith(".class")) {
+                    String className = packageName + "." + fileName.substring(0, fileName.lastIndexOf(".class"));
+                    classes.add(Class.forName(className));
+                }
+            }
+        }
+    }
+}
