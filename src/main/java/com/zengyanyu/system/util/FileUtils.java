@@ -64,7 +64,6 @@ public class FileUtils {
      */
     public static void downloadImage(String imageUrl, String destinationFile) throws IOException {
         URL url = new URL(imageUrl);
-        // 自动关闭资源
         try (BufferedInputStream bis = new BufferedInputStream(url.openStream());
              FileOutputStream fos = new FileOutputStream(destinationFile)) {
             byte[] buffer = new byte[8192];
