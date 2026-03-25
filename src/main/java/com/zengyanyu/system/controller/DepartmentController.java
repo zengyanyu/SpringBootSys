@@ -127,7 +127,6 @@ public class DepartmentController extends BaseController {
         if (file.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("请选择上传的Excel文件！");
         }
-        // 自动关闭资源
         try (InputStream inputStream = file.getInputStream()) {
             departmentService.importExcel(inputStream);
             return ResponseEntity.ok("Excel文件导入成功！");

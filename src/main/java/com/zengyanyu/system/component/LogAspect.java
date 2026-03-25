@@ -46,19 +46,19 @@ public class LogAspect {
     public void pointCut() {
     }
 
-    /**
-     * 前置通知,【执行Controller方法之前】执行该通知方法
-     */
-    @Before("pointCut()")
-    public void beforeAdvice() {
-    }
-
-    /**
-     * 后置通知,【Controller方法执行完成,返回方法的返回值之前】执行该通知方法
-     */
-    @After("pointCut()")
-    public void afterAdvice() {
-    }
+//    /**
+//     * 前置通知,【执行Controller方法之前】执行该通知方法
+//     */
+//    @Before("pointCut()")
+//    public void beforeAdvice() {
+//    }
+//
+//    /**
+//     * 后置通知,【Controller方法执行完成,返回方法的返回值之前】执行该通知方法
+//     */
+//    @After("pointCut()")
+//    public void afterAdvice() {
+//    }
 
     /**
      * 环绕通知,执行Controller方法的前后执行
