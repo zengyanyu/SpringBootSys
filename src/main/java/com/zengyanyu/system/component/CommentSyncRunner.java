@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -67,8 +68,17 @@ public class CommentSyncRunner implements CommandLineRunner {
 
         String table = tableName.value();
         String comment = apiModel.value();
-        if (org.springframework.util.StringUtils.hasText(comment)) {
-            execute(String.format("COMMENT ON TABLE %s IS '%s';", table, comment.replace("'", "''")));
+
+        // mysql
+        if ("mysql".equals(dataBaseType)) {
+            if (StringUtils.hasText(comment)) {
+                execute(String.format("ALTER TABLE %s COMMENT = '%s';", table, comment.replace("'", "''")));
+            }
+        } else {
+            // postgresql
+            if (StringUtils.hasText(comment)) {
+                execute(String.format("COMMENT ON TABLE %s IS '%s';", table, comment.replace("'", "''")));
+            }
         }
     }
 
