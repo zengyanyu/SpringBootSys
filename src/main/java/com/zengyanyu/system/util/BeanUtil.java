@@ -12,7 +12,9 @@ import com.zengyanyu.system.entity.Department;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,7 +73,52 @@ public class BeanUtil {
 
     public static void main(String[] args) throws Exception {
 //        test1();
-        test2();
+//        test2();
+        test3();
+    }
+
+    private static void test3() throws Exception {
+        // 这里传入 子类.class、父类.class（会自动忽略父类中的 class 属性）
+        BeanInfo beanInfo = Introspector.getBeanInfo(Department.class, BaseEntity.class.getSuperclass());
+
+        // 获取所有属性描述器
+        PropertyDescriptor[] pds = beanInfo.getPropertyDescriptors();
+
+        for (PropertyDescriptor pd : pds) {
+            // 属性名：userName → userName
+            String fieldName = pd.getName();
+
+            // 属性类型：String、Integer、Date等
+            Class<?> fieldType = pd.getPropertyType();
+
+            // ✅ 关键：通过属性名反射拿到真实字段（包括父类字段）
+            Field field = getField(Department.class, fieldName);
+
+            System.out.println("========================");
+            System.out.println("字段名：" + field.getName());
+            System.out.println("字段类型：" + fieldType.getName());
+            System.out.println("字段注解数量：" + field.getAnnotations().length);
+
+            // 打印所有注解
+            Arrays.stream(field.getAnnotations()).forEach(anno -> {
+                System.out.println("注解：" + anno.annotationType().getName());
+            });
+        }
+    }
+
+    /**
+     * 递归获取当前类 + 父类字段
+     */
+    public static Field getField(Class<?> clazz, String fieldName) {
+        try {
+            return clazz.getDeclaredField(fieldName);
+        } catch (NoSuchFieldException e) {
+            Class<?> superClazz = clazz.getSuperclass();
+            if (superClazz != null && superClazz != Object.class) {
+                return getField(superClazz, fieldName);
+            }
+        }
+        return null;
     }
 
     private static void test2() throws Exception {
