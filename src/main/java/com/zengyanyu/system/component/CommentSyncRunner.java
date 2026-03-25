@@ -36,23 +36,28 @@ public class CommentSyncRunner implements CommandLineRunner {
     // 指定数据库类型
     private static final String dataBaseType = "mysql1";
 
+    // 是否开启扫描添加注释
+    private static final Boolean isEnabled = false;
+
     /**
      * @param args
      */
     @Override
     public void run(String... args) {
-        try {
-            System.out.println("🚀 开始自动同步【表+字段+父类】注释...");
-            List<Class<?>> classList = ClassScannerUtil.getClasses(ENTITY_PACKAGE);
+        if (isEnabled) {
+            try {
+                System.out.println("🚀 开始自动同步【表+字段+父类】注释...");
+                List<Class<?>> classList = ClassScannerUtil.getClasses(ENTITY_PACKAGE);
 
-            for (Class<?> clazz : classList) {
-                if (!clazz.isAnnotationPresent(TableName.class)) continue;
-                syncTableComment(clazz);
-                syncAllFields(clazz);
+                for (Class<?> clazz : classList) {
+                    if (!clazz.isAnnotationPresent(TableName.class)) continue;
+                    syncTableComment(clazz);
+                    syncAllFields(clazz);
+                }
+                System.out.println("✅ 注释同步完成！");
+            } catch (Exception e) {
+                System.err.println("❌ 注释同步失败：" + e.getMessage());
             }
-            System.out.println("✅ 注释同步完成！");
-        } catch (Exception e) {
-            System.err.println("❌ 注释同步失败：" + e.getMessage());
         }
     }
 
