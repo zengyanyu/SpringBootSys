@@ -12,6 +12,8 @@ import com.zengyanyu.system.dto.UserInfoDto;
 import com.zengyanyu.system.entity.UserInfo;
 import com.zengyanyu.system.mapper.UserInfoMapper;
 import com.zengyanyu.system.service.IUserInfoService;
+import com.zengyanyu.system.util.JwtUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,12 +30,58 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     /**
      * 登录
      *
-     * @param userInfoDto
+     * @param dto
      * @return
      */
     @Override
-    public ResponseData login(UserInfoDto userInfoDto) {
-        return null;
+    public ResponseData login(UserInfoDto dto) {
+        if (StringUtils.isNotEmpty(dto.getUsername()) && StringUtils.isNotEmpty(dto.getPassword())) {
+            // 模拟账号密码----admin/123456
+            if ("admin".equals(dto.getUsername()) && "123456".equals(dto.getPassword())) {
+                // 查询用户信息
+                UserInfo userInfo = getUserInfo(dto.getUsername(), dto.getPassword());
+                String token = userInfo.getToken();
+                // TOKEN 不为空
+                if (StringUtils.isNotEmpty(token)) {
+                    // 已过期,重新生成
+                    try {
+                        if (JwtUtil.isTokenExpired(token)) {
+                            token = JwtUtil.generateToken(dto.getUsername());
+                            userInfo.setToken(token);
+                            saveOrUpdate(userInfo);
+                        } else {
+                            // 没有过期,设置token
+                            dto.setToken(token);
+                        }
+                    } catch (Exception e) {
+                        // 已过期,重新生成
+                        token = JwtUtil.generateToken(dto.getUsername());
+                        userInfo.setToken(token);
+                        saveOrUpdate(userInfo);
+                    }
+                }
+                return new ResponseData("系统登录成功", dto);
+            } else {
+                return new ResponseData(ResponseData.ERROR_CODE, "账号或者密码不正确!");
+            }
+        } else {
+            return new ResponseData(ResponseData.ERROR_CODE, "账号或者密码不能为空!");
+        }
+    }
+
+    /**
+     * 根据用户名和密码获取用户信息
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    private UserInfo getUserInfo(String username, String password) {
+        QueryWrapper<UserInfo> wrapper = new QueryWrapper<>();
+        wrapper.eq("username", username);
+        wrapper.eq("password", password);
+        return getOne(wrapper);
+
     }
 
     /**
