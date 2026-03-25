@@ -32,6 +32,7 @@ public class CommentSyncRunner implements CommandLineRunner {
     }
 
     private static final String ENTITY_PACKAGE = "com.zengyanyu.system.entity";
+    private static final String dataBaseType = "mysql1";
 
     /**
      * @param args
@@ -100,8 +101,16 @@ public class CommentSyncRunner implements CommandLineRunner {
             // 关键：驼峰转下划线 updateTime → update_time
             String columnName = camelToUnderline(field.getName());
 
-            String sql = String.format("COMMENT ON COLUMN %s.%s IS '%s';",
-                    table, columnName, comment.replace("'", "''"));
+            String sql = "";
+            if ("mysql".equals(dataBaseType)) {
+                // MySQL 字段注释语法
+                sql = String.format("ALTER TABLE %s MODIFY COLUMN %s COMMENT '%s'",
+                        table, columnName, comment.replace("'", "''"));
+            } else {
+                // postgresql
+                sql = String.format("COMMENT ON COLUMN %s.%s IS '%s';",
+                        table, columnName, comment.replace("'", "''"));
+            }
             execute(sql);
         }
     }
