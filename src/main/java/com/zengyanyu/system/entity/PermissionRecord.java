@@ -28,6 +28,7 @@ import java.io.Serializable;
 public class PermissionRecord implements Serializable {
 
     @Id
+    @ApiModelProperty("主键ID")
     private String id;
 
     @ApiModelProperty("方法名称")

@@ -29,6 +29,7 @@ import java.time.LocalDateTime;
 public class LogRecordEntity implements Serializable {
 
     @Id
+    @ApiModelProperty("主键ID")
     private String id;
 
     @ApiModelProperty("异常信息")
