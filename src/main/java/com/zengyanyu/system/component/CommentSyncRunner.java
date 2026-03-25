@@ -32,6 +32,7 @@ public class CommentSyncRunner implements CommandLineRunner {
     }
 
     private static final String ENTITY_PACKAGE = "com.zengyanyu.system.entity";
+    // 指定数据库类型
     private static final String dataBaseType = "mysql1";
 
     /**
@@ -161,6 +162,10 @@ public class CommentSyncRunner implements CommandLineRunner {
      * 包扫描工具
      */
     public static class ClassScannerUtil {
+        /**
+         * @param packageName
+         * @return
+         */
         public static List<Class<?>> getClasses(String packageName) {
             List<Class<?>> classes = new ArrayList<>();
             try {
@@ -176,12 +181,25 @@ public class CommentSyncRunner implements CommandLineRunner {
             return classes;
         }
 
+        /**
+         * 扫描目录
+         *
+         * @param file
+         * @param packageName
+         * @param classes
+         * @throws ClassNotFoundException
+         */
         private static void scanDir(File file, String packageName, List<Class<?>> classes) throws ClassNotFoundException {
-            if (!file.exists()) return;
+            if (!file.exists()) {
+                return;
+            }
             if (file.isDirectory()) {
                 File[] files = file.listFiles();
-                if (files != null) for (File f : files)
-                    scanDir(f, packageName + (f.isDirectory() ? "." + f.getName() : ""), classes);
+                if (files != null) {
+                    for (File f : files) {
+                        scanDir(f, packageName + (f.isDirectory() ? "." + f.getName() : ""), classes);
+                    }
+                }
             } else {
                 String fileName = file.getName();
                 if (fileName.endsWith(".class")) {
