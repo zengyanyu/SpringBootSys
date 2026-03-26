@@ -1,8 +1,15 @@
+/*
+ * Copyright (c) 2026, 曾衍育 All rights reserved.
+ * 自定义License声明
+ * ZENGYANYU PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.zengyanyu.system.component;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zengyanyu.system.util.SpringContextUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.dao.DataAccessException;
@@ -24,17 +31,12 @@ import java.util.List;
  * @author zengyanyu
  */
 @Component
+@RequiredArgsConstructor
 public class CommentSyncRunner implements CommandLineRunner {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public CommentSyncRunner(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
     private static final String ENTITY_PACKAGE = "com.zengyanyu.system.entity";
-    // 指定数据库类型
-    private static final String dataBaseType = "mysql1";
 
     // 是否开启扫描添加注释
     private static final Boolean isEnabled = false;
@@ -79,7 +81,7 @@ public class CommentSyncRunner implements CommandLineRunner {
         String comment = apiModel.value();
 
         // mysql
-        if ("mysql".equals(dataBaseType)) {
+        if (!"dev".equals(SpringContextUtil.getProperty("spring.profiles.active"))) {
             if (StringUtils.hasText(comment)) {
                 execute(String.format("ALTER TABLE %s COMMENT = '%s';", table, comment.replace("'", "''")));
             }
@@ -124,7 +126,8 @@ public class CommentSyncRunner implements CommandLineRunner {
             String columnName = camelToUnderline(field.getName());
 
             String sql = "";
-            if ("mysql".equals(dataBaseType)) {
+            // MySQL 驱动
+            if (!"dev".equals(SpringContextUtil.getProperty("spring.profiles.active"))) {
                 String columnType = getMySQLColumnType(table, columnName);
                 String safeComment = comment.replace("'", "''");
                 if (columnType == null) {
