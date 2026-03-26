@@ -59,10 +59,10 @@ public class LogRecordEntity implements Serializable {
     @ApiModelProperty("请求IP地址")
     private String requestIp;
 
-    @ApiModelProperty("请求开始时间")
+    @ApiModelProperty("请求时间")
     private LocalDateTime requestTime;
 
-    @ApiModelProperty("请求响应时间")
+    @ApiModelProperty("响应时间")
     private LocalDateTime responseTime;
 
     @ApiModelProperty("请求是否成功")
