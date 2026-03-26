@@ -53,14 +53,48 @@ public class ReflectionUtil {
         throw new NoSuchFieldError("在类【" + object.getClass().getName() + "】及其父类中，未找到字段：" + fieldName);
     }
 
+    /**
+     * 设置字段值
+     *
+     * @param object    对象
+     * @param fieldName 字段名称
+     * @param value     字段值
+     */
+    public static void setValue(Object object, String fieldName, Object value) {
+        if (object == null) {
+            throw new IllegalArgumentException("设置失败：对象不能为空");
+        }
+
+        Class<?> clazz = object.getClass();
+        while (clazz != null) {
+            try {
+                Field field = clazz.getDeclaredField(fieldName);
+                field.setAccessible(true);
+                field.set(object, value);
+                return;
+            } catch (NoSuchFieldException e) {
+                clazz = clazz.getSuperclass();
+            } catch (Exception e) {
+                throw new RuntimeException("设置字段值异常：" + fieldName, e);
+            }
+        }
+
+        throw new NoSuchFieldError(
+                "未找到字段【" + fieldName + "】，请检查类：" + object.getClass().getName()
+        );
+    }
+
     public static void main(String[] args) {
         Department dept = new Department();
         dept.setDeptName("1111111111");
         dept.setCreateTime(LocalDateTime.now());
-        Object deptName = getValue(dept, "deptName");
-        System.out.println("deptName = " + deptName);
-        Object createTime = getValue(dept, "createTime");
-        System.out.println("createTime = " + createTime);
+//        Object deptName = getValue(dept, "deptName");
+//        System.out.println("deptName = " + deptName);
+//        Object createTime = getValue(dept, "createTime");
+//        System.out.println("createTime = " + createTime);
+
+        setValue(dept, "id", "1");
+        System.out.println("dept = " + dept);
     }
 
 }
