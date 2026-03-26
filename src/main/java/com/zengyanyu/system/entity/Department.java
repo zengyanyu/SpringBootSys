@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -22,6 +23,7 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @Entity
+@ToString(callSuper = true)
 @TableName("department")
 @ApiModel(value = "部门管理", description = "部门管理")
 public class Department extends BaseEntity {

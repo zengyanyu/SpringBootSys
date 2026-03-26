@@ -56,12 +56,12 @@ public class LogRecordExportExcelDto implements Serializable {
     @ApiModelProperty("请求IP地址")
     private String requestIp;
 
-    @ExcelProperty(value = "请求开始时间", index = 8)
-    @ApiModelProperty("请求开始时间")
+    @ExcelProperty(value = "请求时间", index = 8)
+    @ApiModelProperty("请求时间")
     private LocalDateTime requestTime;
 
-    @ExcelProperty(value = "请求响应时间", index = 9)
-    @ApiModelProperty("请求响应时间")
+    @ExcelProperty(value = "响应时间", index = 9)
+    @ApiModelProperty("响应时间")
     private LocalDateTime responseTime;
 
     @ExcelProperty(value = "请求是否成功", index = 10)

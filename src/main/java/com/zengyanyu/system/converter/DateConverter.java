@@ -23,17 +23,29 @@ public class DateConverter implements Converter<Date> {
 
     private static final String PATTERN_YYYY_MM_DD = "yyyy-MM-dd";
 
+    /**
+     * 代表：我这个转换器专门处理 Java 里的 Date 类型字段
+     *
+     * @return
+     */
     @Override
     public Class<Date> supportJavaTypeKey() {
         return Date.class;
     }
 
+    /**
+     * 代表：Excel 里存的是字符串（比如 "2025-01-01"）
+     *
+     * @return
+     */
     @Override
     public CellDataTypeEnum supportExcelTypeKey() {
         return CellDataTypeEnum.STRING;
     }
 
     /**
+     * 写入 Excel 时调用：Date → String
+     *
      * @param value
      * @param excelContentProperty
      * @param globalConfiguration

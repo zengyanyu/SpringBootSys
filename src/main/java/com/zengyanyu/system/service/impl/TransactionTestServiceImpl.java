@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026, 曾衍育 All rights reserved.
+ * 自定义License声明
+ * ZENGYANYU PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.zengyanyu.system.service.impl;
 
 import org.springframework.context.annotation.Lazy;
@@ -44,6 +49,7 @@ public class TransactionTestServiceImpl {
     // 解决自调用事务生效的问题：
 
     public void submitOrder1() {
+        // 解决方案：注入自己，或者用ApplicationContext.getBean()获取代理对象。
         // 通过注入的self调用，事务生效！
         transactionTestService.createOrder();
     }
