@@ -34,10 +34,10 @@ public class CommentSyncRunner implements CommandLineRunner {
 
     private static final String ENTITY_PACKAGE = "com.zengyanyu.system.entity";
     // 指定数据库类型
-    private static final String dataBaseType = "mysql";
+    private static final String dataBaseType = "mysql1";
 
     // 是否开启扫描添加注释
-    private static final Boolean isEnabled = true;
+    private static final Boolean isEnabled = false;
 
     /**
      * @param args
