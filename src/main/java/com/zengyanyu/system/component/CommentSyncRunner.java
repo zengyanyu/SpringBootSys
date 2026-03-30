@@ -26,7 +26,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 /**
- * 自动同步表/字段注释到 PostgreSQL（支持父类 + 驼峰转下划线）
+ * 自动同步表/字段注释到 PostgreSQL、MySQL（支持父类 + 驼峰转下划线）
  *
  * @author zengyanyu
  */
@@ -166,7 +166,7 @@ public class CommentSyncRunner implements CommandLineRunner {
     }
 
     /**
-     * 【关键】驼峰 → 下划线
+     * 驼峰转下划线
      *
      * @param str
      * @return
@@ -205,7 +205,7 @@ public class CommentSyncRunner implements CommandLineRunner {
     private void execute(String sql) {
         try {
             jdbcTemplate.execute(sql);
-        } catch (DataAccessException ignored) {
+        } catch (DataAccessException e) {
         }
     }
 
