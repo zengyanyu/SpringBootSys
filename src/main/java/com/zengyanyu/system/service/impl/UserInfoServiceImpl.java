@@ -59,6 +59,11 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
                         userInfo.setToken(token);
                         saveOrUpdate(userInfo);
                     }
+                } else {
+                    // 如果token为空,那么就生成一个token
+                    token = JwtUtil.generateToken(dto.getUsername());
+                    userInfo.setToken(token);
+                    saveOrUpdate(userInfo);
                 }
                 return new ResponseData("系统登录成功", dto);
             } else {
