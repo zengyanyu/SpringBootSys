@@ -8,6 +8,7 @@ package com.zengyanyu.system.controller;
 import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zengyanyu.system.commons.ResponseData;
 import com.zengyanyu.system.dto.LogRecordExportExcelDto;
 import com.zengyanyu.system.entity.LogRecordEntity;
 import com.zengyanyu.system.framework.strategy.CustomColumnWidthStyleStrategy;
@@ -20,6 +21,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,6 +42,13 @@ public class LogRecordController extends BaseController {
 
     @Resource
     private ILogRecordService logRecordEntityService;
+
+    @ApiOperation("批量删除日志记录")
+    @PostMapping("/del/batch")
+    public ResponseData deleteBatch(@RequestBody List<String> ids) {
+        logRecordEntityService.removeByIds(ids);
+        return new ResponseData("批量删除成功");
+    }
 
     @ApiOperation("日志记录分页查询数据")
     @GetMapping("/page")
