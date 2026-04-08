@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @author zengyanyu
  */
-@Service
+@Service("dictService")
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements IDictService {
 
     /**

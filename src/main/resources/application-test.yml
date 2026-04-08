@@ -46,3 +46,24 @@ spring:
 file:
   uploadFolder: D:/upload/
   uploadH5Folder: D:/uploadH5/
+
+# ==================== Excel导入配置 ====================
+excel:
+  import:
+    # 定时任务cron表达式：每10秒执行一次
+    cron: "0/5 * * * * ?"
+    # 根扫描目录
+    scan-path: E:/excel
+    # 文件夹名称 -> 对应Service的Bean名称 映射
+    folder-service-map:
+      data-dict: dictService    # user-data文件夹 → 用户数据导入服务
+      product-data: productImportExcelService # 新增业务直接加配置
+    # 默认服务（未匹配到文件夹时使用）
+    default-service: defaultImportExcelService
+
+# ==================== 线程池配置 ====================
+executor:
+  core-size: 5
+  max-size: 10
+  queue-capacity: 20
+  keep-alive-seconds: 60

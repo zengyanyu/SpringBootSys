@@ -38,8 +38,9 @@ public class AddSerializableTool {
      * @throws IOException IO异常
      */
     private static void scanDir(File dir) throws IOException {
-        if (!dir.exists())
+        if (!dir.exists()) {
             return;
+        }
         for (File file : dir.listFiles()) {
             if (file.isDirectory()) {
                 scanDir(file);
