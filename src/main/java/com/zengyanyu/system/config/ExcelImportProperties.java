@@ -1,7 +1,7 @@
 package com.zengyanyu.system.config;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -9,12 +9,13 @@ import java.util.Map;
 
 /**
  * Excel导入配置：文件夹与对应服务的映射
+ *
  * @author zengyanyu
  */
-@Data
+@Getter
+@Setter
 @Component
 @ConfigurationProperties(prefix = "excel.import")
-@NoArgsConstructor // 必须有默认构造函数
 public class ExcelImportProperties {
     /**
      * 文件夹名称 -> 对应Service的Bean名称 映射
@@ -29,9 +30,18 @@ public class ExcelImportProperties {
      */
     private String defaultService;
 
+    /**
+     * 扫描路径
+     */
     private String scanPath;
 
+    /**
+     * 定时任务表达式
+     */
     private String cron;
 
+    /**
+     * 设置是否启用开关
+     */
     private Boolean isStarted;
 }
