@@ -12,10 +12,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.concurrent.Executor;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Excel定时导入任务：按文件夹匹配对应服务
+ *
  * @author zengyanyu
  */
 @Slf4j
@@ -25,11 +25,10 @@ public class ExcelImportTask {
 
     private final ExcelImportProperties excelImportProperties;
     private final ImportExcelServiceFactory importExcelServiceFactory;
-    private final Executor fileExecutor; // 注入线程池
-
-    // 统计导入成功/失败数量
-    private final AtomicInteger successCount = new AtomicInteger(0);
-    private final AtomicInteger failCount = new AtomicInteger(0);
+    /**
+     * 注入线程池
+     */
+    private final Executor fileExecutor;
 
     /**
      * 定时任务：从yml读取cron表达式
@@ -45,15 +44,12 @@ public class ExcelImportTask {
             return;
         }
 
-        log.info("==================== 开始定时导入Excel（按文件夹匹配服务） ====================");
-        successCount.set(0);
-        failCount.set(0);
-
-        // 线程池异步执行根目录扫描
-        fileExecutor.execute(() -> scanDirAndImport(rootDir));
-
-        log.info("==================== 本次扫描任务提交完成，成功：{}，失败：{} ====================",
-                successCount.get(), failCount.get());
+        // 是否启动的开关
+        if (excelImportProperties.getIsStarted()) {
+            log.info("==================== 开始定时导入Excel（按文件夹匹配服务） ====================");
+            // 线程池异步执行根目录扫描
+            fileExecutor.execute(() -> scanDirAndImport(rootDir));
+        }
     }
 
     /**
@@ -98,7 +94,6 @@ public class ExcelImportTask {
             // 1. 根据文件夹名称获取对应导入服务
             IImportExcelService importService = importExcelServiceFactory.getServiceByFolderName(folderName);
             if (importService == null) {
-                failCount.incrementAndGet();
                 log.error("【{}】无对应导入服务，跳过文件：{}", folderName, excelFile.getName());
                 return;
             }
@@ -106,11 +101,9 @@ public class ExcelImportTask {
             // 2. 执行导入
             importService.importExcel(inputStream);
 
-            successCount.incrementAndGet();
             log.info("【{}】导入成功：{}", folderName, excelFile.getName());
 
         } catch (Exception e) {
-            failCount.incrementAndGet();
             log.error("【{}】导入失败：{}，原因：{}", folderName, excelFile.getName(), e.getMessage(), e);
         }
     }

@@ -32,4 +32,6 @@ public class ExcelImportProperties {
     private String scanPath;
 
     private String cron;
+
+    private Boolean isStarted;
 }

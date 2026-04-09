@@ -54,6 +54,7 @@ excel:
     cron: "0/5 * * * * ?"
     # 根扫描目录
     scan-path: E:/excel
+    is-started: false
     # 文件夹名称 -> 对应Service的Bean名称 映射
     folder-service-map:
       data-dict: dictService    # user-data文件夹 → 用户数据导入服务

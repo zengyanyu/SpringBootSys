@@ -30,7 +30,7 @@ public class DictImportExcelListener extends BaseImportExcelListener<DictImportE
 
     @Override
     protected boolean isDataExist(DictImportExcelDto data) {
-        return dictService.selectDataByCondition(data.getCode());
+        return false;
     }
 
     @Override
