@@ -5,8 +5,6 @@
  */
 package com.zengyanyu.system.framework.filter;
 
-import com.zengyanyu.system.config.UserContextHolder;
-import com.zengyanyu.system.entity.UserInfo;
 import com.zengyanyu.system.service.IUserInfoService;
 import org.springframework.context.annotation.Configuration;
 
@@ -43,21 +41,21 @@ public class LoginFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
-        String requestURI = req.getRequestURI();
-        if (requestURI.contains("/login")) {
-
-        } else {
-            String auth = req.getHeader("authorization");
-            if (auth != null && auth.startsWith("Bearer ")) {
-                String token = auth.split(" ")[1];
-                UserInfo userInfo = userInfoService.getUserInfoByToken(token).getData();
-                UserContextHolder.setUserContext(userInfo);
-            } else {
-                // 提示401
-                resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                return;
-            }
-        }
+//        String requestURI = req.getRequestURI();
+//        if (requestURI.contains("/login")) {
+//
+//        } else {
+//            String auth = req.getHeader("authorization");
+//            if (auth != null && auth.startsWith("Bearer ")) {
+//                String token = auth.split(" ")[1];
+//                UserInfo userInfo = userInfoService.getUserInfoByToken(token).getData();
+//                UserContextHolder.setUserContext(userInfo);
+//            } else {
+//                // 提示401
+//                resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//                return;
+//            }
+//        }
         // 放行
         chain.doFilter(request, response);
     }
