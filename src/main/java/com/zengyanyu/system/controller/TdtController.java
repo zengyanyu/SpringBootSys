@@ -1,5 +1,6 @@
 package com.zengyanyu.system.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -8,10 +9,17 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
 
+@Api(tags = "天地图历史影响 控制器")
 @RestController
 @RequestMapping("/tdt")
 public class TdtController {
 
+    /**
+     * 天地图账号：
+     * https://oauth.tianditu.gov.cn/
+     * 1194314874@qq.com
+     * Zeng$123456
+     */
     private static final String TDT_SERVER_KEY = "33725e220df1831cdcaffabbea3b96d9";
     // 天地图WMTS基础地址
     private static final String TDT_BASE_URL = "https://t0.tianditu.gov.cn/img_w/wmts";
