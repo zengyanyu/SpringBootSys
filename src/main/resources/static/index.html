@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>深圳历史影像</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@7.5.0/ol.css">
+    <script src="https://cdn.jsdelivr.net/npm/ol@7.5.0/dist/ol.js"></script>
+    <style>
+        #map { width: 100%; height: 800px; }
+        .time-select { margin: 10px; }
+    </style>
+</head>
+<body>
+<div class="time-select">
+    选择历史影像时间：
+    <select id="timeSelect">
+        <option value="20240101">2024年</option>
+        <option value="20230101" selected>2023年</option>
+        <option value="20220101">2022年</option>
+        <option value="20210101">2021年</option>
+        <option value="20200101">2020年</option>
+    </select>
+</div>
+<div id="map"></div>
+
+<script>
+    // 1. 后端代理接口地址（和后端Controller路径完全一致）
+    const PROXY_BASE_URL = "http://localhost:8080/shenzhenNearshoreWaterSurveillance/tdt/history/tile";
+
+    // 2. 初始化地图，定位到深圳市
+    const map = new ol.Map({
+        target: 'map',
+        view: new ol.View({
+            center: ol.proj.fromLonLat([114.06, 22.55]), // 深圳市中心坐标
+            zoom: 12,
+            minZoom: 1,
+            maxZoom: 18
+        })
+    });
+
+    // 3. 创建天地图历史影像图层（用XYZ源，100%解决占位符不替换问题）
+    let imgLayer;
+    function addHistoryLayer(time) {
+        if (imgLayer) map.removeLayer(imgLayer);
+
+        // ✅ 核心修复：用XYZ源，占位符{z}/{y}/{x}会被OpenLayers自动替换
+        imgLayer = new ol.layer.Tile({
+            source: new ol.source.XYZ({
+                // 只传占位符参数，移除所有多余的WMTS参数
+                url: `${PROXY_BASE_URL}?z={z}&y={y}&x={x}&time=${time}`
+            })
+        });
+        map.addLayer(imgLayer);
+    }
+
+    // 默认加载2023年
+    addHistoryLayer("20230101");
+
+    // 切换时间
+    document.getElementById("timeSelect").addEventListener("change", function(e){
+        addHistoryLayer(e.target.value);
+    });
+</script>
+</body>
+</html>
