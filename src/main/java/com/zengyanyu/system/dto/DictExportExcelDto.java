@@ -6,6 +6,7 @@
 package com.zengyanyu.system.dto;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.zengyanyu.system.converter.DateConverter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -33,5 +34,6 @@ public class DictExportExcelDto implements Serializable {
 
     @ExcelProperty(value = "导出日期", index = 2, converter = DateConverter.class)
     @ApiModelProperty("导出日期")
+    @DateTimeFormat("yyyy-MM-dd")
     private Date exportDate;
 }
