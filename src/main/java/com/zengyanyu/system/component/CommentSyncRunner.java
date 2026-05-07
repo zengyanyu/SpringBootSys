@@ -5,151 +5,203 @@
  */
 package com.zengyanyu.system.component;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zengyanyu.system.util.ClassScannerUtil;
-import com.zengyanyu.system.util.SpringContextUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.Comment;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.dao.DataAccessException;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
-import java.io.File;
 import java.lang.reflect.Field;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
 
 /**
- * 自动同步表/字段注释到 PostgreSQL、MySQL（支持父类 + 驼峰转下划线）
+ * 数据库注释自动同步（批量执行版，性能最优）
+ * 支持 MySQL + PostgreSQL、父类字段、驼峰转下划线、批量执行SQL
  *
  * @author zengyanyu
  */
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class CommentSyncRunner implements CommandLineRunner {
 
     private final JdbcTemplate jdbcTemplate;
+    private final Environment environment;
 
+    // 实体扫描包
     private static final String ENTITY_PACKAGE = "com.zengyanyu.system.entity";
+    // 启用开关
+    private static final boolean ENABLE_SYNC = false;
+    // 环境标识 dev=PostgreSQL  其他=MySQL
+    private static final String ENV_DEV = "dev";
 
-    // 是否开启扫描添加注释
-    private static final Boolean isEnabled = false;
-
-    /**
-     * @param args
-     */
     @Override
     public void run(String... args) {
-        if (isEnabled) {
-            List<Class<?>> classList = ClassScannerUtil.getClasses(ENTITY_PACKAGE);
-            for (Class<?> clazz : classList) {
-                if (!clazz.isAnnotationPresent(TableName.class)) {
-                    continue;
-                }
-                syncTableComment(clazz);
-                syncAllFields(clazz);
+        if (!ENABLE_SYNC) {
+            log.info("====== 注释同步功能已关闭 ======");
+            return;
+        }
+
+        log.info("====== 开始【批量执行】数据库注释同步 ======");
+        try {
+            // 1. 批量扫描实体类
+            List<Class<?>> entityList = ClassScannerUtil.getClasses(ENTITY_PACKAGE);
+            if (entityList.isEmpty()) {
+                log.warn("未扫描到实体类，同步结束");
+                return;
             }
+
+            // 2. 批量收集所有SQL语句
+            List<String> sqlBatchList = new ArrayList<>();
+            for (Class<?> clazz : entityList) {
+                collectTableAndFieldSql(clazz, sqlBatchList);
+            }
+
+            // 3. 批量执行所有SQL（核心：一次提交批量执行）
+            if (!sqlBatchList.isEmpty()) {
+                executeBatchSql(sqlBatchList);
+                log.info("====== 批量执行完成，共执行SQL：{} 条 ======", sqlBatchList.size());
+            }
+
+        } catch (Exception e) {
+            log.error("====== 批量注释同步执行失败 ======", e);
         }
     }
 
     /**
-     * 同步表注释
-     *
-     * @param clazz
+     * 收集单张表的 表注释SQL + 所有字段注释SQL（批量收集）
      */
-    private void syncTableComment(Class<?> clazz) {
+    private void collectTableAndFieldSql(Class<?> clazz, List<String> sqlBatchList) {
         TableName tableName = clazz.getAnnotation(TableName.class);
+        if (Objects.isNull(tableName) || StrUtil.isBlank(tableName.value())) {
+            return;
+        }
+        String table = tableName.value();
+
+        try {
+            // 收集表注释SQL
+            String tableSql = buildTableCommentSql(clazz, table);
+            if (StrUtil.isNotBlank(tableSql)) {
+                sqlBatchList.add(tableSql);
+            }
+
+            // 收集所有字段SQL
+            collectFieldSqlList(clazz, table, sqlBatchList);
+
+            log.info("已收集表【{}】的批量SQL", table);
+        } catch (Exception e) {
+            log.error("收集表【{}】SQL异常", table, e);
+        }
+    }
+
+    /**
+     * 构建表注释SQL
+     */
+    private String buildTableCommentSql(Class<?> clazz, String table) {
         ApiModel apiModel = clazz.getAnnotation(ApiModel.class);
-        if (tableName == null || apiModel == null) {
-            return;
+        if (Objects.isNull(apiModel) || StrUtil.isBlank(apiModel.value())) {
+            return null;
         }
 
-        String table = tableName.value();
-        String comment = apiModel.value();
+        String comment = escapeSql(apiModel.value());
+        boolean isPostgres = ENV_DEV.equals(environment.getProperty("spring.profiles.active"));
 
-        // mysql
-        if (!"dev".equals(SpringContextUtil.getProperty("spring.profiles.active"))) {
-            if (StringUtils.hasText(comment)) {
-                execute(String.format("ALTER TABLE %s COMMENT = '%s';", table, comment.replace("'", "''")));
-            }
+        if (isPostgres) {
+            return String.format("COMMENT ON TABLE %s IS '%s';", table, comment);
         } else {
-            // postgresql
-            if (StringUtils.hasText(comment)) {
-                execute(String.format("COMMENT ON TABLE %s IS '%s';", table, comment.replace("'", "''")));
-            }
+            // MySQL数据库
+            return String.format("ALTER TABLE %s COMMENT = '%s';", table, comment);
         }
     }
 
     /**
-     * 同步当前类 + 所有父类字段
-     *
-     * @param clazz
+     * 收集所有字段注释SQL（批量收集）
      */
-    private void syncAllFields(Class<?> clazz) {
-        TableName tableName = clazz.getAnnotation(TableName.class);
-        if (tableName == null) {
-            return;
-        }
-        String table = tableName.value();
-
+    private void collectFieldSqlList(Class<?> clazz, String table, List<String> sqlBatchList) {
         List<Field> allFields = getAllFields(clazz);
+        boolean isPostgres = ENV_DEV.equals(environment.getProperty("spring.profiles.active"));
 
         for (Field field : allFields) {
-            // 优先取 @Comment，没有则取 @ApiModelProperty
-            Comment commentAnno = field.getAnnotation(Comment.class);
-            ApiModelProperty apiModelAnno = field.getAnnotation(ApiModelProperty.class);
-
-            String comment = null;
-            if (commentAnno != null) {
-                comment = commentAnno.value();
-            } else if (apiModelAnno != null) {
-                comment = apiModelAnno.value();
-            }
-            if (comment == null) {
+            String comment = getFieldComment(field);
+            if (StrUtil.isBlank(comment)) {
                 continue;
             }
 
-            // 关键：驼峰转下划线 updateTime → update_time
-            String columnName = camelToUnderline(field.getName());
+            String column = camelToUnderline(field.getName());
+            comment = escapeSql(comment);
 
-            String sql = "";
-            // MySQL 驱动
-            if (!"dev".equals(SpringContextUtil.getProperty("spring.profiles.active"))) {
-                String columnType = getMySQLColumnType(table, columnName);
-                String safeComment = comment.replace("'", "''");
-                if (columnType == null) {
-                    continue;
+            try {
+                String fieldSql;
+                if (isPostgres) {
+                    fieldSql = String.format("COMMENT ON COLUMN %s.%s IS '%s';", table, column, comment);
+                } else {
+                    // MySQL 需要查询字段类型
+                    String columnType = getMySqlColumnType(table, column);
+                    if (StrUtil.isBlank(columnType)) {
+                        continue;
+                    }
+                    fieldSql = String.format("ALTER TABLE %s MODIFY COLUMN %s %s COMMENT '%s';", table, column, columnType, comment);
                 }
-
-                // MySQL 标准语法：MODIFY COLUMN 字段 原类型 COMMENT '注释'
-                sql = String.format("ALTER TABLE %s MODIFY COLUMN %s %s COMMENT '%s'", table, columnName, columnType, safeComment);
-            } else {
-                // postgresql
-                sql = String.format("COMMENT ON COLUMN %s.%s IS '%s';", table, columnName, comment.replace("'", "''"));
+                sqlBatchList.add(fieldSql);
+            } catch (Exception e) {
+                log.warn("表【{}】字段【{}】构建SQL异常", table, column, e);
             }
-            execute(sql);
         }
     }
 
     /**
-     * 查询 MySQL 字段真实类型
+     * 批量执行SQL（核心方法）
      *
-     * @param table  表名称
-     * @param column 列名称
-     * @return
+     * @param sqlList SQL列表
      */
-    private String getMySQLColumnType(String table, String column) {
+    private void executeBatchSql(List<String> sqlList) {
         try {
-            String sql = "SELECT COLUMN_TYPE FROM information_schema.COLUMNS " + "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = ?";
+            jdbcTemplate.batchUpdate(sqlList.toArray(new String[0]));
+        } catch (Exception e) {
+            log.error("批量执行SQL失败", e);
+        }
+    }
+
+    /**
+     * 查询MySQL字段类型
+     *
+     * @param table  表名
+     * @param column 列名
+     * @return 字符串
+     */
+    private String getMySqlColumnType(String table, String column) {
+        try {
+            String sql = "SELECT COLUMN_TYPE FROM information_schema.COLUMNS " + " WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = ?;";
+
             return jdbcTemplate.queryForObject(sql, String.class, table, column);
         } catch (Exception e) {
+            log.warn("查询表【{}】字段【{}】类型失败", table, column);
+            return null;
+        }
+    }
+
+    /**
+     * 获取字段注释
+     *
+     * @param field 字段
+     * @return 字符串
+     */
+    private String getFieldComment(Field field) {
+        Comment comment = field.getAnnotation(Comment.class);
+        if (Objects.nonNull(comment) && StrUtil.isNotBlank(comment.value())) {
+            return comment.value();
+        }
+
+        ApiModelProperty api = field.getAnnotation(ApiModelProperty.class);
+        if (Objects.nonNull(api) && StrUtil.isNotBlank(api.value())) {
+            return api.value();
         }
         return null;
     }
@@ -157,18 +209,17 @@ public class CommentSyncRunner implements CommandLineRunner {
     /**
      * 驼峰转下划线
      *
-     * @param str
-     * @return
+     * @param str 字符串
+     * @return 字符串
      */
     private String camelToUnderline(String str) {
-        if (str == null || str.isEmpty()) {
+        if (StrUtil.isBlank(str)) {
             return str;
         }
         StringBuilder sb = new StringBuilder();
         for (char c : str.toCharArray()) {
             if (Character.isUpperCase(c)) {
-                sb.append("_");
-                sb.append(Character.toLowerCase(c));
+                sb.append("_").append(Character.toLowerCase(c));
             } else {
                 sb.append(c);
             }
@@ -177,10 +228,10 @@ public class CommentSyncRunner implements CommandLineRunner {
     }
 
     /**
-     * 获取当前类 + 所有父类字段
+     * 获取所有父类字段
      *
-     * @param clazz
-     * @return
+     * @param clazz 类
+     * @return 字段列表
      */
     private List<Field> getAllFields(Class<?> clazz) {
         List<Field> fields = new ArrayList<>();
@@ -191,10 +242,13 @@ public class CommentSyncRunner implements CommandLineRunner {
         return fields;
     }
 
-    private void execute(String sql) {
-        try {
-            jdbcTemplate.execute(sql);
-        } catch (DataAccessException e) {
-        }
+    /**
+     * SQL单引号转义
+     *
+     * @param str 字符串
+     * @return 字符串
+     */
+    private String escapeSql(String str) {
+        return str == null ? "" : str.replace("'", "''");
     }
 }
