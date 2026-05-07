@@ -30,7 +30,7 @@ import java.util.*;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CommentSyncRunner implements CommandLineRunner {
+public class SyncTableCommentRunner implements CommandLineRunner {
 
     private final JdbcTemplate jdbcTemplate;
     private final Environment environment;
