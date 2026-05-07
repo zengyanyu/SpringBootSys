@@ -28,7 +28,7 @@ public class ClassScannerUtil {
                 scanDir(dir, packageName, classes);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return classes;
     }
