@@ -6,6 +6,7 @@
 package com.zengyanyu.system.component;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zengyanyu.system.util.ClassScannerUtil;
 import com.zengyanyu.system.util.SpringContextUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -47,20 +48,13 @@ public class CommentSyncRunner implements CommandLineRunner {
     @Override
     public void run(String... args) {
         if (isEnabled) {
-            try {
-                System.out.println("🚀 开始自动同步【表+字段+父类】注释...");
-                List<Class<?>> classList = ClassScannerUtil.getClasses(ENTITY_PACKAGE);
-
-                for (Class<?> clazz : classList) {
-                    if (!clazz.isAnnotationPresent(TableName.class)) {
-                        continue;
-                    }
-                    syncTableComment(clazz);
-                    syncAllFields(clazz);
+            List<Class<?>> classList = ClassScannerUtil.getClasses(ENTITY_PACKAGE);
+            for (Class<?> clazz : classList) {
+                if (!clazz.isAnnotationPresent(TableName.class)) {
+                    continue;
                 }
-                System.out.println("✅ 注释同步完成！");
-            } catch (Exception e) {
-                System.err.println("❌ 注释同步失败：" + e.getMessage());
+                syncTableComment(clazz);
+                syncAllFields(clazz);
             }
         }
     }
@@ -135,14 +129,10 @@ public class CommentSyncRunner implements CommandLineRunner {
                 }
 
                 // MySQL 标准语法：MODIFY COLUMN 字段 原类型 COMMENT '注释'
-                sql = String.format(
-                        "ALTER TABLE %s MODIFY COLUMN %s %s COMMENT '%s'",
-                        table, columnName, columnType, safeComment
-                );
+                sql = String.format("ALTER TABLE %s MODIFY COLUMN %s %s COMMENT '%s'", table, columnName, columnType, safeComment);
             } else {
                 // postgresql
-                sql = String.format("COMMENT ON COLUMN %s.%s IS '%s';",
-                        table, columnName, comment.replace("'", "''"));
+                sql = String.format("COMMENT ON COLUMN %s.%s IS '%s';", table, columnName, comment.replace("'", "''"));
             }
             execute(sql);
         }
@@ -157,8 +147,7 @@ public class CommentSyncRunner implements CommandLineRunner {
      */
     private String getMySQLColumnType(String table, String column) {
         try {
-            String sql = "SELECT COLUMN_TYPE FROM information_schema.COLUMNS "
-                    + "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = ?";
+            String sql = "SELECT COLUMN_TYPE FROM information_schema.COLUMNS " + "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = ?";
             return jdbcTemplate.queryForObject(sql, String.class, table, column);
         } catch (Exception e) {
         }
@@ -206,58 +195,6 @@ public class CommentSyncRunner implements CommandLineRunner {
         try {
             jdbcTemplate.execute(sql);
         } catch (DataAccessException e) {
-        }
-    }
-
-    /**
-     * 包扫描工具
-     */
-    public static class ClassScannerUtil {
-        /**
-         * @param packageName
-         * @return
-         */
-        public static List<Class<?>> getClasses(String packageName) {
-            List<Class<?>> classes = new ArrayList<>();
-            try {
-                Enumeration<URL> resources = Thread.currentThread().getContextClassLoader()
-                        .getResources(packageName.replace(".", "/"));
-                while (resources.hasMoreElements()) {
-                    File dir = new File(resources.nextElement().toURI());
-                    scanDir(dir, packageName, classes);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return classes;
-        }
-
-        /**
-         * 扫描目录
-         *
-         * @param file
-         * @param packageName
-         * @param classes
-         * @throws ClassNotFoundException
-         */
-        private static void scanDir(File file, String packageName, List<Class<?>> classes) throws ClassNotFoundException {
-            if (!file.exists()) {
-                return;
-            }
-            if (file.isDirectory()) {
-                File[] files = file.listFiles();
-                if (files != null) {
-                    for (File f : files) {
-                        scanDir(f, packageName + (f.isDirectory() ? "." + f.getName() : ""), classes);
-                    }
-                }
-            } else {
-                String fileName = file.getName();
-                if (fileName.endsWith(".class")) {
-                    String className = packageName + "." + fileName.substring(0, fileName.lastIndexOf(".class"));
-                    classes.add(Class.forName(className));
-                }
-            }
         }
     }
 }

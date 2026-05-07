@@ -35,9 +35,9 @@ import java.util.Map;
 @Component
 public class LogAspect {
 
-    private ThreadLocal<LogRecordEntity> threadLocal = new ThreadLocal<>();
     @Resource
     private ILogRecordService recordService;
+    private final ThreadLocal<LogRecordEntity> threadLocal = new ThreadLocal<>();
 
     /**
      * 定义切入点，这里我们使用AOP切入自定义【@LogRecordEntity】注解的方法
