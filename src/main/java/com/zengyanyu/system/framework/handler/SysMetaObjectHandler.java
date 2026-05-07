@@ -23,7 +23,7 @@ public class SysMetaObjectHandler implements MetaObjectHandler {
     /**
      * 新增填充
      *
-     * @param metaObject
+     * @param metaObject 元数据对象
      */
     @Override
     public void insertFill(MetaObject metaObject) {
@@ -37,7 +37,7 @@ public class SysMetaObjectHandler implements MetaObjectHandler {
     /**
      * 修改填充
      *
-     * @param metaObject
+     * @param metaObject 元数据对象
      */
     @Override
     public void updateFill(MetaObject metaObject) {
