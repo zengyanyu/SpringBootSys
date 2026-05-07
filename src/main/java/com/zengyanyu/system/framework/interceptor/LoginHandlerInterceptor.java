@@ -23,11 +23,11 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     /**
      * 处理之前
      *
-     * @param request
-     * @param response
-     * @param handler
-     * @return
-     * @throws Exception
+     * @param request  请求
+     * @param response 响应
+     * @param handler  处理器
+     * @return 是否放行
+     * @throws Exception 异常
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -37,11 +37,11 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     /**
      * 处理之后
      *
-     * @param request
-     * @param response
-     * @param handler
-     * @param modelAndView
-     * @throws Exception
+     * @param request      请求
+     * @param response     响应
+     * @param handler      处理器
+     * @param modelAndView 模型试图
+     * @throws Exception 异常
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
@@ -51,11 +51,11 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     /**
      * 完成后
      *
-     * @param request
-     * @param response
-     * @param handler
-     * @param ex
-     * @throws Exception
+     * @param request  请求
+     * @param response 响应
+     * @param handler  处理器
+     * @param ex       异常
+     * @throws Exception 异常
      */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
